@@ -3,8 +3,7 @@ import PropTypes from 'prop-types';
 import Card from '../card/card';
 
 const MainPage = (props) => {
-  const {cards} = props;
-  const {mainCard} = props;
+  const {cards, mainCard} = props;
 
   return <>
 
@@ -101,7 +100,7 @@ const MainPage = (props) => {
         </ul>
 
         <div className="catalog__movies-list">
-          {cards.map((card, i) => <Card key={card.name + i} name={card.name} src={card.src} />)}
+          {cards.map((card) => <Card key={card.id} name={card.name} src={card.src} />)}
         </div>
 
         <div className="catalog__more">
@@ -128,16 +127,8 @@ const MainPage = (props) => {
 };
 
 MainPage.propTypes = {
-  cards: {
-    src: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired
-  },
-  mainCard: {
-    filmName: PropTypes.string.isRequired,
-    genre: PropTypes.string.isRequired,
-    date: PropTypes.number.isRequired,
-    src: PropTypes.string.isRequired
-  }
+  cards: PropTypes.array.isRequired,
+  mainCard: PropTypes.object.isRequired
 };
 
 export default MainPage;
