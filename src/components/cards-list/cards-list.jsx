@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import CardsListView from '../cards-list/cards-list-view';
 
 const CardsList = () => {

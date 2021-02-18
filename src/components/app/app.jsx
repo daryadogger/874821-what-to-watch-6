@@ -7,7 +7,7 @@ import FilmPage from '../film-page/film-page';
 import AddReviewPage from '../add-review-page/add-review-page';
 import PlayerPage from '../player-page/player-page';
 import NotFoundPage from '../not-found-page/not-found-page';
-import appProps from '../app/app-props'
+import appProps from '../app/app-props';
 
 
 const App = (props) => {

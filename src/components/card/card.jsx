@@ -8,7 +8,7 @@ const Card = (props) => {
   const film = getCardById(id);
 
   // isActive
-  // {isActive ? <video src={film.video_link} width="280" height="175" poster={film.poster_image} muted></video> : <img src={film.poster_image} alt={film.name} width="280" height="175" />}
+  // {isActive ? <video src={film.videoLink} width="280" height="175" poster={film.posterImage} muted></video> : <img src={film.posterImage} alt={film.name} width="280" height="175" />}
 
   return <>
     {/* children={isActive} */}
