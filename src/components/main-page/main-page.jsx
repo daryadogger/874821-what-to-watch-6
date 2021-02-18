@@ -1,9 +1,9 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import Card from '../card/card';
+import CardsList from '../cards-list/cards-list';
+import mainPageProps from './main-page-props';
 
 const MainPage = (props) => {
-  const {cards, mainCard} = props;
+  const {promoCard} = props;
 
   return <>
 
@@ -33,14 +33,14 @@ const MainPage = (props) => {
       <div className="movie-card__wrap">
         <div className="movie-card__info">
           <div className="movie-card__poster">
-            <img src={mainCard.src} alt={mainCard.filmName} width="218" height="327" />
+            <img src={promoCard.src} alt={promoCard.name} width="218" height="327" />
           </div>
 
           <div className="movie-card__desc">
-            <h2 className="movie-card__title">{mainCard.filmName}</h2>
+            <h2 className="movie-card__title">{promoCard.name}</h2>
             <p className="movie-card__meta">
-              <span className="movie-card__genre">{mainCard.genre}</span>
-              <span className="movie-card__year">{mainCard.date}</span>
+              <span className="movie-card__genre">{promoCard.genre}</span>
+              <span className="movie-card__year">{promoCard.year}</span>
             </p>
 
             <div className="movie-card__buttons">
@@ -99,9 +99,7 @@ const MainPage = (props) => {
           </li>
         </ul>
 
-        <div className="catalog__movies-list">
-          {cards.map((card) => <Card key={card.id} name={card.name} src={card.src} />)}
-        </div>
+        <CardsList />
 
         <div className="catalog__more">
           <button className="catalog__button" type="button">Show more</button>
@@ -126,9 +124,6 @@ const MainPage = (props) => {
   </>;
 };
 
-MainPage.propTypes = {
-  cards: PropTypes.array.isRequired,
-  mainCard: PropTypes.object.isRequired
-};
+MainPage.propTypes = mainPageProps;
 
 export default MainPage;

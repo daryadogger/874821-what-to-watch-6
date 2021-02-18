@@ -1,27 +1,25 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import {Link} from 'react-router-dom';
+import cardProps from './card-props';
+import CardView from './card-view';
+import getCardById from './get-card-by-id';
 
 const Card = (props) => {
-  const {src, name} = props;
+  const {id, to} = props;
+  const film = getCardById(id);
+
+  // isActive
+  // {isActive ? <video src={film.video_link} width="280" height="175" poster={film.poster_image} muted></video> : <img src={film.poster_image} alt={film.name} width="280" height="175" />}
 
   return <>
+    {/* children={isActive} */}
 
-    <article className="small-movie-card catalog__movies-card">
-      <div className="small-movie-card__image">
-        <img src={src} alt={name} width="280" height="175" />
-      </div>
-      <h3 className="small-movie-card__title">
-        <Link className="small-movie-card__link" to="/films/:id">{name}</Link>
-      </h3>
-    </article>
+    <CardView film={film} to={to}>
+      {/* сюда видео или img тег */}
+    </CardView>
 
   </>;
 };
 
-Card.propTypes = {
-  src: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired
-};
+Card.propTypes = cardProps;
 
 export default Card;
