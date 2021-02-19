@@ -3,11 +3,11 @@ import {Link} from 'react-router-dom';
 import cardViewProps from './card-view-props';
 
 const CardView = (props) => {
-  const {film, to, children} = props;
+  const {film, to, handleMouseEnter, handleMouseLeave, children} = props;
 
   return <>
 
-    <article className="small-movie-card catalog__movies-card">
+    <article className="small-movie-card catalog__movies-card" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
       <div className="small-movie-card__image">
         {children}
       </div>
@@ -22,3 +22,4 @@ const CardView = (props) => {
 CardView.propTypes = cardViewProps;
 
 export default CardView;
+
