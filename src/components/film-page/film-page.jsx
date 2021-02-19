@@ -1,7 +1,8 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
+import {Link, useLocation} from 'react-router-dom';
 
 const FilmPage = () => {
+  const {pathname} = useLocation();
   return <>
 
     <section className="movie-card movie-card--full">
@@ -49,7 +50,7 @@ const FilmPage = () => {
                 </svg>
                 <span>My list</span>
               </button>
-              <a href="add-review.html" className="btn movie-card__button">Add review</a>
+              <Link to={`${pathname}/review`} className="btn movie-card__button">Add review</Link>
             </div>
           </div>
         </div>

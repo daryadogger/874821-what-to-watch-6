@@ -1,27 +1,43 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import {Link} from 'react-router-dom';
+import React, {useState} from 'react';
+import {useHistory} from 'react-router-dom';
+import cardProps from './card-props';
+import CardView from './card-view';
+import getCardById from './get-card-by-id';
 
 const Card = (props) => {
-  const {src, name} = props;
+  const {id, to, onActiveFilmChange} = props;
+  const history = useHistory();
+
+  const film = getCardById(id);
+  if (film === null) {
+    history.push(`/not-found-page`);
+  }
+
+  const [isActive, setIsActive] = useState(false);
+
+  const handleMouseEnter = () => {
+    onActiveFilmChange({"id": id});
+    setIsActive(true);
+
+    // console.log("isActive", id);
+  };
+
+  const handleMouseLeave = () => {
+    onActiveFilmChange({"id": null});
+    setIsActive(false);
+
+    // console.log(false);
+  };
 
   return <>
 
-    <article className="small-movie-card catalog__movies-card">
-      <div className="small-movie-card__image">
-        <img src={src} alt={name} width="280" height="175" />
-      </div>
-      <h3 className="small-movie-card__title">
-        <Link className="small-movie-card__link" to="/films/:id">{name}</Link>
-      </h3>
-    </article>
+    <CardView film={film} to={to} onActiveFilmChange={onActiveFilmChange} handleMouseLeave={handleMouseLeave} handleMouseEnter={handleMouseEnter} id={id} >
+      {isActive ? <video src={film.videoLink} width="280" height="175" poster={film.posterImage} muted></video> : <img src={film.posterImage} alt={film.name} width="280" height="175" />}
+    </CardView>
 
   </>;
 };
 
-Card.propTypes = {
-  src: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired
-};
+Card.propTypes = cardProps;
 
 export default Card;
