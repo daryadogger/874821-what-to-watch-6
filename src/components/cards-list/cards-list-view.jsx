@@ -1,14 +1,14 @@
 import React from 'react';
 import Card from '../card/card';
-import cardsListProps from './cards-list-props';
+import cardsListProps from './cards-list.prop';
 
 const CardsListView = (props) => {
-  const {idArray, onActiveFilmChange, filmsUrl} = props;
+  const {idArray, onActiveFilmChange, filmsUrl, activeFilmId} = props;
 
   return <>
 
     <div className="catalog__movies-list">
-      {idArray.map((id) => <Card key={id} id={id} to={`${filmsUrl}/${id}`} onActiveFilmChange={onActiveFilmChange} />)}
+      {idArray.map((id) => <Card key={id} id={id} to={`${filmsUrl}/${id}`} onActiveFilmChange={onActiveFilmChange} isActive={id === activeFilmId} />)}
     </div>
 
   </>;

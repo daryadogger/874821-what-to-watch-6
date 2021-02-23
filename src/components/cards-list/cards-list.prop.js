@@ -5,7 +5,8 @@ const cardsListProps = {
   onActiveFilmChange: PropTypes.func.isRequired,
   idArray: PropTypes.arrayOf(
       PropTypes.number.isRequired
-  ).isRequired
+  ).isRequired,
+  acitveFilmId: PropTypes.number.isRequired
 };
 
 export default cardsListProps;

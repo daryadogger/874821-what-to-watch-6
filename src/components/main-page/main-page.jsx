@@ -1,6 +1,6 @@
 import React from 'react';
 import CardsList from '../cards-list/cards-list';
-import mainPageProps from './main-page-props';
+import mainPageProps from './main-page.prop';
 
 const MainPage = (props) => {
   const {promoCard} = props;

@@ -1,6 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import cardViewProps from './card-view-props';
+import cardViewProps from './card-view.prop';
 
 const CardView = (props) => {
   const {film, to, handleMouseEnter, handleMouseLeave, children} = props;
