@@ -1,12 +1,12 @@
 import PropTypes from 'prop-types';
 
-const cardsListProps = {
+const cardsListViewProps = {
   filmsUrl: PropTypes.string.isRequired,
   onActiveFilmChange: PropTypes.func.isRequired,
   idArray: PropTypes.arrayOf(
       PropTypes.number.isRequired
   ).isRequired,
-  acitveFilmId: PropTypes.number.isRequired
+  acitveFilmId: PropTypes.number
 };
 
-export default cardsListProps;
+export default cardsListViewProps;

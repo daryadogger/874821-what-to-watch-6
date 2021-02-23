@@ -12,7 +12,7 @@ const CardView = (props) => {
         {children}
       </div>
       <h3 className="small-movie-card__title">
-        <Link className="small-movie-card__link" to={to} >{film.name}</Link>
+        <Link className="small-movie-card__link" to={to} >{film}</Link>
       </h3>
     </article>
 

@@ -2,7 +2,7 @@ import React from 'react';
 import {useHistory} from 'react-router-dom';
 import cardProps from './card.prop';
 import CardView from './card-view';
-import getCardById from './get-card-by-id';
+import {getCardById} from '../../mocks/server-data';
 import VideoPlayer from '../video-player/video-player';
 
 const Card = (props) => {
@@ -15,16 +15,16 @@ const Card = (props) => {
   }
 
   const handleMouseEnter = () => {
-    onActiveFilmChange({id}, true);
+    onActiveFilmChange(id);
   };
 
   const handleMouseLeave = () => {
-    onActiveFilmChange({id: null}, false);
+    onActiveFilmChange(null);
   };
 
   return <>
 
-    <CardView film={film} to={to} handleMouseLeave={handleMouseLeave} handleMouseEnter={handleMouseEnter} id={id} >
+    <CardView film={film.name} to={to} handleMouseLeave={handleMouseLeave} handleMouseEnter={handleMouseEnter} id={id} >
       <VideoPlayer isActive={isActive} src={film.previewVideoLink} posterImage={film.previewImage} width={280} height={175} alt={film.name} />
     </CardView>
 

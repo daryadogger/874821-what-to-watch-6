@@ -1,25 +1,53 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import CardsListView from '../cards-list/cards-list-view';
+import {getFilmsIds, loadFilmsIds} from '../../mocks/server-data';
+import cardsListProps from '../cards-list/card-list.prop';
 
-const CardsList = () => {
+const CardsList = (props) => {
+  const {defaultCount} = props;
+
   const filmsUrl = `/films`;
-  const idArray = [1, 2, 3, 4, 5, 6, 7, 8];
+  const DELAY_TIME = 1000;
 
-  const [activeFilmId, setActiveFilmId] = useState({id: null});
-  const [isActive, setIsActive] = useState(false);
-  const handleActiveFilmChange = (film, bool) => {
-    setActiveFilmId({...activeFilmId, id: film.id});
-    setIsActive(bool);
+  const [count, setCount] = useState(defaultCount || 8);
+  const [idArray, setIdArray] = useState(getFilmsIds());
+  const [activeFilmId, setActiveFilmId] = useState(null);
+  const [nextFilmId, setNextFilmId] = useState(null);
+
+  const handleActiveFilmChange = (id) => {
+    setNextFilmId(id);
+
+    if (id === null) {
+      setActiveFilmId(id);
+    }
   };
 
-  // {console.log(isActive)}
-  // {console.log(activeFilmId.id)}
+  useEffect(() => {
+    const timerId = setTimeout(() => {
+
+      setActiveFilmId(nextFilmId);
+
+    }, DELAY_TIME);
+    return () => {
+      clearTimeout(timerId);
+    };
+  }, [nextFilmId]);
+
+  useEffect(()=> {
+    loadFilmsIds().then(() => {
+      setIdArray(getFilmsIds());
+    });
+  }, [idArray]);
 
   return <>
 
-    <CardsListView idArray={idArray} filmsUrl={filmsUrl} isActive={isActive} activeFilmId={activeFilmId.id} onActiveFilmChange={handleActiveFilmChange} />
+    <CardsListView idArray={idArray.slice(0, count)} filmsUrl={filmsUrl} activeFilmId={activeFilmId} onActiveFilmChange={handleActiveFilmChange} onShowMore={()=> {
+      setCount(count + 8);
+    }} />
 
   </>;
 };
+
+CardsList.propTypes = cardsListProps;
 
 export default CardsList;

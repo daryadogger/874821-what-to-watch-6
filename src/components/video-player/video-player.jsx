@@ -7,21 +7,12 @@ const VideoPlayer = (props) => {
   const videoRef = useRef();
 
   useEffect(() => {
-    return () => {
-      videoRef.current.oncanplaythrough = null;
-      videoRef.current.onplay = null;
-      videoRef.current.onload = null;
-      videoRef.current = null;
-    };
-  }, [src]);
-
-  useEffect(() => {
     if (isActive) {
       videoRef.current.play();
       return;
     }
     videoRef.current.load();
-  }, [isActive]);
+  }, [isActive, src]);
 
   return <>
 

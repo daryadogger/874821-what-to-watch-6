@@ -1,9 +1,7 @@
 import PropTypes from 'prop-types';
 
 const cardViewProps = {
-  film: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-  }).isRequired,
+  film: PropTypes.string.isRequired,
   to: PropTypes.string.isRequired,
   handleMouseEnter: PropTypes.func.isRequired,
   handleMouseLeave: PropTypes.func.isRequired,
