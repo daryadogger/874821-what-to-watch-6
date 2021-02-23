@@ -28,7 +28,7 @@ const MyListPage = () => {
       <section className="catalog">
         <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-        <CardsList />
+        <CardsList defaultCount={8} />
 
       </section>
 

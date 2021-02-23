@@ -1,11 +1,12 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {useHistory} from 'react-router-dom';
-import cardProps from './card-props';
+import cardProps from './card.prop';
 import CardView from './card-view';
-import getCardById from './get-card-by-id';
+import {getCardById} from '../../mocks/server-data';
+import VideoPlayer from '../video-player/video-player';
 
 const Card = (props) => {
-  const {id, to, onActiveFilmChange} = props;
+  const {id, to, onActiveFilmChange, isActive} = props;
   const history = useHistory();
 
   const film = getCardById(id);
@@ -13,26 +14,18 @@ const Card = (props) => {
     history.push(`/not-found-page`);
   }
 
-  const [isActive, setIsActive] = useState(false);
-
   const handleMouseEnter = () => {
-    onActiveFilmChange({"id": id});
-    setIsActive(true);
-
-    // console.log("isActive", id);
+    onActiveFilmChange(id);
   };
 
   const handleMouseLeave = () => {
-    onActiveFilmChange({"id": null});
-    setIsActive(false);
-
-    // console.log(false);
+    onActiveFilmChange(null);
   };
 
   return <>
 
-    <CardView film={film} to={to} onActiveFilmChange={onActiveFilmChange} handleMouseLeave={handleMouseLeave} handleMouseEnter={handleMouseEnter} id={id} >
-      {isActive ? <video src={film.videoLink} width="280" height="175" poster={film.posterImage} muted></video> : <img src={film.posterImage} alt={film.name} width="280" height="175" />}
+    <CardView film={film.name} to={to} handleMouseLeave={handleMouseLeave} handleMouseEnter={handleMouseEnter} id={id} >
+      <VideoPlayer isActive={isActive} src={film.previewVideoLink} posterImage={film.previewImage} width={280} height={175} alt={film.name} />
     </CardView>
 
   </>;

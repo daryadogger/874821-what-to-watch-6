@@ -1,5 +1,5 @@
 import React from 'react';
-import reviewFormViewProps from '../review-form/review-form-view-props';
+import reviewFormViewProps from './review-form-view.prop';
 
 const ReviewFormView = (props) => {
   const {rating, reviewText, handleSubmit, handleFieldChange} = props;
