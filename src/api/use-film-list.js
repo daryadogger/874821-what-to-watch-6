@@ -14,3 +14,13 @@ export const useFilmList = (idArray) => {
 
   }, [idArray]);
 };
+
+export const updateGenre = (genre) => {
+  const dispatch = useDispatch();
+
+  useEffect(()=> {
+
+    dispatch(ActionCreator.genreChange(genre));
+
+  }, [genre]);
+};

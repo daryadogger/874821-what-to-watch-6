@@ -2,14 +2,17 @@ import React, {useState} from 'react';
 import CardsList from '../cards-list/cards-list';
 import mainPageProps from './main-page.prop';
 import GenresList from '../genres-list/genres-list';
+import {updateGenre} from '../../api/use-film-list';
 
 
 const MainPage = (props) => {
   const {promoCard} = props;
-  
+
   const COUNT_OF_FILMS = 8;
 
   const [genre, setGenre] = useState(``);
+
+  updateGenre(genre);
 
 
   return <>
