@@ -1,6 +1,5 @@
 import React from 'react';
 import {useParams} from 'react-router-dom';
-
 import FilmDetails from '../film-details/film-details';
 import FilmOverview from '../film-overview/film-overview';
 import FilmReviews from '../film-reviews/film-reviews';

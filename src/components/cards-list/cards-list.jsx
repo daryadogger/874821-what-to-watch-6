@@ -9,8 +9,9 @@ const CardsList = (props) => {
 
   const filmsUrl = `/films`;
   const DELAY_TIME = 1000;
+  const MAX_COUNT_OF_FILMS = 8;
 
-  const [count, setCount] = useState(defaultCount || 8);
+  const [count, setCount] = useState(defaultCount || MAX_COUNT_OF_FILMS);
 
   const idArray = useSelector((state) => state.films.filter((film) => genre === `` || film.genre === genre).map((film) => film.id), shallowEqual);
 

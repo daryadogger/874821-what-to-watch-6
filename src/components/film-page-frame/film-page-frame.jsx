@@ -6,6 +6,8 @@ import filmPageFrameProps from './film-page-frame.prop';
 const FilmPageFrame = (props) => {
   const {children} = props;
 
+  const COUNT_OF_SIMULAR_FILMS = 4;
+
   const {pathname} = useLocation();
   const {id} = useParams();
   const {path} = useRouteMatch();
@@ -47,7 +49,7 @@ const FilmPageFrame = (props) => {
 
         <div className="movie-card__wrap">
           <div className="movie-card__desc">
-            <h2 className="movie-card__title">The Grand Budapest Hotel</h2>
+            <h2 className="movie-card__title">hhhhhhhhy</h2>
             <p className="movie-card__meta">
               <span className="movie-card__genre">Drama</span>
               <span className="movie-card__year">2014</span>
@@ -105,7 +107,7 @@ const FilmPageFrame = (props) => {
       <section className="catalog catalog--like-this">
         <h2 className="catalog__title">More like this</h2>
 
-        <CardsList defaultCount={4} />
+        <CardsList defaultCount={COUNT_OF_SIMULAR_FILMS} />
 
       </section>
 

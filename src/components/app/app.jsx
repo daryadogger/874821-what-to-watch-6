@@ -11,19 +11,19 @@ import appProps from '../app/app.prop';
 
 
 const App = (props) => {
-  const {films, promoCard} = props;
+  const {promoCard} = props;
 
   return (
     <BrowserRouter>
       <Switch>
         <Route exact path="/">
-          <MainPage films={films} promoCard={promoCard} />
+          <MainPage promoCard={promoCard} />
         </Route>
         <Route exact path="/login">
           <SignInPage />
         </Route>
         <Route exact path="/mylist">
-          <MyListPage films={films} />
+          <MyListPage />
         </Route>
         <Route exact path="/films/:id/review">
           <AddReviewPage />

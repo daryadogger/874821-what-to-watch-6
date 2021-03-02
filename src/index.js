@@ -4,7 +4,6 @@ import {createStore} from 'redux';
 import {Provider} from 'react-redux';
 import {composeWithDevTools} from 'redux-devtools-extension';
 import App from './components/app/app';
-import films from './mocks/films';
 import {reduser} from './store/reduser';
 
 const promoCard = {
@@ -22,7 +21,7 @@ const store = createStore(
 ReactDOM.render(
     <Provider store={store} >
       <App
-        films={films} promoCard={promoCard}
+        promoCard={promoCard}
       />
     </Provider>,
     document.querySelector(`#root`)

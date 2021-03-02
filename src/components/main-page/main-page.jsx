@@ -6,6 +6,8 @@ import GenresList from '../genres-list/genres-list';
 
 const MainPage = (props) => {
   const {promoCard} = props;
+  
+  const COUNT_OF_FILMS = 8;
 
   const [genre, setGenre] = useState(``);
 
@@ -73,7 +75,7 @@ const MainPage = (props) => {
 
         <GenresList genre={genre} setGenre={setGenre} />
 
-        <CardsList genre={genre} defaultCount={8} />
+        <CardsList genre={genre} defaultCount={COUNT_OF_FILMS} />
 
       </section>
 
