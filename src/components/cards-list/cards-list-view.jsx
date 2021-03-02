@@ -1,6 +1,6 @@
 import React from 'react';
 import Card from '../card/card';
-import cardsListViewProps from './cards-list.prop';
+import cardsListViewProps from './cards-list-view.prop';
 
 const CardsListView = (props) => {
   const {idArray, onActiveFilmChange, filmsUrl, activeFilmId, onShowMore} = props;
