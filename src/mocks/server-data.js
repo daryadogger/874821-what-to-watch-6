@@ -1,16 +1,11 @@
 const SERVER_ADDRESS = `https://6.react.pages.academy/wtw`;
-let serverFims = [];
 
-export const getFilmsIds = () => {
-  return serverFims.map((el) => el.id);
-};
-
-export const loadFilmsIds = async () => {
+export const loadFilms = async () => {
   const responce = await fetch(`${SERVER_ADDRESS}/films`);
 
   if (responce.ok) {
     const data = await responce.json();
-    serverFims = data.map((el) => ({
+    return data.map((el) => ({
       id: el.id,
       name: el.name,
       posterImage: el.poster_image,
@@ -30,8 +25,6 @@ export const loadFilmsIds = async () => {
       isFavorite: el.is_favorite
     }));
   }
-};
 
-export const getCardById = (id) => {
-  return serverFims.find((obj) => obj.id === id) || null;
+  return false;
 };

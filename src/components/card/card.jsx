@@ -2,14 +2,14 @@ import React from 'react';
 import {useHistory} from 'react-router-dom';
 import cardProps from './card.prop';
 import CardView from './card-view';
-import {getCardById} from '../../mocks/server-data';
 import VideoPlayer from '../video-player/video-player';
+import {shallowEqual, useSelector} from 'react-redux';
 
 const Card = (props) => {
   const {id, to, onActiveFilmChange, isActive} = props;
   const history = useHistory();
 
-  const film = getCardById(id);
+  const film = useSelector((state) => state.films.find((el) => el.id === id), shallowEqual);
   if (film === null) {
     history.push(`/not-found-page`);
   }

@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom';
 import CardsList from '../cards-list/cards-list';
 
 const MyListPage = () => {
+  const genre = ``;
 
   return <>
 
@@ -28,7 +29,7 @@ const MyListPage = () => {
       <section className="catalog">
         <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-        <CardsList defaultCount={8} />
+        <CardsList genre={genre} />
 
       </section>
 
