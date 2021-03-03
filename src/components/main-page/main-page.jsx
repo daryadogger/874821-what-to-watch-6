@@ -1,19 +1,37 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import CardsList from '../cards-list/cards-list';
 import mainPageProps from './main-page.prop';
 import GenresList from '../genres-list/genres-list';
 import {updateGenre} from '../../api/use-film-list';
+import BtnShowMore from '../btn-show-more/btn-show-more';
+import {loadFilms} from '../../mocks/server-data';
 
 
 const MainPage = (props) => {
   const {promoCard} = props;
+  const {name, genre, src, year} = promoCard;
 
-  const COUNT_OF_FILMS = 8;
+  const MAX_COUNT_OF_FILMS = 8;
+  const [count, setCount] = useState(MAX_COUNT_OF_FILMS);
 
-  const [genre, setGenre] = useState(``);
+  const [filmGenre, setFilmGenre] = useState(``);
 
-  updateGenre(genre);
+  updateGenre(filmGenre);
 
+  const onShowMore = () => {
+    setCount(count + 8);
+  };
+
+  const [isHidden, setIsHidden] = useState(false);
+
+  useEffect(() => {
+    loadFilms().then((films) => {
+      if (count >= films.length) {
+        setIsHidden(true);
+      }
+    });
+
+  }, [count]);
 
   return <>
 
@@ -43,14 +61,14 @@ const MainPage = (props) => {
       <div className="movie-card__wrap">
         <div className="movie-card__info">
           <div className="movie-card__poster">
-            <img src={promoCard.src} alt={promoCard.name} width="218" height="327" />
+            <img src={src} alt={name} width="218" height="327" />
           </div>
 
           <div className="movie-card__desc">
-            <h2 className="movie-card__title">{promoCard.name}</h2>
+            <h2 className="movie-card__title">{name}</h2>
             <p className="movie-card__meta">
-              <span className="movie-card__genre">{promoCard.genre}</span>
-              <span className="movie-card__year">{promoCard.year}</span>
+              <span className="movie-card__genre">{genre}</span>
+              <span className="movie-card__year">{year}</span>
             </p>
 
             <div className="movie-card__buttons">
@@ -76,9 +94,11 @@ const MainPage = (props) => {
       <section className="catalog">
         <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-        <GenresList genre={genre} setGenre={setGenre} />
+        <GenresList genre={filmGenre} setGenre={setFilmGenre} />
 
-        <CardsList genre={genre} defaultCount={COUNT_OF_FILMS} />
+        <CardsList genre={filmGenre} count={count} />
+
+        <BtnShowMore onShowMore={onShowMore} isHidden={isHidden} />
 
       </section>
 

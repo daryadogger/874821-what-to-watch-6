@@ -5,13 +5,13 @@ import cardsListProps from '../cards-list/cards-list.prop';
 import {useFilmList} from '../../api/use-film-list';
 
 const CardsList = (props) => {
-  const {defaultCount, genre} = props;
+  const {genre, count} = props;
 
   const filmsUrl = `/films`;
   const DELAY_TIME = 1000;
-  const MAX_COUNT_OF_FILMS = 8;
+  // const MAX_COUNT_OF_FILMS = 8;
 
-  const [count, setCount] = useState(defaultCount || MAX_COUNT_OF_FILMS);
+  // const [count, setCount] = useState(defaultCount || MAX_COUNT_OF_FILMS);
 
   const idArray = useSelector((state) => state.films.filter((film) => genre === `` || film.genre === genre).map((film) => film.id), shallowEqual);
 
@@ -41,9 +41,7 @@ const CardsList = (props) => {
 
   return <>
 
-    <CardsListView idArray={idArray.slice(0, count)} filmsUrl={filmsUrl} activeFilmId={activeFilmId} onActiveFilmChange={handleActiveFilmChange} onShowMore={()=> {
-      setCount(count + 8);
-    }} />
+    <CardsListView idArray={idArray.slice(0, count)} filmsUrl={filmsUrl} activeFilmId={activeFilmId} onActiveFilmChange={handleActiveFilmChange} />
 
   </>;
 };

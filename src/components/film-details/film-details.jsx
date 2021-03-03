@@ -1,28 +1,11 @@
 import React from 'react';
 import filmDetailsProps from '../film-details/film-details.prop';
+import getDuration from '../../api/get-duration';
+import getStarring from '../../api/get-starring';
 
 const FilmDetails = (props) => {
   const {currentFilm} = props;
-
-  const getStarring = (film) => {
-    const result = [];
-    film.starring.forEach((name) => {
-      result.push(`${name},`);
-      result.push(<br key={name} />);
-    });
-    return result;
-  };
-
-  const getDuration = (film) => {
-    const totalMinutes = film.runTime;
-    const hours = Math.floor(totalMinutes / 60);
-    const minutes = totalMinutes % 60;
-    if (hours > 0) {
-      return `${hours}h ${minutes}m`;
-    } else {
-      return `${minutes}m`;
-    }
-  };
+  const {director, starring, runTime, genre, released} = currentFilm;
 
   return <>
 
@@ -30,12 +13,12 @@ const FilmDetails = (props) => {
       <div className="movie-card__text-col">
         <p className="movie-card__details-item">
           <strong className="movie-card__details-name">Director</strong>
-          <span className="movie-card__details-value">{currentFilm.director}</span>
+          <span className="movie-card__details-value">{director}</span>
         </p>
         <p className="movie-card__details-item">
           <strong className="movie-card__details-name">Starring</strong>
           <span className="movie-card__details-value">
-            {getStarring(currentFilm)}
+            {getStarring(starring)}
           </span>
         </p>
       </div>
@@ -44,16 +27,16 @@ const FilmDetails = (props) => {
         <p className="movie-card__details-item">
           <strong className="movie-card__details-name">Run Time</strong>
           <span className="movie-card__details-value">
-            {getDuration(currentFilm)}
+            {getDuration(runTime)}
           </span>
         </p>
         <p className="movie-card__details-item">
           <strong className="movie-card__details-name">Genre</strong>
-          <span className="movie-card__details-value">{currentFilm.genre}</span>
+          <span className="movie-card__details-value">{genre}</span>
         </p>
         <p className="movie-card__details-item">
           <strong className="movie-card__details-name">Released</strong>
-          <span className="movie-card__details-value">{currentFilm.released}</span>
+          <span className="movie-card__details-value">{released}</span>
         </p>
       </div>
     </div>
