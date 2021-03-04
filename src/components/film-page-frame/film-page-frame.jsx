@@ -4,7 +4,7 @@ import CardsList from '../cards-list/cards-list';
 import filmPageFrameProps from './film-page-frame.prop';
 
 const FilmPageFrame = (props) => {
-  const {children, currentFilm} = props;
+  const {children, posterImage, name, genre, released} = props;
 
   const COUNT_OF_SIMULAR_FILMS = 4;
 
@@ -26,7 +26,7 @@ const FilmPageFrame = (props) => {
     <section className="movie-card movie-card--full">
       <div className="movie-card__hero">
         <div className="movie-card__bg">
-          <img src={currentFilm.posterImage} alt={currentFilm.name} />
+          <img src={posterImage} alt={name} />
         </div>
 
         <h1 className="visually-hidden">WTW</h1>
@@ -49,10 +49,10 @@ const FilmPageFrame = (props) => {
 
         <div className="movie-card__wrap">
           <div className="movie-card__desc">
-            <h2 className="movie-card__title">{currentFilm.name}</h2>
+            <h2 className="movie-card__title">{name}</h2>
             <p className="movie-card__meta">
-              <span className="movie-card__genre">{currentFilm.genre}</span>
-              <span className="movie-card__year">{currentFilm.released}</span>
+              <span className="movie-card__genre">{genre}</span>
+              <span className="movie-card__year">{released}</span>
             </p>
 
             <div className="movie-card__buttons">
@@ -77,7 +77,7 @@ const FilmPageFrame = (props) => {
       <div className="movie-card__wrap movie-card__translate-top">
         <div className="movie-card__info">
           <div className="movie-card__poster movie-card__poster--big">
-            <img src={currentFilm.posterImage} alt={`${currentFilm.name} poster`} width="218" height="327" />
+            <img src={posterImage} alt={`${name} poster`} width="218" height="327" />
           </div>
 
           <div className="movie-card__desc">

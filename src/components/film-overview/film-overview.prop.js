@@ -7,8 +7,8 @@ const filmOverviewProps = {
     description: PropTypes.string.isRequired,
     director: PropTypes.string.isRequired,
     starring: PropTypes.arrayOf(
-        PropTypes.string.isRequired
-    ).isRequired,
+        PropTypes.string
+    ),
   }).isRequired
 };
 
