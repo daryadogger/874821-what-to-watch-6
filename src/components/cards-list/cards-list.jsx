@@ -4,12 +4,17 @@ import CardsListView from '../cards-list/cards-list-view';
 import cardsListProps from '../cards-list/cards-list.prop';
 
 const CardsList = (props) => {
-  const {genre, enableButton, initialCount} = props;
+  const {genre, enableButton, initialCount, isUpperCase, currentFilmId} = props;
 
   const filmsUrl = `/films`;
   const DELAY_TIME = 1000;
+  let idArray = useSelector((state) => state.films.filter((film) => genre === `` || (isUpperCase ? film.genre === genre : film.genre.toLowerCase() === genre)).map((film) => film.id), shallowEqual);
 
-  const idArray = useSelector((state) => state.films.filter((film) => genre === `` || film.genre.toLowerCase() === genre).map((film) => film.id), shallowEqual);
+  if (currentFilmId) {
+    idArray = idArray.filter((id) => {
+      return id !== currentFilmId;
+    });
+  }
 
   const [activeFilmId, setActiveFilmId] = useState(null);
   const [nextFilmId, setNextFilmId] = useState(null);

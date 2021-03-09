@@ -3,14 +3,16 @@ import {Link, useLocation, useParams, generatePath, useRouteMatch} from 'react-r
 import CardsList from '../cards-list/cards-list';
 import filmPageFrameProps from './film-page-frame.prop';
 
+const COUNT_OF_SIMULAR_FILMS = 4;
+
 const FilmPageFrame = (props) => {
   const {children, posterImage, name, genre, released} = props;
 
-  const COUNT_OF_SIMULAR_FILMS = 4;
 
   const {pathname} = useLocation();
   const {id} = useParams();
   const {path} = useRouteMatch();
+  const currentFilmId = Number(id);
 
   const onClickHandler = (evt) => {
     const items = document.querySelectorAll(`.movie-nav__item`);
@@ -107,7 +109,7 @@ const FilmPageFrame = (props) => {
       <section className="catalog catalog--like-this">
         <h2 className="catalog__title">More like this</h2>
 
-        <CardsList defaultCount={COUNT_OF_SIMULAR_FILMS} />
+        <CardsList enableButton={false} genre={genre} initialCount={COUNT_OF_SIMULAR_FILMS} isUpperCase={true} currentFilmId={currentFilmId} />
 
       </section>
 
