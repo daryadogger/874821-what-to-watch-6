@@ -7,12 +7,6 @@ const initialState = {
 
 const reduser = (state = initialState, action) => {
   switch (action.type) {
-    case ActionType.GENRE_CHANGE:
-      return {
-        ...state,
-        genre: action.payload
-      };
-
     case ActionType.GET_FILMS_LIST:
       return {
         ...state,

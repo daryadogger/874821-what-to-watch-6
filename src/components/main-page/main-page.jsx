@@ -1,38 +1,19 @@
-import React, {useState, useEffect} from 'react';
+import React from 'react';
+import {useParams} from 'react-router-dom';
 import mainPageProps from './main-page.prop';
 import MainPageView from '../main-page/main-page-view';
-import {loadFilms} from '../../mocks/server-data';
-import {updateGenre} from '../../api/use-film-list';
-
 
 const MainPage = (props) => {
   const {promoCard} = props;
 
   const MAX_COUNT_OF_FILMS = 8;
-  const [count, setCount] = useState(MAX_COUNT_OF_FILMS);
 
-  const [filmGenre, setFilmGenre] = useState(``);
-
-  updateGenre(filmGenre);
-
-  const onShowMore = () => {
-    setCount(count + 8);
-  };
-
-  const [isHidden, setIsHidden] = useState(false);
-
-  useEffect(() => {
-    loadFilms().then((films) => {
-      if (count >= films.length) {
-        setIsHidden(true);
-      }
-    });
-
-  }, [count]);
+  const {genre} = useParams();
+  const filmGenre = typeof (genre) === `undefined` ? `` : genre;
 
   return <>
 
-    <MainPageView promoCard={promoCard} filmGenre={filmGenre} setFilmGenre={setFilmGenre} count={count} onShowMore={onShowMore} isHidden={isHidden} />
+    <MainPageView promoCard={promoCard} filmGenre={filmGenre} initialCount={MAX_COUNT_OF_FILMS} />
 
   </>;
 };

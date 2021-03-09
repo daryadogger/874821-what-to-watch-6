@@ -5,7 +5,6 @@ const genresListViewProps = {
       PropTypes.string.isRequired
   ).isRequired,
   genre: PropTypes.string.isRequired,
-  setGenre: PropTypes.func.isRequired,
 };
 
 export default genresListViewProps;
