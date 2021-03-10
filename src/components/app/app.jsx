@@ -9,7 +9,7 @@ import PlayerPage from '../player-page/player-page';
 import NotFoundPage from '../not-found-page/not-found-page';
 import appProps from '../app/app.prop';
 import {useSelector} from 'react-redux';
-import {loadFilms} from '../../mocks/server-data';
+import {loadFilms} from '../../api/api';
 import {ActionCreator} from '../../store/action';
 import {useDispatch} from 'react-redux';
 

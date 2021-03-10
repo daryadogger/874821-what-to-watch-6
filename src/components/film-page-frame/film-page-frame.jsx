@@ -1,34 +1,23 @@
 import React from 'react';
-import {Link, useLocation, useParams, generatePath, useRouteMatch} from 'react-router-dom';
+import {Link, useParams, generatePath, useRouteMatch} from 'react-router-dom';
 import CardsList from '../cards-list/cards-list';
 import filmPageFrameProps from './film-page-frame.prop';
 
 const COUNT_OF_SIMULAR_FILMS = 4;
 
 const FilmPageFrame = (props) => {
-  const {children, posterImage, name, genre, released} = props;
+  const {children, posterImage, backgroundImage, name, genre, released} = props;
 
-
-  const {pathname} = useLocation();
-  const {id} = useParams();
+  const {id, tab} = useParams();
   const {path} = useRouteMatch();
   const currentFilmId = Number(id);
-
-  const onClickHandler = (evt) => {
-    const items = document.querySelectorAll(`.movie-nav__item`);
-    items.forEach(function (item) {
-      item.classList.remove(`movie-nav__item--active`);
-    });
-
-    evt.currentTarget.classList.add(`movie-nav__item--active`);
-  };
 
   return <>
 
     <section className="movie-card movie-card--full">
       <div className="movie-card__hero">
         <div className="movie-card__bg">
-          <img src={posterImage} alt={name} />
+          <img src={backgroundImage} alt={name} />
         </div>
 
         <h1 className="visually-hidden">WTW</h1>
@@ -70,7 +59,7 @@ const FilmPageFrame = (props) => {
                 </svg>
                 <span>My list</span>
               </button>
-              <Link to={`${pathname}/review`} className="btn movie-card__button">Add review</Link>
+              <Link to={generatePath(path, {id, tab: `review`})} className="btn movie-card__button">Add review</Link>
             </div>
           </div>
         </div>
@@ -85,14 +74,14 @@ const FilmPageFrame = (props) => {
           <div className="movie-card__desc">
             <nav className="movie-nav movie-card__nav">
               <ul className="movie-nav__list">
-                <li className="movie-nav__item movie-nav__item--active" onClick={onClickHandler}>
+                <li className={`movie-nav__item ${tab === undefined ? `movie-nav__item--active` : ``}`}>
                   <Link to={generatePath(path, {id})}
                     className="movie-nav__link">Overview</Link>
                 </li>
-                <li className="movie-nav__item" onClick={onClickHandler}>
+                <li className={`movie-nav__item ${tab === `details` ? `movie-nav__item--active` : ``}`}>
                   <Link to={generatePath(path, {id, tab: `details`})} className="movie-nav__link">Details</Link>
                 </li>
-                <li className="movie-nav__item" onClick={onClickHandler}>
+                <li className={`movie-nav__item ${tab === `reviews` ? `movie-nav__item--active` : ``}`}>
                   <Link to={generatePath(path, {id, tab: `reviews`})} className="movie-nav__link">Reviews</Link>
                 </li>
               </ul>

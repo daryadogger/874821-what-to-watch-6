@@ -32,7 +32,7 @@ const FilmPage = () => {
 
   return <>
 
-    <FilmPageFrame posterImage={currentFilm.posterImage} name={currentFilm.name} genre={currentFilm.genre} released={currentFilm.released} >
+    <FilmPageFrame posterImage={currentFilm.posterImage} backgroundImage={currentFilm.backgroundImage} name={currentFilm.name} genre={currentFilm.genre} released={currentFilm.released} >
       <Content currentFilm={currentFilm} />
     </FilmPageFrame>
 
