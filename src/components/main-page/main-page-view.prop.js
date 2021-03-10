@@ -7,11 +7,7 @@ const mainPageViewProps = {
     year: PropTypes.number.isRequired,
     src: PropTypes.string.isRequired,
   }).isRequired,
-  filmGenre: PropTypes.string.isRequired,
-  count: PropTypes.number.isRequired,
-  setFilmGenre: PropTypes.func.isRequired,
-  onShowMore: PropTypes.func.isRequired,
-  isHidden: PropTypes.bool.isRequired
+  filmGenre: PropTypes.string.isRequired
 };
 
 export default mainPageViewProps;

@@ -1,16 +1,14 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 import genreItemProps from '../genre-item/genre-item.prop';
 
 const GenreItem = (props) => {
-  const {label, active, onClick} = props;
+  const {label, active, to} = props;
 
   return <>
 
-    <li className={`catalog__genres-item ${active ? `catalog__genres-item--active` : ``}`} onClick={(evt)=> {
-      evt.preventDefault();
-      onClick();
-    }} >
-      <a href="#" className="catalog__genres-link">{label}</a>
+    <li className={`catalog__genres-item ${active ? `catalog__genres-item--active` : ``}`} >
+      <Link to={to} className="catalog__genres-link">{label}</Link>
     </li>
 
   </>;

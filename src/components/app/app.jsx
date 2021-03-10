@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Switch, Route, BrowserRouter} from 'react-router-dom';
 import MainPage from '../main-page/main-page';
 import SignInPage from '../sign-in-page/sign-in-page';
@@ -8,10 +8,33 @@ import AddReviewPage from '../add-review-page/add-review-page';
 import PlayerPage from '../player-page/player-page';
 import NotFoundPage from '../not-found-page/not-found-page';
 import appProps from '../app/app.prop';
+import {useSelector} from 'react-redux';
+import Api from '../../api/api';
+import {ActionCreator} from '../../store/action';
+import {useDispatch} from 'react-redux';
+import LoadingScreen from '../loading-screen/loading-screen';
 
 
 const App = (props) => {
   const {promoCard} = props;
+  const api = new Api();
+  const loaded = useSelector((state) => state.films.length > 0);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (loaded) {
+      return;
+    }
+
+    api.loadFilms().then((films) => {
+      dispatch(ActionCreator.getFilmsList(films));
+    });
+  }, [loaded]);
+
+  if (!loaded) {
+    return <LoadingScreen />;
+  }
 
   return (
     <BrowserRouter>
@@ -33,6 +56,9 @@ const App = (props) => {
         </Route>
         <Route exact path="/player/:id">
           <PlayerPage />
+        </Route>
+        <Route exact path="/catalog/:genre">
+          <MainPage promoCard={promoCard} />
         </Route>
         <Route>
           <NotFoundPage />

@@ -4,7 +4,7 @@ import FilmDetails from '../film-details/film-details';
 import FilmOverview from '../film-overview/film-overview';
 import FilmReviews from '../film-reviews/film-reviews';
 import FilmPageFrame from '../film-page-frame/film-page-frame';
-import films from '../../mocks/films';
+import {useSelector} from 'react-redux';
 
 const selectContent = (tab) => {
   switch (tab) {
@@ -20,16 +20,19 @@ const selectContent = (tab) => {
 };
 
 const FilmPage = () => {
-  const {tab} = useParams();
-  const {id} = useParams();
+  const {tab, id} = useParams();
 
-  const currentFilm = films.find((el) => el.id === Number(id));
+  const currentFilm = useSelector((state) => state.films.find((el) => el.id === Number(id)));
 
   const Content = selectContent(tab);
 
+  if (typeof (currentFilm) === `undefined`) {
+    return null;
+  }
+
   return <>
 
-    <FilmPageFrame posterImage={currentFilm.posterImage} name={currentFilm.name} genre={currentFilm.genre} released={currentFilm.released} >
+    <FilmPageFrame posterImage={currentFilm.posterImage} backgroundImage={currentFilm.backgroundImage} name={currentFilm.name} genre={currentFilm.genre} released={currentFilm.released} >
       <Content currentFilm={currentFilm} />
     </FilmPageFrame>
 

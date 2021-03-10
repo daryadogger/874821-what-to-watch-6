@@ -2,11 +2,10 @@ import React from 'react';
 import CardsList from '../cards-list/cards-list';
 import mainPageViewProps from '../main-page/main-page-view.prop';
 import GenresList from '../genres-list/genres-list';
-import BtnShowMore from '../btn-show-more/btn-show-more';
 
 
 const MainPageView = (props) => {
-  const {promoCard, filmGenre, count, setFilmGenre, onShowMore, isHidden} = props;
+  const {promoCard, filmGenre, initialCount} = props;
   const {name, genre, src, year} = promoCard;
 
   return <>
@@ -70,11 +69,9 @@ const MainPageView = (props) => {
       <section className="catalog">
         <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-        <GenresList genre={filmGenre} setGenre={setFilmGenre} />
+        <GenresList genre={filmGenre} />
 
-        <CardsList genre={filmGenre} count={count} />
-
-        <BtnShowMore onShowMore={onShowMore} isHidden={isHidden} />
+        <CardsList genre={filmGenre} initialCount={initialCount} enableButton={true} />
 
       </section>
 

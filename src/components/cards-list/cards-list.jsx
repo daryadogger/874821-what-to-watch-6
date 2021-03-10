@@ -2,21 +2,27 @@ import React, {useState, useEffect} from 'react';
 import {shallowEqual, useSelector} from 'react-redux';
 import CardsListView from '../cards-list/cards-list-view';
 import cardsListProps from '../cards-list/cards-list.prop';
-import {useFilmList} from '../../api/use-film-list';
 
 const CardsList = (props) => {
-  const {genre, count} = props;
+  const {genre, enableButton, initialCount, isUpperCase, currentFilmId} = props;
 
   const filmsUrl = `/films`;
   const DELAY_TIME = 1000;
-  // const MAX_COUNT_OF_FILMS = 8;
+  let idArray = useSelector((state) => state.films.filter((film) => genre === `` || (isUpperCase ? film.genre === genre : film.genre.toLowerCase() === genre)).map((film) => film.id), shallowEqual);
 
-  // const [count, setCount] = useState(defaultCount || MAX_COUNT_OF_FILMS);
-
-  const idArray = useSelector((state) => state.films.filter((film) => genre === `` || film.genre === genre).map((film) => film.id), shallowEqual);
+  if (currentFilmId) {
+    idArray = idArray.filter((id) => {
+      return id !== currentFilmId;
+    });
+  }
 
   const [activeFilmId, setActiveFilmId] = useState(null);
   const [nextFilmId, setNextFilmId] = useState(null);
+  const [count, setCount] = useState(initialCount);
+
+  const onShowMore = () => {
+    setCount(count + 8);
+  };
 
   const handleActiveFilmChange = (id) => {
     setNextFilmId(id);
@@ -37,11 +43,9 @@ const CardsList = (props) => {
     };
   }, [nextFilmId]);
 
-  useFilmList(idArray);
-
   return <>
 
-    <CardsListView idArray={idArray.slice(0, count)} filmsUrl={filmsUrl} activeFilmId={activeFilmId} onActiveFilmChange={handleActiveFilmChange} />
+    <CardsListView idArray={idArray.slice(0, count)} filmsUrl={filmsUrl} activeFilmId={activeFilmId} onActiveFilmChange={handleActiveFilmChange} isButtonHidden={!enableButton || count >= idArray.length} onShowMore={onShowMore} />
 
   </>;
 };
