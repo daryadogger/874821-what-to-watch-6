@@ -9,14 +9,15 @@ import PlayerPage from '../player-page/player-page';
 import NotFoundPage from '../not-found-page/not-found-page';
 import appProps from '../app/app.prop';
 import {useSelector} from 'react-redux';
-import {loadFilms} from '../../api/api';
+import Api from '../../api/api';
 import {ActionCreator} from '../../store/action';
 import {useDispatch} from 'react-redux';
+import LoadingScreen from '../loading-screen/loading-screen';
 
 
 const App = (props) => {
   const {promoCard} = props;
-
+  const api = new Api();
   const loaded = useSelector((state) => state.films.length > 0);
 
   const dispatch = useDispatch();
@@ -26,10 +27,14 @@ const App = (props) => {
       return;
     }
 
-    loadFilms().then((films) => {
+    api.loadFilms().then((films) => {
       dispatch(ActionCreator.getFilmsList(films));
     });
   }, [loaded]);
+
+  if (!loaded) {
+    return <LoadingScreen />;
+  }
 
   return (
     <BrowserRouter>
