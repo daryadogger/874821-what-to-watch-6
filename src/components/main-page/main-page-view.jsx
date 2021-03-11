@@ -5,14 +5,14 @@ import GenresList from '../genres-list/genres-list';
 
 
 const MainPageView = (props) => {
-  const {promoCard, filmGenre, initialCount} = props;
-  const {name, genre, src, year} = promoCard;
+  const {promoFilm, filmGenre, initialCount} = props;
+  const {name, genre, posterImage, backgroundImage, released} = promoFilm;
 
   return <>
 
     <section className="movie-card">
       <div className="movie-card__bg">
-        <img src="img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel" />
+        <img src={backgroundImage} alt={name} />
       </div>
 
       <h1 className="visually-hidden">WTW</h1>
@@ -36,14 +36,14 @@ const MainPageView = (props) => {
       <div className="movie-card__wrap">
         <div className="movie-card__info">
           <div className="movie-card__poster">
-            <img src={src} alt={name} width="218" height="327" />
+            <img src={posterImage} alt={name} width="218" height="327" />
           </div>
 
           <div className="movie-card__desc">
             <h2 className="movie-card__title">{name}</h2>
             <p className="movie-card__meta">
               <span className="movie-card__genre">{genre}</span>
-              <span className="movie-card__year">{year}</span>
+              <span className="movie-card__year">{released}</span>
             </p>
 
             <div className="movie-card__buttons">

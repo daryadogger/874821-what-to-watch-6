@@ -6,14 +6,14 @@ import MainPageView from '../main-page/main-page-view';
 const MAX_COUNT_OF_FILMS = 8;
 
 const MainPage = (props) => {
-  const {promoCard} = props;
+  const {promoFilm} = props;
 
   const {genre} = useParams();
   const filmGenre = typeof (genre) === `undefined` ? `` : genre;
 
   return <>
 
-    <MainPageView promoCard={promoCard} filmGenre={filmGenre} initialCount={MAX_COUNT_OF_FILMS} />
+    <MainPageView promoFilm={promoFilm} filmGenre={filmGenre} initialCount={MAX_COUNT_OF_FILMS} />
 
   </>;
 };

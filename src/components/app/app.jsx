@@ -7,7 +7,6 @@ import FilmPage from '../film-page/film-page';
 import AddReviewPage from '../add-review-page/add-review-page';
 import PlayerPage from '../player-page/player-page';
 import NotFoundPage from '../not-found-page/not-found-page';
-import appProps from '../app/app.prop';
 import {useSelector} from 'react-redux';
 import Api from '../../api/api';
 import {ActionCreator} from '../../store/action';
@@ -15,10 +14,11 @@ import {useDispatch} from 'react-redux';
 import LoadingScreen from '../loading-screen/loading-screen';
 
 
-const App = (props) => {
-  const {promoCard} = props;
+const App = () => {
   const api = new Api();
   const loaded = useSelector((state) => state.films.length > 0);
+  const promoFilm = useSelector((state) => state.promoFilm);
+  const loadedPromo = Object.keys(promoFilm).length !== 0;
 
   const dispatch = useDispatch();
 
@@ -32,6 +32,16 @@ const App = (props) => {
     });
   }, [loaded]);
 
+  useEffect(() => {
+    if (loadedPromo) {
+      return;
+    }
+
+    api.loadPromoFilm().then((film) => {
+      dispatch(ActionCreator.getPromoFilm(film));
+    });
+  }, [loadedPromo]);
+
   if (!loaded) {
     return <LoadingScreen />;
   }
@@ -40,7 +50,7 @@ const App = (props) => {
     <BrowserRouter>
       <Switch>
         <Route exact path="/">
-          <MainPage promoCard={promoCard} />
+          <MainPage promoFilm={promoFilm} />
         </Route>
         <Route exact path="/login">
           <SignInPage />
@@ -58,7 +68,7 @@ const App = (props) => {
           <PlayerPage />
         </Route>
         <Route exact path="/catalog/:genre">
-          <MainPage promoCard={promoCard} />
+          <MainPage promoFilm={promoFilm} />
         </Route>
         <Route>
           <NotFoundPage />
@@ -67,7 +77,5 @@ const App = (props) => {
     </BrowserRouter>
   );
 };
-
-App.propTypes = appProps;
 
 export default App;
