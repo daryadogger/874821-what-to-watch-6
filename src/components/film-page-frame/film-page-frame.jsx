@@ -1,9 +1,12 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Link, useParams, generatePath, useRouteMatch} from 'react-router-dom';
 import CardsList from '../cards-list/cards-list';
 import filmPageFrameProps from './film-page-frame.prop';
 import AuthorizationStatuses from '../../const';
 import User from '../user/user';
+import Api from '../../api/api';
+import {useDispatch, useSelector} from 'react-redux';
+import {ActionCreator} from '../../store/action';
 
 const COUNT_OF_SIMULAR_FILMS = 4;
 
@@ -13,8 +16,19 @@ const FilmPageFrame = (props) => {
   const {id, tab} = useParams();
   const {path} = useRouteMatch();
   const currentFilmId = Number(id);
+  const api = new Api();
+  const authorizationStatus = useSelector((state) => state.authorizationStatus);
+  const dispatch = useDispatch();
 
-  const authorizationStatus = `AUTH`;
+  useEffect(() => {
+    api.checkAuth()
+      .then((status) => {
+        dispatch(ActionCreator.requiredAuthorization(status));
+      });
+    // .catch((error) => {
+    //   console.log(error);
+    // });
+  }, [authorizationStatus]);
 
   return <>
 

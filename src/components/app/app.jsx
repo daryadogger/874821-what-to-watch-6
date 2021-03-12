@@ -34,9 +34,13 @@ const App = () => {
   }, [loaded]);
 
   useEffect(() => {
-    api.checkAuth().then((status) => {
-      dispatch(ActionCreator.requiredAuthorization(status));
-    });
+    api.checkAuth()
+      .then((status) => {
+        dispatch(ActionCreator.requiredAuthorization(status));
+      });
+    // .catch((error) => {
+    //   console.log(error);
+    // });
   }, [userStatus]);
 
   if (!loaded) {

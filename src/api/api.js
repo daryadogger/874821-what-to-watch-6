@@ -133,32 +133,25 @@ class Api {
   async checkAuth() {
     const rs = await this.fetchWithTimeout(`${this.baseUrl}/login`);
     const data = await this.processResponse(rs);
-    if (data) {
-      return data;
-    }
-
-    return null;
+    return data;
   }
 
-  async login({login: email, password}) {
-    const rs = await this.fetchWithTimeout(`${this.baseUrl}/login`, {email, password});
+  async login(user) {
+    const rs = await this.fetchWithTimeout(`${this.baseUrl}/login`, {
+      method: `POST`,
+      headers: {
+        'Content-Type': `application/json`
+      },
+      body: JSON.stringify(user)
+    });
     const data = await this.processResponse(rs);
-    if (data) {
-      return data;
-    }
-
-    return null;
+    return data;
   }
 
-  async logout({logout: email, password}) {
-    const rs = await this.fetchWithTimeout(`${this.baseUrl}/logout`, {email, password});
+  async logout() {
+    const rs = await this.fetchWithTimeout(`${this.baseUrl}/logout`);
     const data = await this.processResponse(rs);
-    if (data) {
-      localStorage.clear();
-      return data;
-    }
-
-    return null;
+    return data;
   }
 }
 

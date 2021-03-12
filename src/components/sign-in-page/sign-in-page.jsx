@@ -1,18 +1,52 @@
-import React, {useRef} from 'react';
-// import {useDispatch} from 'react-redux';
-import {Link} from 'react-router-dom';
+import React, {useEffect, useRef} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
+import {Link, Redirect} from 'react-router-dom';
 import signInPageProps from './sign-in-page.prop';
-// import Api from '../../api/api';
-// import AuthorizationStatus from '../../const';
-// import {ActionCreator} from '../../store/action';
+import Api from '../../api/api';
+import AuthorizationStatus from '../../const';
+import {ActionCreator} from '../../store/action';
 
 const SingInPage = (props) => {
-  const {onSubmit, onSubmitButtonClick} = props;
+  const {onSubmitButtonClick} = props;
+
   const loginRef = useRef();
   const passwordRef = useRef();
 
-  // const api = new Api();
-  // const dispatch = useDispatch();
+  const authorizationStatus = useSelector((state) => state.authorizationStatus);
+  const api = new Api();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    api.checkAuth()
+      .then((status) => {
+        dispatch(ActionCreator.requiredAuthorization(status));
+      });
+    // .catch((error) => {
+    //   console.log(error);
+    // });
+  }, [authorizationStatus]);
+
+  if (authorizationStatus !== AuthorizationStatus.NO_AUTH) {
+    <Redirect to={`/`} />;
+  }
+
+
+  const onSubmit = ({email, password}) => {
+    if (email && password) {
+      api.login({
+        email: loginRef.current.value,
+        password: passwordRef.current.value,
+      })
+        .then(() => {
+          dispatch(ActionCreator.requiredAuthorization(AuthorizationStatus.AUTH));
+        });
+      // .catch((error) => {
+      // console.log(error);
+      // });
+
+      onSubmitButtonClick();
+    }
+  };
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
@@ -22,12 +56,6 @@ const SingInPage = (props) => {
       password: passwordRef.current.value,
     });
 
-    // api.login({
-    //   email: loginRef.current.value,
-    //   password: passwordRef.current.value,
-    // }).then(() => {
-    //   dispatch(ActionCreator.requiredAuthorization(AuthorizationStatus.AUTH));
-    // });
   };
 
   return <>
@@ -73,9 +101,6 @@ const SingInPage = (props) => {
           </div>
           <div className="sign-in__submit">
             <button
-              onClick={()=> {
-                onSubmitButtonClick();
-              }}
               className="sign-in__btn"
               type="submit"
             >Sign in</button>
