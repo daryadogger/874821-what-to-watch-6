@@ -4,6 +4,7 @@ import {Link} from 'react-router-dom';
 import Api from '../../api/api';
 import {ActionCreator} from '../../store/action';
 import CardsList from '../cards-list/cards-list';
+import User from '../user/user';
 
 const MyListPage = () => {
   const genre = ``;
@@ -37,11 +38,7 @@ const MyListPage = () => {
 
         <h1 className="page-title user-page__title">My list</h1>
 
-        <div className="user-block">
-          <div className="user-block__avatar">
-            <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
-          </div>
-        </div>
+        <User />
       </header>
 
       <section className="catalog">

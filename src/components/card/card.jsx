@@ -24,7 +24,7 @@ const Card = (props) => {
 
   return <>
 
-    <CardView film={film.name} to={to} handleMouseLeave={handleMouseLeave} handleMouseEnter={handleMouseEnter} id={id} onClick={() => history.push(to)} >
+    <CardView film={film.name} to={to} handleMouseLeave={handleMouseLeave} handleMouseEnter={handleMouseEnter} id={id} >
       <VideoPlayer isActive={isActive} src={film.previewVideoLink} posterImage={film.previewImage} width={280} height={175} alt={film.name} />
     </CardView>
 

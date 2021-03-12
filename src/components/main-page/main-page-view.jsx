@@ -2,6 +2,7 @@ import React from 'react';
 import CardsList from '../cards-list/cards-list';
 import mainPageViewProps from '../main-page/main-page-view.prop';
 import GenresList from '../genres-list/genres-list';
+import User from '../user/user';
 
 
 const MainPageView = (props) => {
@@ -26,11 +27,7 @@ const MainPageView = (props) => {
           </a>
         </div>
 
-        <div className="user-block">
-          <div className="user-block__avatar">
-            <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
-          </div>
-        </div>
+        <User />
       </header>
 
       <div className="movie-card__wrap">

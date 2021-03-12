@@ -3,6 +3,7 @@ import {Link, useParams, generatePath, useRouteMatch} from 'react-router-dom';
 import CardsList from '../cards-list/cards-list';
 import filmPageFrameProps from './film-page-frame.prop';
 import AuthorizationStatuses from '../../const';
+import User from '../user/user';
 
 const COUNT_OF_SIMULAR_FILMS = 4;
 
@@ -34,11 +35,7 @@ const FilmPageFrame = (props) => {
             </Link>
           </div>
 
-          <div className="user-block">
-            <div className="user-block__avatar">
-              <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
-            </div>
-          </div>
+          <User />
         </header>
 
         <div className="movie-card__wrap">

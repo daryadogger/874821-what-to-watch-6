@@ -1,18 +1,17 @@
 import React, {useRef} from 'react';
 // import {useDispatch} from 'react-redux';
-import {Link, useHistory} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import signInPageProps from './sign-in-page.prop';
 // import Api from '../../api/api';
 // import AuthorizationStatus from '../../const';
 // import {ActionCreator} from '../../store/action';
 
 const SingInPage = (props) => {
-  const {onSubmit} = props;
+  const {onSubmit, onSubmitButtonClick} = props;
   const loginRef = useRef();
   const passwordRef = useRef();
 
   // const api = new Api();
-  const history = useHistory();
   // const dispatch = useDispatch();
 
   const handleSubmit = (evt) => {
@@ -74,7 +73,9 @@ const SingInPage = (props) => {
           </div>
           <div className="sign-in__submit">
             <button
-              onClick={()=> history.push(`/`)}
+              onClick={()=> {
+                onSubmitButtonClick();
+              }}
               className="sign-in__btn"
               type="submit"
             >Sign in</button>

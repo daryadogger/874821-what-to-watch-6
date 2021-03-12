@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {Switch, Route, BrowserRouter} from 'react-router-dom';
+import {Switch, Route, Router as BrowserRouter} from 'react-router-dom';
 import MainPage from '../main-page/main-page';
 import SignInPage from '../sign-in-page/sign-in-page';
 import MyListPage from '../my-list-page/my-list-page';
@@ -13,6 +13,7 @@ import {ActionCreator} from '../../store/action';
 import {useDispatch} from 'react-redux';
 import LoadingScreen from '../loading-screen/loading-screen';
 import PrivateRoute from '../private-route/private-route';
+import browserHistory from '../../browser-history';
 
 
 const App = () => {
@@ -43,13 +44,14 @@ const App = () => {
   }
 
   return (
-    <BrowserRouter>
+    <BrowserRouter history={browserHistory}>
       <Switch>
         <Route exact path="/">
           <MainPage />
         </Route>
-        <Route exact path="/login">
-          <SignInPage />
+        <Route exact path="/login" render={({history}) => (
+          <SignInPage onSubmitButtonClick={() => history.push(`/`)} />
+        )}>
         </Route>
         <PrivateRoute exact path="/mylist" render={() => <MyListPage />} />
         <PrivateRoute exact path="/films/:id/review" render={() => <AddReviewPage />} />
