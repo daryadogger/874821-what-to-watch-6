@@ -12,13 +12,13 @@ import Api from '../../api/api';
 import {ActionCreator} from '../../store/action';
 import {useDispatch} from 'react-redux';
 import LoadingScreen from '../loading-screen/loading-screen';
+import PrivateRoute from '../private-route/private-route';
 
 
 const App = () => {
   const api = new Api();
   const loaded = useSelector((state) => state.films.length > 0);
-  const promoFilm = useSelector((state) => state.promoFilm);
-  const loadedPromo = Object.keys(promoFilm).length !== 0;
+  const userStatus = useSelector((state) => state.authorizationStatus);
 
   const dispatch = useDispatch();
 
@@ -33,14 +33,10 @@ const App = () => {
   }, [loaded]);
 
   useEffect(() => {
-    if (loadedPromo) {
-      return;
-    }
-
-    api.loadPromoFilm().then((film) => {
-      dispatch(ActionCreator.getPromoFilm(film));
+    api.checkAuth().then((status) => {
+      dispatch(ActionCreator.requiredAuthorization(status));
     });
-  }, [loadedPromo]);
+  }, [userStatus]);
 
   if (!loaded) {
     return <LoadingScreen />;
@@ -50,17 +46,13 @@ const App = () => {
     <BrowserRouter>
       <Switch>
         <Route exact path="/">
-          <MainPage promoFilm={promoFilm} />
+          <MainPage />
         </Route>
         <Route exact path="/login">
           <SignInPage />
         </Route>
-        <Route exact path="/mylist">
-          <MyListPage />
-        </Route>
-        <Route exact path="/films/:id/review">
-          <AddReviewPage />
-        </Route>
+        <PrivateRoute exact path="/mylist" render={() => <MyListPage />} />
+        <PrivateRoute exact path="/films/:id/review" render={() => <AddReviewPage />} />
         <Route exact path="/films/:id/:tab?">
           <FilmPage />
         </Route>
@@ -68,7 +60,7 @@ const App = () => {
           <PlayerPage />
         </Route>
         <Route exact path="/catalog/:genre">
-          <MainPage promoFilm={promoFilm} />
+          <MainPage />
         </Route>
         <Route>
           <NotFoundPage />

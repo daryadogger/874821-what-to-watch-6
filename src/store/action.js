@@ -1,9 +1,10 @@
 export const ActionType = {
   GET_FILMS_LIST: `main/getFilmsList`,
-  GET_COMMENTS_BY_ID: `film-page/getComments/`,
-  GET_FILM_BY_ID: `film-page/getFilm/`,
+  GET_COMMENTS_BY_ID: `film-page/getComments`,
+  GET_FILM_BY_ID: `film-page/getFilm`,
   GET_PROMO_FILM: `main/getPromoFilm`,
-  CHECK_AUTH: `checkAuth`
+  REQUIRED_AUTHORIZATION: `user/requiredAuthorization`,
+  GET_FAVORITE_FILMS: `myList/getFavoriteFilms`
 };
 
 export const ActionCreator = {
@@ -27,8 +28,14 @@ export const ActionCreator = {
     payload
   }),
 
-  checkAuth: (payload) => ({
-    type: ActionType.CHECK_AUTH,
+  requiredAuthorization: (payload) => ({
+    type: ActionType.REQUIRED_AUTHORIZATION,
     payload
   }),
+
+  getFavoriteFilms: (payload) => ({
+    type: ActionType.GET_FAVORITE_FILMS,
+    payload
+  }),
+
 };

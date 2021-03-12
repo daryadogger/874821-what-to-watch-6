@@ -2,6 +2,7 @@ import React from 'react';
 import {Link, useParams, generatePath, useRouteMatch} from 'react-router-dom';
 import CardsList from '../cards-list/cards-list';
 import filmPageFrameProps from './film-page-frame.prop';
+import AuthorizationStatuses from '../../const';
 
 const COUNT_OF_SIMULAR_FILMS = 4;
 
@@ -11,6 +12,8 @@ const FilmPageFrame = (props) => {
   const {id, tab} = useParams();
   const {path} = useRouteMatch();
   const currentFilmId = Number(id);
+
+  const authorizationStatus = `AUTH`;
 
   return <>
 
@@ -59,7 +62,7 @@ const FilmPageFrame = (props) => {
                 </svg>
                 <span>My list</span>
               </button>
-              <Link to={generatePath(path, {id, tab: `review`})} className="btn movie-card__button">Add review</Link>
+              {authorizationStatus === AuthorizationStatuses.AUTH ? <Link to={generatePath(path, {id, tab: `review`})} className="btn movie-card__button">Add review</Link> : ``}
             </div>
           </div>
         </div>

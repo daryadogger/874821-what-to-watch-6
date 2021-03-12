@@ -1,9 +1,27 @@
-import React from 'react';
+import React, {useEffect} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
 import {Link} from 'react-router-dom';
+import Api from '../../api/api';
+import {ActionCreator} from '../../store/action';
 import CardsList from '../cards-list/cards-list';
 
 const MyListPage = () => {
   const genre = ``;
+
+  const api = new Api();
+  const favoriteFilms = useSelector((state) => state.favoriteFilms);
+  const loaded = favoriteFilms.length > 0;
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (loaded) {
+      return;
+    }
+
+    api.loadFavoriteFilms().then((films) => {
+      dispatch(ActionCreator.getFavoriteFilms(films));
+    });
+  }, [loaded]);
 
   return <>
 
@@ -29,7 +47,7 @@ const MyListPage = () => {
       <section className="catalog">
         <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-        <CardsList genre={genre} />
+        <CardsList genre={genre} favoriteFilms={favoriteFilms} />
 
       </section>
 

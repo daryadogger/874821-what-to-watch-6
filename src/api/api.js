@@ -101,7 +101,65 @@ class Api {
 
     return null;
   }
-}
 
+  async loadFavoriteFilms() {
+    const rs = await this.fetchWithTimeout(`${this.baseUrl}/favorite`);
+    const data = await this.processResponse(rs);
+    if (Array.isArray(data)) {
+      return data.map((el) => ({
+        id: el.id,
+        name: el.name,
+        posterImage: el.poster_image,
+        previewImage: el.preview_image,
+        backgroundImage: el.background_image,
+        backgroundColor: el.background_color,
+        videoLink: el.video_link,
+        previewVideoLink: el.preview_video_link,
+        description: el.description,
+        rating: el.rating,
+        scoresCount: el.scores_count,
+        director: el.director,
+        starring: el.starring,
+        runTime: el.run_time,
+        genre: el.genre,
+        released: el.released,
+        isFavorite: el.is_favorite,
+      }));
+    }
+
+    return null;
+  }
+
+  async checkAuth() {
+    const rs = await this.fetchWithTimeout(`${this.baseUrl}/login`);
+    const data = await this.processResponse(rs);
+    if (data) {
+      return data;
+    }
+
+    return null;
+  }
+
+  async login({login: email, password}) {
+    const rs = await this.fetchWithTimeout(`${this.baseUrl}/login`, {email, password});
+    const data = await this.processResponse(rs);
+    if (data) {
+      return data;
+    }
+
+    return null;
+  }
+
+  async logout({logout: email, password}) {
+    const rs = await this.fetchWithTimeout(`${this.baseUrl}/logout`, {email, password});
+    const data = await this.processResponse(rs);
+    if (data) {
+      localStorage.clear();
+      return data;
+    }
+
+    return null;
+  }
+}
 
 export default Api;

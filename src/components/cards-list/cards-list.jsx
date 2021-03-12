@@ -4,7 +4,7 @@ import CardsListView from '../cards-list/cards-list-view';
 import cardsListProps from '../cards-list/cards-list.prop';
 
 const CardsList = (props) => {
-  const {genre, enableButton, initialCount, isUpperCase, currentFilmId} = props;
+  const {genre, enableButton, initialCount, isUpperCase, currentFilmId, favoriteFilms} = props;
 
   const filmsUrl = `/films`;
   const DELAY_TIME = 1000;
@@ -45,7 +45,7 @@ const CardsList = (props) => {
 
   return <>
 
-    <CardsListView idArray={idArray.slice(0, count)} filmsUrl={filmsUrl} activeFilmId={activeFilmId} onActiveFilmChange={handleActiveFilmChange} isButtonHidden={!enableButton || count >= idArray.length} onShowMore={onShowMore} />
+    <CardsListView idArray={favoriteFilms ? favoriteFilms : idArray.slice(0, count)} filmsUrl={filmsUrl} activeFilmId={activeFilmId} onActiveFilmChange={handleActiveFilmChange} isButtonHidden={!enableButton || count >= idArray.length} onShowMore={onShowMore} />
 
   </>;
 };

@@ -1,9 +1,5 @@
 import {ActionType} from '../store/action';
-
-const AuthorizationStatus = {
-  AUTH: `AUTH`,
-  NO_AUTH: `NO_AUTH`,
-};
+import AuthorizationStatus from '../const';
 
 const initialState = {
   genre: ``,
@@ -11,6 +7,7 @@ const initialState = {
   comments: [],
   film: {},
   promoFilm: {},
+  favoriteFilms: [],
   authorizationStatus: AuthorizationStatus.NO_AUTH
 };
 
@@ -31,7 +28,7 @@ const reduser = (state = initialState, action) => {
     case ActionType.GET_FILM_BY_ID:
       return {
         ...state,
-        comments: action.payload
+        film: action.payload
       };
 
     case ActionType.GET_PROMO_FILM:
@@ -40,10 +37,16 @@ const reduser = (state = initialState, action) => {
         promoFilm: action.payload
       };
 
-    case ActionType.CHECK_AUTH:
+    case ActionType.REQUIRED_AUTHORIZATION:
       return {
         ...state,
         authorizationStatus: action.payload
+      };
+
+    case ActionType.GET_FAVORITE_FILMS:
+      return {
+        ...state,
+        favoriteFilms: action.payload
       };
 
     default:
