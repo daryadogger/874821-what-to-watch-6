@@ -1,10 +1,12 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {useParams} from 'react-router-dom';
 import FilmDetails from '../film-details/film-details';
 import FilmOverview from '../film-overview/film-overview';
 import FilmReviews from '../film-reviews/film-reviews';
 import FilmPageFrame from '../film-page-frame/film-page-frame';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
+import Api from '../../api/api';
+import {ActionCreator} from '../../store/action';
 
 const selectContent = (tab) => {
   switch (tab) {
@@ -21,6 +23,23 @@ const selectContent = (tab) => {
 
 const FilmPage = () => {
   const {tab, id} = useParams();
+  const api = new Api();
+  const currFilm = useSelector((state) => state.film);
+  const loaded = Object.keys(currFilm).length !== 0;
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (loaded) {
+      return;
+    }
+
+    api.loadFilmById(id).then((film) => {
+      dispatch(ActionCreator.getFilmById(film));
+    });
+
+  }, [loaded]);
+
 
   const currentFilm = useSelector((state) => state.films.find((el) => el.id === Number(id)));
 

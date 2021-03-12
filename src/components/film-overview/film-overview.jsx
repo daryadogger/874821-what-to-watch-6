@@ -1,4 +1,5 @@
 import React from 'react';
+import getRating from '../../api/get-rating';
 import filmOverviewProps from '../film-overview/film-overview.prop';
 
 const FilmOverview = (props) => {
@@ -10,7 +11,7 @@ const FilmOverview = (props) => {
     <div className="movie-rating">
       <div className="movie-rating__score">{rating}</div>
       <p className="movie-rating__meta">
-        <span className="movie-rating__level">Very good</span>
+        <span className="movie-rating__level">{getRating(rating)}</span>
         <span className="movie-rating__count">{scoresCount} ratings</span>
       </p>
     </div>
