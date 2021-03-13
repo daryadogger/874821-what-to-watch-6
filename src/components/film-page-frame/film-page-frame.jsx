@@ -2,7 +2,6 @@ import React, {useEffect} from 'react';
 import {Link, useParams, generatePath, useRouteMatch} from 'react-router-dom';
 import CardsList from '../cards-list/cards-list';
 import filmPageFrameProps from './film-page-frame.prop';
-import AuthorizationStatuses from '../../const';
 import User from '../user/user';
 import Api from '../../api/api';
 import {useDispatch, useSelector} from 'react-redux';
@@ -17,7 +16,7 @@ const FilmPageFrame = (props) => {
   const {path} = useRouteMatch();
   const currentFilmId = Number(id);
   const api = new Api();
-  const authorizationStatus = useSelector((state) => state.authorizationStatus);
+  const authorizationStatus = useSelector((state) => state.authorizationStatus.id);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -73,7 +72,7 @@ const FilmPageFrame = (props) => {
                 </svg>
                 <span>My list</span>
               </button>
-              {authorizationStatus === AuthorizationStatuses.AUTH ? <Link to={generatePath(path, {id, tab: `review`})} className="btn movie-card__button">Add review</Link> : ``}
+              {authorizationStatus ? <Link to={generatePath(path, {id, tab: `review`})} className="btn movie-card__button">Add review</Link> : ``}
             </div>
           </div>
         </div>

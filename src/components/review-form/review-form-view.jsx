@@ -2,7 +2,7 @@ import React from 'react';
 import reviewFormViewProps from './review-form-view.prop';
 
 const ReviewFormView = (props) => {
-  const {rating, reviewText, handleSubmit, handleFieldChange} = props;
+  const {rating, comment, handleSubmit, handleFieldChange} = props;
 
   return <>
 
@@ -51,7 +51,7 @@ const ReviewFormView = (props) => {
       </form>
 
       <p>Рейтинг: {rating}</p>
-      <p>Отзыв: {reviewText}</p>
+      <p>Отзыв: {comment}</p>
     </div>
 
   </>;

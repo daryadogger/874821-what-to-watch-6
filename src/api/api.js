@@ -2,7 +2,6 @@ import camelize from '../api/camelize';
 
 const BASE_URL = `https://6.react.pages.academy/wtw`;
 const TIMEOUT = 5000;
-const STATUS_CODE = 200;
 
 class Api {
   constructor(options = {}) {
@@ -12,20 +11,17 @@ class Api {
 
   processResponse(response) {
     return new Promise((resolve, reject) => {
-      if (response.status === STATUS_CODE) {
+      if (response.ok) {
         resolve(response.json());
       } else {
-        reject({
-          status: response.status,
-          statusText: response.statusText
-        });
+        reject(new Error(`${response.status} - ${response.statusText}`));
       }
     });
   }
 
   fetchWithTimeout(url, options = {}) {
     return Promise.race([
-      fetch(url, options),
+      fetch(url, {...options, credentials: `include`}),
       new Promise((_, reject) => {
         setTimeout(() => reject(`Ожидание ответа от сервера превышено`), this.timeout);
       }),
@@ -55,22 +51,6 @@ class Api {
         released: el.released,
         isFavorite: el.is_favorite,
       }));
-    }
-
-    return null;
-  }
-
-  async loadFilmById(id) {
-    const rs = await this.fetchWithTimeout(`${this.baseUrl}/films/${id}`);
-    const data = await this.processResponse(rs);
-    if (typeof data === `object`) {
-      const cameled = Object.keys(data).reduce((accumulator, currentValue)=> {
-        accumulator[camelize(currentValue)] = data[currentValue];
-
-        return accumulator;
-      }, {});
-
-      return cameled;
     }
 
     return null;
@@ -164,7 +144,7 @@ class Api {
     const rs = await this.fetchWithTimeout(`${this.baseUrl}/login`, {
       method: `POST`,
       headers: {
-        'Content-Type': `application/json`
+        'Content-Type': `application/json`,
       },
       body: JSON.stringify(user)
     });

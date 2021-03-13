@@ -1,26 +1,12 @@
-import React, {useEffect} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
+import React from 'react';
+import {useSelector} from 'react-redux';
 import {Link} from 'react-router-dom';
-import Api from '../../api/api';
-import AuthorizationStatus from '../../const';
-import {ActionCreator} from '../../store/action';
 
+const authSelector = (state) => state.authorizationStatus.id;
 const User = () => {
-  const api = new Api();
-  const authorizationStatus = useSelector((state) => state.authorizationStatus);
-  const dispatch = useDispatch();
+  const authorizationStatus = useSelector(authSelector);
 
-  useEffect(() => {
-    api.checkAuth()
-      .then((status) => {
-        dispatch(ActionCreator.requiredAuthorization(status));
-      });
-    // .catch((error) => {
-    //   console.log(error);
-    // });
-  }, [authorizationStatus]);
-
-  if (authorizationStatus === AuthorizationStatus.NO_AUTH) {
+  if (!authorizationStatus) {
     return (
       <div className="user-block">
         <Link to={`/login`} className="user-block__link">Sign in</Link>

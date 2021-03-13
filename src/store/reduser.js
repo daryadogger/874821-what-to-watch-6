@@ -1,14 +1,12 @@
 import {ActionType} from '../store/action';
-import AuthorizationStatus from '../const';
 
 const initialState = {
   genre: ``,
   films: [],
-  comments: [],
-  film: {},
+  comments: {},
   promoFilm: {},
   favoriteFilms: [],
-  authorizationStatus: AuthorizationStatus.NO_AUTH
+  authorizationStatus: {}
 };
 
 const reduser = (state = initialState, action) => {
@@ -22,13 +20,7 @@ const reduser = (state = initialState, action) => {
     case ActionType.GET_COMMENTS_BY_ID:
       return {
         ...state,
-        comments: action.payload
-      };
-
-    case ActionType.GET_FILM_BY_ID:
-      return {
-        ...state,
-        film: action.payload
+        comments: {...state.comments, ...action.payload}
       };
 
     case ActionType.GET_PROMO_FILM:
