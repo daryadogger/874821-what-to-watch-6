@@ -60,24 +60,14 @@ class Api {
     return null;
   }
 
-  async loadReviewsById(id) {
-    const rs = await this.fetchWithTimeout(`${this.baseUrl}/comments/${id}`);
-    const data = await this.processResponse(rs);
-    if (Array.isArray(data)) {
-      return data;
-    }
-
-    return null;
-  }
-
   async loadFilmById(id) {
     const rs = await this.fetchWithTimeout(`${this.baseUrl}/films/${id}`);
     const data = await this.processResponse(rs);
     if (typeof data === `object`) {
-      const cameled = Object.keys(data).reduce((previousValue, currentValue)=> {
-        previousValue[camelize(currentValue)] = data[currentValue];
+      const cameled = Object.keys(data).reduce((accumulator, currentValue)=> {
+        accumulator[camelize(currentValue)] = data[currentValue];
 
-        return previousValue;
+        return accumulator;
       }, {});
 
       return cameled;
@@ -90,10 +80,10 @@ class Api {
     const rs = await this.fetchWithTimeout(`${this.baseUrl}/films/promo`);
     const data = await this.processResponse(rs);
     if (typeof data === `object`) {
-      const cameled = Object.keys(data).reduce((previousValue, currentValue)=> {
-        previousValue[camelize(currentValue)] = data[currentValue];
+      const cameled = Object.keys(data).reduce((accumulator, currentValue)=> {
+        accumulator[camelize(currentValue)] = data[currentValue];
 
-        return previousValue;
+        return accumulator;
       }, {});
 
       return cameled;
@@ -128,6 +118,40 @@ class Api {
     }
 
     return null;
+  }
+
+  async postFavoriteFilm(id, status) {
+    const rs = await this.fetchWithTimeout(`${this.baseUrl}/favorite/${id}/${status}`, {
+      method: `POST`,
+      headers: {
+        'Content-Type': `application/json`
+      },
+      body: JSON.stringify(status)
+    });
+    const data = await this.processResponse(rs);
+    return data;
+  }
+
+  async loadReviewsById(id) {
+    const rs = await this.fetchWithTimeout(`${this.baseUrl}/comments/${id}`);
+    const data = await this.processResponse(rs);
+    if (Array.isArray(data)) {
+      return data;
+    }
+
+    return null;
+  }
+
+  async postReviewById(id, comment) {
+    const rs = await this.fetchWithTimeout(`${this.baseUrl}/comments/${id}`, {
+      method: `POST`,
+      headers: {
+        'Content-Type': `application/json`
+      },
+      body: JSON.stringify(comment)
+    });
+    const data = await this.processResponse(rs);
+    return data;
   }
 
   async checkAuth() {
