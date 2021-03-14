@@ -4,13 +4,15 @@ import {useParams} from 'react-router';
 import Api from '../../api/api';
 import {ActionCreator} from '../../store/action';
 import FilmReviewItem from '../film-review-item/film-review-item';
+import LoadingScreen from '../loading-screen/loading-screen';
 
 const FilmReviews = () => {
   const api = new Api();
-  const reviews = useSelector((state) => state.comments);
-  const loaded = reviews.length > 0;
-  const dispatch = useDispatch();
   const {id} = useParams();
+  const reviews = useSelector((state) => state.comments[id]);
+
+  const loaded = Array.isArray(reviews);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (loaded) {
@@ -18,10 +20,14 @@ const FilmReviews = () => {
     }
 
     api.loadReviewsById(id).then((comments) => {
-      dispatch(ActionCreator.getCommentsById(comments));
+      dispatch(ActionCreator.getCommentsById({[id]: comments}));
     });
 
   }, [loaded]);
+
+  if (!loaded) {
+    return <LoadingScreen />;
+  }
 
   return <>
 

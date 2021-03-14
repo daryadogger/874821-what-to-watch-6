@@ -1,6 +1,5 @@
-const AuthorizationStatus = {
-  AUTH: `AUTH`,
-  NO_AUTH: `NO_AUTH`,
-};
+const RATINGS_COUNT = 10;
+const MIN_REVIEW_LENGTH = 50;
+const MAX_REVIEW_LENGTH = 400;
 
-export default AuthorizationStatus;
+export {RATINGS_COUNT, MIN_REVIEW_LENGTH, MAX_REVIEW_LENGTH};

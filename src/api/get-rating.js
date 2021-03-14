@@ -22,17 +22,22 @@ const FilmRatings = {
 };
 
 const getRating = (rating) => {
-  if (rating < FilmRatings.Normal.RATING) {
-    return FilmRatings.Bad.DESCRIPTION;
-  } else if (rating >= FilmRatings.Normal.RATING && rating < FilmRatings.Good.RATING) {
-    return FilmRatings.Normal.DESCRIPTION;
-  } else if (rating >= FilmRatings.Good.RATING && rating < FilmRatings.VeryGood.RATING) {
-    return FilmRatings.Good.DESCRIPTION;
-  } else if (rating >= FilmRatings.VeryGood.RATING && rating < FilmRatings.Awesome.RATING) {
-    return FilmRatings.VeryGood.DESCRIPTION;
-  }
+  switch (true) {
+    case (rating < FilmRatings.Normal.RATING):
+      return FilmRatings.Bad.DESCRIPTION;
 
-  return FilmRatings.Awesome.DESCRIPTION;
+    case (rating < FilmRatings.Good.RATING):
+      return FilmRatings.Normal.DESCRIPTION;
+
+    case (rating < FilmRatings.VeryGood.RATING):
+      return FilmRatings.Good.DESCRIPTION;
+
+    case (rating < FilmRatings.Awesome.RATING):
+      return FilmRatings.VeryGood.DESCRIPTION;
+
+    default:
+      return FilmRatings.Awesome.DESCRIPTION;
+  }
 };
 
 export default getRating;

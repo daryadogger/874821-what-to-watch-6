@@ -1,61 +1,48 @@
-import React, {useEffect, useRef} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
-import {Link, Redirect} from 'react-router-dom';
+import React, {useState} from 'react';
+import {useDispatch} from 'react-redux';
+import {Link, Redirect, useHistory} from 'react-router-dom';
 import signInPageProps from './sign-in-page.prop';
 import Api from '../../api/api';
-import AuthorizationStatus from '../../const';
 import {ActionCreator} from '../../store/action';
+import useAuthtorization from '../../api/use-authtorization';
 
-const SingInPage = (props) => {
-  const {onSubmitButtonClick} = props;
+const SingInPage = () => {
+  const history = useHistory();
 
-  const loginRef = useRef();
-  const passwordRef = useRef();
+  const [email, setEmail] = useState(``);
+  const [password, setPassword] = useState(``);
+  const [errorMessage, setErrorMessage] = useState(``);
 
-  const authorizationStatus = useSelector((state) => state.authorizationStatus);
   const api = new Api();
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    api.checkAuth()
-      .then((status) => {
-        dispatch(ActionCreator.requiredAuthorization(status));
-      });
-    // .catch((error) => {
-    //   console.log(error);
-    // });
-  }, [authorizationStatus]);
-
-  if (authorizationStatus !== AuthorizationStatus.NO_AUTH) {
-    <Redirect to={`/`} />;
+  if (useAuthtorization()) {
+    return <Redirect to={`/`} />;
   }
 
-
-  const onSubmit = ({email, password}) => {
+  const submit = () => {
     if (email && password) {
       api.login({
-        email: loginRef.current.value,
-        password: passwordRef.current.value,
+        email,
+        password,
       })
-        .then(() => {
-          dispatch(ActionCreator.requiredAuthorization(AuthorizationStatus.AUTH));
-        });
-      // .catch((error) => {
-      // console.log(error);
-      // });
-
-      onSubmitButtonClick();
+        .then((data) => {
+          dispatch(ActionCreator.requiredAuthorization(data));
+          history.push(`/`);
+        })
+      .catch((error) => {
+        setErrorMessage(error.message);
+      });
+      return;
     }
+
+    setErrorMessage(`Please enter all inputs`);
   };
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
 
-    onSubmit({
-      email: loginRef.current.value,
-      password: passwordRef.current.value,
-    });
-
+    submit();
   };
 
   return <>
@@ -75,11 +62,17 @@ const SingInPage = (props) => {
 
       <div className="sign-in user-page__content">
         <form action="" className="sign-in__htmlForm" onSubmit={handleSubmit}>
+          {(errorMessage) ? (
+            <div className="sign-in__message">
+              <p>{errorMessage}</p>
+            </div>
+          ) : (null)}
           <div className="sign-in__fields">
             <div className="sign-in__field">
               <label className="sign-in__label visually-hidden" htmlFor="user-email">Email address</label>
               <input
-                ref={loginRef}
+                defaultValue={email}
+                onChange={(evt) => setEmail(evt.target.value)}
                 className="sign-in__input"
                 type="email"
                 placeholder="Email address"
@@ -90,7 +83,8 @@ const SingInPage = (props) => {
             <div className="sign-in__field">
               <label className="sign-in__label visually-hidden" htmlFor="user-password">Password</label>
               <input
-                ref={passwordRef}
+                defaultValue={password}
+                onChange={(evt) => setPassword(evt.target.value)}
                 className="sign-in__input"
                 type="password"
                 placeholder="Password"

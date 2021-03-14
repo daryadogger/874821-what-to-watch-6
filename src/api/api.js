@@ -2,7 +2,6 @@ import camelize from '../api/camelize';
 
 const BASE_URL = `https://6.react.pages.academy/wtw`;
 const TIMEOUT = 5000;
-const STATUS_CODE = 200;
 
 class Api {
   constructor(options = {}) {
@@ -12,20 +11,17 @@ class Api {
 
   processResponse(response) {
     return new Promise((resolve, reject) => {
-      if (response.status === STATUS_CODE) {
+      if (response.ok) {
         resolve(response.json());
       } else {
-        reject({
-          status: response.status,
-          statusText: response.statusText
-        });
+        reject(new Error(`${response.status} - ${response.statusText}`));
       }
     });
   }
 
   fetchWithTimeout(url, options = {}) {
     return Promise.race([
-      fetch(url, options),
+      fetch(url, {...options, credentials: `include`}),
       new Promise((_, reject) => {
         setTimeout(() => reject(`Ожидание ответа от сервера превышено`), this.timeout);
       }),
@@ -60,40 +56,14 @@ class Api {
     return null;
   }
 
-  async loadReviewsById(id) {
-    const rs = await this.fetchWithTimeout(`${this.baseUrl}/comments/${id}`);
-    const data = await this.processResponse(rs);
-    if (Array.isArray(data)) {
-      return data;
-    }
-
-    return null;
-  }
-
-  async loadFilmById(id) {
-    const rs = await this.fetchWithTimeout(`${this.baseUrl}/films/${id}`);
-    const data = await this.processResponse(rs);
-    if (typeof data === `object`) {
-      const cameled = Object.keys(data).reduce((previousValue, currentValue)=> {
-        previousValue[camelize(currentValue)] = data[currentValue];
-
-        return previousValue;
-      }, {});
-
-      return cameled;
-    }
-
-    return null;
-  }
-
   async loadPromoFilm() {
     const rs = await this.fetchWithTimeout(`${this.baseUrl}/films/promo`);
     const data = await this.processResponse(rs);
     if (typeof data === `object`) {
-      const cameled = Object.keys(data).reduce((previousValue, currentValue)=> {
-        previousValue[camelize(currentValue)] = data[currentValue];
+      const cameled = Object.keys(data).reduce((accumulator, currentValue)=> {
+        accumulator[camelize(currentValue)] = data[currentValue];
 
-        return previousValue;
+        return accumulator;
       }, {});
 
       return cameled;
@@ -130,6 +100,40 @@ class Api {
     return null;
   }
 
+  async postFavoriteFilm(id, status) {
+    const rs = await this.fetchWithTimeout(`${this.baseUrl}/favorite/${id}/${status}`, {
+      method: `POST`,
+      headers: {
+        'Content-Type': `application/json`
+      },
+      body: JSON.stringify(status)
+    });
+    const data = await this.processResponse(rs);
+    return data;
+  }
+
+  async loadReviewsById(id) {
+    const rs = await this.fetchWithTimeout(`${this.baseUrl}/comments/${id}`);
+    const data = await this.processResponse(rs);
+    if (Array.isArray(data)) {
+      return data;
+    }
+
+    return null;
+  }
+
+  async postReviewById(id, comment) {
+    const rs = await this.fetchWithTimeout(`${this.baseUrl}/comments/${id}`, {
+      method: `POST`,
+      headers: {
+        'Content-Type': `application/json`
+      },
+      body: JSON.stringify(comment)
+    });
+    const data = await this.processResponse(rs);
+    return data;
+  }
+
   async checkAuth() {
     const rs = await this.fetchWithTimeout(`${this.baseUrl}/login`);
     const data = await this.processResponse(rs);
@@ -140,7 +144,7 @@ class Api {
     const rs = await this.fetchWithTimeout(`${this.baseUrl}/login`, {
       method: `POST`,
       headers: {
-        'Content-Type': `application/json`
+        'Content-Type': `application/json`,
       },
       body: JSON.stringify(user)
     });

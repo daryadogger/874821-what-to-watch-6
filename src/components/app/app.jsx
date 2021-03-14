@@ -7,7 +7,7 @@ import FilmPage from '../film-page/film-page';
 import AddReviewPage from '../add-review-page/add-review-page';
 import PlayerPage from '../player-page/player-page';
 import NotFoundPage from '../not-found-page/not-found-page';
-import {useSelector} from 'react-redux';
+import {useSelector, useStore} from 'react-redux';
 import Api from '../../api/api';
 import {ActionCreator} from '../../store/action';
 import {useDispatch} from 'react-redux';
@@ -15,11 +15,12 @@ import LoadingScreen from '../loading-screen/loading-screen';
 import PrivateRoute from '../private-route/private-route';
 import browserHistory from '../../browser-history';
 
+const authSelector = (state) => state.userProfile.id;
 
 const App = () => {
   const api = new Api();
   const loaded = useSelector((state) => state.films.length > 0);
-  const userStatus = useSelector((state) => state.authorizationStatus);
+  const userStatus = useSelector(authSelector);
 
   const dispatch = useDispatch();
 
@@ -33,10 +34,16 @@ const App = () => {
     });
   }, [loaded]);
 
+  const store = useStore();
+
   useEffect(() => {
     api.checkAuth()
       .then((status) => {
-        dispatch(ActionCreator.requiredAuthorization(status));
+        const currentStatus = authSelector(store.getState());
+
+        if (status !== currentStatus) {
+          dispatch(ActionCreator.requiredAuthorization(status));
+        }
       });
     // .catch((error) => {
     //   console.log(error);
@@ -53,8 +60,8 @@ const App = () => {
         <Route exact path="/">
           <MainPage />
         </Route>
-        <Route exact path="/login" render={({history}) => (
-          <SignInPage onSubmitButtonClick={() => history.push(`/`)} />
+        <Route exact path="/login" render={() => (
+          <SignInPage />
         )}>
         </Route>
         <PrivateRoute exact path="/mylist" render={() => <MyListPage />} />

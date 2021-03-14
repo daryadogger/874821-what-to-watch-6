@@ -1,10 +1,10 @@
 export const ActionType = {
   GET_FILMS_LIST: `main/getFilmsList`,
   GET_COMMENTS_BY_ID: `film-page/getComments`,
-  GET_FILM_BY_ID: `film-page/getFilm`,
   GET_PROMO_FILM: `main/getPromoFilm`,
   REQUIRED_AUTHORIZATION: `user/requiredAuthorization`,
-  GET_FAVORITE_FILMS: `myList/getFavoriteFilms`
+  GET_FAVORITE_FILMS: `myList/getFavoriteFilms`,
+  POST_COOMENT: `addReview/postComment`
 };
 
 export const ActionCreator = {
@@ -15,11 +15,6 @@ export const ActionCreator = {
 
   getCommentsById: (payload) => ({
     type: ActionType.GET_COMMENTS_BY_ID,
-    payload
-  }),
-
-  getFilmById: (payload) => ({
-    type: ActionType.GET_FILM_BY_ID,
     payload
   }),
 
@@ -35,6 +30,11 @@ export const ActionCreator = {
 
   getFavoriteFilms: (payload) => ({
     type: ActionType.GET_FAVORITE_FILMS,
+    payload
+  }),
+
+  postComment: (payload) => ({
+    type: ActionType.POST_COOMENT,
     payload
   }),
 
