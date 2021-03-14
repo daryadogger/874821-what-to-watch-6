@@ -1,9 +1,10 @@
 import React, {useState} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
+import {useDispatch} from 'react-redux';
 import {Link, Redirect, useHistory} from 'react-router-dom';
 import signInPageProps from './sign-in-page.prop';
 import Api from '../../api/api';
 import {ActionCreator} from '../../store/action';
+import useAuthtorization from '../../api/use-authtorization';
 
 const SingInPage = () => {
   const history = useHistory();
@@ -12,11 +13,10 @@ const SingInPage = () => {
   const [password, setPassword] = useState(``);
   const [errorMessage, setErrorMessage] = useState(``);
 
-  const authorizationStatus = useSelector((state) => state.authorizationStatus.id);
   const api = new Api();
   const dispatch = useDispatch();
 
-  if (authorizationStatus) {
+  if (useAuthtorization()) {
     return <Redirect to={`/`} />;
   }
 

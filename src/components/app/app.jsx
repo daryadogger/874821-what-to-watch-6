@@ -15,7 +15,8 @@ import LoadingScreen from '../loading-screen/loading-screen';
 import PrivateRoute from '../private-route/private-route';
 import browserHistory from '../../browser-history';
 
-const authSelector = (state) => state.authorizationStatus.id;
+const authSelector = (state) => state.userProfile.id;
+
 const App = () => {
   const api = new Api();
   const loaded = useSelector((state) => state.films.length > 0);

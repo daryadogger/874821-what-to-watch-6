@@ -29,6 +29,7 @@ const ReviewForm = () => {
   // console.log(error);
   // });
   // };
+  // После submit history.push(film.id);
 
   const handleSubmit = (evt) => {
     evt.preventDefault();

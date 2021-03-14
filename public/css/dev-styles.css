@@ -1,0 +1,12 @@
+.loading-screen {
+  min-height: 100vh;
+  background-color: #e1b0b2;
+  padding: 0 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loading-screen h1 {
+  color: rgba(0, 0, 0, .4);
+}

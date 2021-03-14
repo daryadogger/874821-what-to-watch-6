@@ -35,6 +35,7 @@ const AddReviewPage = () => {
           </nav>
 
           <User />
+
         </header>
 
         <div className="movie-card__poster movie-card__poster--small">

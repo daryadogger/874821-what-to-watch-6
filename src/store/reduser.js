@@ -6,7 +6,7 @@ const initialState = {
   comments: {},
   promoFilm: {},
   favoriteFilms: [],
-  authorizationStatus: {}
+  userProfile: {}
 };
 
 const reduser = (state = initialState, action) => {
@@ -32,7 +32,7 @@ const reduser = (state = initialState, action) => {
     case ActionType.REQUIRED_AUTHORIZATION:
       return {
         ...state,
-        authorizationStatus: action.payload
+        userProfile: action.payload
       };
 
     case ActionType.GET_FAVORITE_FILMS:

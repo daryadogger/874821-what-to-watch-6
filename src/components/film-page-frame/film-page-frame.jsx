@@ -1,11 +1,9 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {Link, useParams, generatePath, useRouteMatch} from 'react-router-dom';
 import CardsList from '../cards-list/cards-list';
 import filmPageFrameProps from './film-page-frame.prop';
 import User from '../user/user';
-import Api from '../../api/api';
-import {useDispatch, useSelector} from 'react-redux';
-import {ActionCreator} from '../../store/action';
+import useAuthtorization from '../../api/use-authtorization';
 
 const COUNT_OF_SIMULAR_FILMS = 4;
 
@@ -15,19 +13,6 @@ const FilmPageFrame = (props) => {
   const {id, tab} = useParams();
   const {path} = useRouteMatch();
   const currentFilmId = Number(id);
-  const api = new Api();
-  const authorizationStatus = useSelector((state) => state.authorizationStatus.id);
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    api.checkAuth()
-      .then((status) => {
-        dispatch(ActionCreator.requiredAuthorization(status));
-      });
-    // .catch((error) => {
-    //   console.log(error);
-    // });
-  }, [authorizationStatus]);
 
   return <>
 
@@ -72,7 +57,7 @@ const FilmPageFrame = (props) => {
                 </svg>
                 <span>My list</span>
               </button>
-              {authorizationStatus ? <Link to={generatePath(path, {id, tab: `review`})} className="btn movie-card__button">Add review</Link> : ``}
+              {useAuthtorization() ? <Link to={generatePath(path, {id, tab: `review`})} className="btn movie-card__button">Add review</Link> : ``}
             </div>
           </div>
         </div>
