@@ -3,7 +3,8 @@ export const ActionType = {
   GET_COMMENTS_BY_ID: `film-page/getComments`,
   GET_PROMO_FILM: `main/getPromoFilm`,
   REQUIRED_AUTHORIZATION: `user/requiredAuthorization`,
-  GET_FAVORITE_FILMS: `myList/getFavoriteFilms`
+  GET_FAVORITE_FILMS: `myList/getFavoriteFilms`,
+  POST_COOMENT: `addReview/postComment`
 };
 
 export const ActionCreator = {
@@ -29,6 +30,11 @@ export const ActionCreator = {
 
   getFavoriteFilms: (payload) => ({
     type: ActionType.GET_FAVORITE_FILMS,
+    payload
+  }),
+
+  postComment: (payload) => ({
+    type: ActionType.POST_COOMENT,
     payload
   }),
 

@@ -6,7 +6,8 @@ const initialState = {
   comments: {},
   promoFilm: {},
   favoriteFilms: [],
-  userProfile: {}
+  userProfile: {},
+  postedComment: {}
 };
 
 const reduser = (state = initialState, action) => {
@@ -39,6 +40,12 @@ const reduser = (state = initialState, action) => {
       return {
         ...state,
         favoriteFilms: action.payload
+      };
+
+    case ActionType.POST_COMMENT:
+      return {
+        ...state,
+        postedComment: action.payload
       };
 
     default:

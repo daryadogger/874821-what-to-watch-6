@@ -5,13 +5,14 @@ import privateRouteProps from './private-route.prop';
 
 const PrivateRoute = (props) => {
   const {render, path, exact} = props;
+  const authtorizationStatus = useAuthtorization();
 
   return (
     <Route
       path={path}
       exact={exact}
       render={(routeProps) => {
-        return (useAuthtorization() ? render(routeProps) : <Redirect to={`/login`} />);
+        return (authtorizationStatus ? render(routeProps) : <Redirect to={`/login`} />);
       }}
     />
   );
