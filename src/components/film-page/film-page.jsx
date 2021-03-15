@@ -30,13 +30,13 @@ const FilmPage = () => {
     return <Redirect to={`/not-found-page`} />;
   }
 
-  return <>
+  return (
 
     <FilmPageFrame posterImage={currentFilm.posterImage} backgroundImage={currentFilm.backgroundImage} name={currentFilm.name} genre={currentFilm.genre} released={currentFilm.released} >
       <Content currentFilm={currentFilm} />
     </FilmPageFrame>
 
-  </>;
+  );
 };
 
 export default FilmPage;

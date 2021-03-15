@@ -7,35 +7,32 @@ export const ActionType = {
   POST_COOMENT: `addReview/postComment`
 };
 
-export const ActionCreator = {
-  getFilmsList: (payload) => ({
-    type: ActionType.GET_FILMS_LIST,
-    payload
-  }),
+export const getFilmsList = (payload) => ({
+  type: ActionType.GET_FILMS_LIST,
+  payload
+});
 
-  getCommentsById: (payload) => ({
-    type: ActionType.GET_COMMENTS_BY_ID,
-    payload
-  }),
+export const getCommentsById = (payload) => ({
+  type: ActionType.GET_COMMENTS_BY_ID,
+  payload
+});
 
-  getPromoFilm: (payload) => ({
-    type: ActionType.GET_PROMO_FILM,
-    payload
-  }),
+export const getPromoFilm = (payload) => ({
+  type: ActionType.GET_PROMO_FILM,
+  payload
+});
 
-  requiredAuthorization: (payload) => ({
-    type: ActionType.REQUIRED_AUTHORIZATION,
-    payload
-  }),
+export const requiredAuthorization = (payload) => ({
+  type: ActionType.REQUIRED_AUTHORIZATION,
+  payload
+});
 
-  getFavoriteFilms: (payload) => ({
-    type: ActionType.GET_FAVORITE_FILMS,
-    payload
-  }),
+export const getFavoriteFilms = (payload) => ({
+  type: ActionType.GET_FAVORITE_FILMS,
+  payload
+});
 
-  postComment: (payload) => ({
-    type: ActionType.POST_COOMENT,
-    payload
-  }),
-
-};
+export const postComment = (payload) => ({
+  type: ActionType.POST_COOMENT,
+  payload
+});

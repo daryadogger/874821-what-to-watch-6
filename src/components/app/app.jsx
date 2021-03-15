@@ -9,7 +9,7 @@ import PlayerPage from '../player-page/player-page';
 import NotFoundPage from '../not-found-page/not-found-page';
 import {useSelector, useStore} from 'react-redux';
 import Api from '../../api/api';
-import {ActionCreator} from '../../store/action';
+import {getFilmsList, requiredAuthorization} from '../../store/action';
 import {useDispatch} from 'react-redux';
 import LoadingScreen from '../loading-screen/loading-screen';
 import PrivateRoute from '../private-route/private-route';
@@ -30,7 +30,7 @@ const App = () => {
     }
 
     api.loadFilms().then((films) => {
-      dispatch(ActionCreator.getFilmsList(films));
+      dispatch(getFilmsList(films));
     });
   }, [loaded]);
 
@@ -42,7 +42,7 @@ const App = () => {
         const currentStatus = authSelector(store.getState());
 
         if (status !== currentStatus) {
-          dispatch(ActionCreator.requiredAuthorization(status));
+          dispatch(requiredAuthorization(status));
         }
       });
     // .catch((error) => {

@@ -9,11 +9,11 @@ const MainPage = () => {
   const {genre} = useParams();
   const filmGenre = typeof (genre) === `undefined` ? `` : genre;
 
-  return <>
+  return (
 
     <MainPageView filmGenre={filmGenre} initialCount={MAX_COUNT_OF_FILMS} />
 
-  </>;
+  );
 };
 
 export default MainPage;

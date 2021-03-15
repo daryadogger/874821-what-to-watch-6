@@ -8,13 +8,13 @@ const BtnShowMore = (props) => {
     onShowMore();
   };
 
-  return <>
+  return (
 
     <div className="catalog__more" onClick={handleButtonClick} >
       <button className={`${isHidden ? `visually-hidden` : `catalog__button`}`} type="button">Show more</button>
     </div>
 
-  </>;
+  );
 };
 
 BtnShowMore.propTypes = btnShowMoreProps;

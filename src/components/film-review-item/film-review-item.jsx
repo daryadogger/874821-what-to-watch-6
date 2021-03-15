@@ -5,7 +5,7 @@ import dayjs from '../../api/dayjs';
 const FilmReviewItem = (props) => {
   const {comment, user, date, rating} = props;
 
-  return <>
+  return (
 
     <div className="review">
       <blockquote className="review__quote">
@@ -18,7 +18,7 @@ const FilmReviewItem = (props) => {
       <div className="review__rating">{rating}</div>
     </div>
 
-  </>;
+  );
 };
 
 FilmReviewItem.propTypes = filmReviewItemProps;

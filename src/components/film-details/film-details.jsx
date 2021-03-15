@@ -7,7 +7,7 @@ const FilmDetails = (props) => {
   const {currentFilm} = props;
   const {director, starring, runTime, genre, released} = currentFilm;
 
-  return <>
+  return (
 
     <div className="movie-card__text movie-card__row">
       <div className="movie-card__text-col">
@@ -41,7 +41,7 @@ const FilmDetails = (props) => {
       </div>
     </div>
 
-  </>;
+  );
 };
 
 FilmDetails.propTypes = filmDetailsProps;

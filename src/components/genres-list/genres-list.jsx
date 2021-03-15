@@ -10,11 +10,11 @@ const GenresList = (props) => {
 
   const genresArray = useSelector((state) => [...new Set(state.films.map((film) => film.genre))], shallowEqual);
 
-  return <>
+  return (
 
     <GenresListView genresArray={genresArray.slice(0, GENRES_COUNT)} genre={genre} />
 
-  </>;
+  );
 };
 
 GenresList.propTypes = genresListProps;

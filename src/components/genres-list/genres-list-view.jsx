@@ -5,7 +5,7 @@ import genresListViewProps from '../genres-list/genres-list-view.prop';
 const GenresListView = (props) => {
   const {genresArray, genre} = props;
 
-  return <>
+  return (
 
     <ul className="catalog__genres-list">
       <GenreItem label={`All genres`} to={`/`} active={genre === ``} />
@@ -14,7 +14,7 @@ const GenresListView = (props) => {
 
     </ul>
 
-  </>;
+  );
 };
 
 GenresListView.propTypes = genresListViewProps;

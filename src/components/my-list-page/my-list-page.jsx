@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {Link} from 'react-router-dom';
 import Api from '../../api/api';
-import {ActionCreator} from '../../store/action';
+import {getFavoriteFilms} from '../../store/action';
 import CardsList from '../cards-list/cards-list';
 import User from '../user/user';
 
@@ -20,7 +20,7 @@ const MyListPage = () => {
     }
 
     api.loadFavoriteFilms().then((films) => {
-      dispatch(ActionCreator.getFavoriteFilms(films));
+      dispatch(getFavoriteFilms(films));
     });
   }, [loaded]);
 

@@ -5,7 +5,7 @@ import cardViewProps from './card-view.prop';
 const CardView = (props) => {
   const {film, to, handleClick, handleMouseEnter, handleMouseLeave, children} = props;
 
-  return <>
+  return (
 
     <article className="small-movie-card catalog__movies-card" onClick={handleClick} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
       <div className="small-movie-card__image">
@@ -16,7 +16,7 @@ const CardView = (props) => {
       </h3>
     </article>
 
-  </>;
+  );
 };
 
 CardView.propTypes = cardViewProps;

@@ -8,7 +8,7 @@ const ReviewFormView = (props) => {
 
   const ratingValues = Array.from({length: RATINGS_COUNT}, (_, i) => i + 1);
 
-  return <>
+  return (
 
     <div className="add-review">
       <form action="#" className="add-review__form" onSubmit={handleSubmit}>
@@ -35,7 +35,7 @@ const ReviewFormView = (props) => {
       </form>
     </div>
 
-  </>;
+  );
 };
 
 ReviewFormView.propTypes = reviewFormViewProps;

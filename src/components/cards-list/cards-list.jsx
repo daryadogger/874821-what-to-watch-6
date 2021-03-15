@@ -44,11 +44,11 @@ const CardsList = (props) => {
     };
   }, [nextFilmId]);
 
-  return <>
+  return (
 
     <CardsListView idArray={favoriteFilms ? favoriteFilms : idArray.slice(0, count)} filmsUrl={filmsUrl} activeFilmId={activeFilmId} onActiveFilmChange={handleActiveFilmChange} isButtonHidden={!enableButton || count >= idArray.length} onShowMore={onShowMore} />
 
-  </>;
+  );
 };
 
 CardsList.propTypes = cardsListProps;

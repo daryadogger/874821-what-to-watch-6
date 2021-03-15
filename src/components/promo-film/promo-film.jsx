@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import Api from '../../api/api';
-import {ActionCreator} from '../../store/action';
+import {getPromoFilm} from '../../store/action';
 import PromoFilmView from '../promo-film/promo-film-view';
 import LoadingScreen from '../loading-screen/loading-screen';
 
@@ -17,7 +17,7 @@ const PromoFilm = () => {
     }
 
     api.loadPromoFilm().then((film) => {
-      dispatch(ActionCreator.getPromoFilm(film));
+      dispatch(getPromoFilm(film));
     });
   }, [loadedPromo]);
 
@@ -26,11 +26,11 @@ const PromoFilm = () => {
   }
 
 
-  return <>
+  return (
 
     <PromoFilmView promoFilm={promoFilm} />
 
-  </>;
+  );
 };
 
 export default PromoFilm;

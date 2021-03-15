@@ -4,7 +4,7 @@ import {useHistory} from 'react-router';
 import {useParams} from 'react-router';
 import Api from '../../api/api';
 import {useDispatch} from 'react-redux';
-import {ActionCreator} from '../../store/action';
+import {postComment} from '../../store/action';
 import {MAX_REVIEW_LENGTH, MIN_REVIEW_LENGTH} from '../../const';
 
 const ReviewForm = () => {
@@ -32,7 +32,7 @@ const ReviewForm = () => {
   const submit = () => {
     api.postReviewById(id, review)
       .then((data) => {
-        dispatch(ActionCreator.postComment(data));
+        dispatch(postComment(data));
         history.push(`/films/${id}`);
       })
     .catch((error) => {
@@ -54,11 +54,11 @@ const ReviewForm = () => {
   const setRating = (evt) => setReview({...review, rating: Number(evt.target.value)});
   const setComment = (evt) => setReview({...review, comment: evt.target.value});
 
-  return <>
+  return (
 
     <ReviewFormView handleSubmit={handleSubmit} setComment={setComment} setRating={setRating} rating={review.rating} comment={review.comment} errorMessage={errorMessage} isPostDisabled={isPostDisabled} isFormDisabled={isFormDisabled} />
 
-  </>;
+  );
 };
 
 export default ReviewForm;

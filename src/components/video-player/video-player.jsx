@@ -14,11 +14,11 @@ const VideoPlayer = (props) => {
     videoRef.current.load();
   }, [isActive, src]);
 
-  return <>
+  return (
 
     <video muted src={src} poster={posterImage} ref={videoRef} width={width} height={height} alt={alt}></video>
 
-  </>;
+  );
 };
 
 VideoPlayer.propTypes = videoPlayerProps;

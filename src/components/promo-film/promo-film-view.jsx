@@ -6,7 +6,7 @@ const PromoFilmView = (props) => {
   const {promoFilm} = props;
   const {name, genre, posterImage, backgroundImage, released} = promoFilm;
 
-  return <>
+  return (
 
     <section className="movie-card">
       <div className="movie-card__bg">
@@ -60,7 +60,7 @@ const PromoFilmView = (props) => {
       </div>
     </section>
 
-  </>;
+  );
 };
 
 PromoFilmView.propTypes = promoFIlmViewProps;

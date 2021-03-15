@@ -3,7 +3,7 @@ import {useDispatch} from 'react-redux';
 import {Link, Redirect, useHistory} from 'react-router-dom';
 import signInPageProps from './sign-in-page.prop';
 import Api from '../../api/api';
-import {ActionCreator} from '../../store/action';
+import {requiredAuthorization} from '../../store/action';
 import useAuthtorization from '../../api/use-authtorization';
 
 const SingInPage = () => {
@@ -26,7 +26,7 @@ const SingInPage = () => {
       password,
     })
       .then((data) => {
-        dispatch(ActionCreator.requiredAuthorization(data));
+        dispatch(requiredAuthorization(data));
         history.push(`/`);
       })
     .catch((error) => {
@@ -45,7 +45,7 @@ const SingInPage = () => {
     }
   };
 
-  return <>
+  return (
 
     <div className="user-page">
       <header className="page-header user-page__head">
@@ -117,7 +117,7 @@ const SingInPage = () => {
       </footer>
     </div>
 
-  </>;
+  );
 };
 
 SingInPage.propTypes = signInPageProps;

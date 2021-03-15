@@ -2,7 +2,7 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 
 const NotFoundPage = () => {
-  return <>
+  return (
 
     <div className="user-page">
       <header className="page-header user-page__head">
@@ -35,7 +35,7 @@ const NotFoundPage = () => {
       </footer>
     </div>
 
-  </>;
+  );
 };
 
 export default NotFoundPage;

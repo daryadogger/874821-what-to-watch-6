@@ -1,7 +1,7 @@
 import React from 'react';
 
 const PlayerPage = () => {
-  return <>
+  return (
 
     <div className="player">
       <video src="#" className="player__video" poster="img/player-poster.jpg"></video>
@@ -36,7 +36,7 @@ const PlayerPage = () => {
       </div>
     </div>
 
-  </>;
+  );
 };
 
 export default PlayerPage;
