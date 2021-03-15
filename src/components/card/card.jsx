@@ -38,4 +38,4 @@ const Card = (props) => {
 
 Card.propTypes = cardProps;
 
-export default Card;
+export default React.memo(Card);

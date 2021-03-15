@@ -42,4 +42,4 @@ const FilmReviews = () => {
   );
 };
 
-export default FilmReviews;
+export default React.memo(FilmReviews);

@@ -46,4 +46,4 @@ const FilmDetails = (props) => {
 
 FilmDetails.propTypes = filmDetailsProps;
 
-export default FilmDetails;
+export default React.memo(FilmDetails);
