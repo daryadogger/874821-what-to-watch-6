@@ -21,8 +21,8 @@ const selectContent = (tab) => {
 
 const FilmPage = () => {
   const {tab, id} = useParams();
-
-  const currentFilm = useSelector((state) => state.films.find((el) => el.id === Number(id)));
+  const numberId = Number(id);
+  const currentFilm = useSelector((state) => state.films.find((el) => el.id === numberId));
 
   const Content = selectContent(tab);
 

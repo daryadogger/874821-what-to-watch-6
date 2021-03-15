@@ -21,28 +21,28 @@ const SingInPage = () => {
   }
 
   const submit = () => {
-    if (email && password) {
-      api.login({
-        email,
-        password,
+    api.login({
+      email,
+      password,
+    })
+      .then((data) => {
+        dispatch(ActionCreator.requiredAuthorization(data));
+        history.push(`/`);
       })
-        .then((data) => {
-          dispatch(ActionCreator.requiredAuthorization(data));
-          history.push(`/`);
-        })
-      .catch((error) => {
-        setErrorMessage(error.message);
-      });
-      return;
-    }
-
-    setErrorMessage(`Please enter all inputs`);
+    .catch((error) => {
+      setErrorMessage(error.message);
+    });
+    return;
   };
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
 
-    submit();
+    if (email && password) {
+      submit();
+    } else {
+      setErrorMessage(`Please enter all inputs`);
+    }
   };
 
   return <>
