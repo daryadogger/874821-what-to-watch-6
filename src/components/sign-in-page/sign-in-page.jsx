@@ -1,8 +1,51 @@
-import React from 'react';
-import {Link} from 'react-router-dom';
+import React, {useState} from 'react';
+import {useDispatch} from 'react-redux';
+import {Link, Redirect, useHistory} from 'react-router-dom';
+import signInPageProps from './sign-in-page.prop';
+import Api from '../../api/api';
+import {requiredAuthorization} from '../../store/action';
+import useAuthtorization from '../../api/use-authtorization';
 
 const SingInPage = () => {
-  return <>
+  const history = useHistory();
+
+  const [email, setEmail] = useState(``);
+  const [password, setPassword] = useState(``);
+  const [errorMessage, setErrorMessage] = useState(``);
+
+  const api = new Api();
+  const dispatch = useDispatch();
+
+  if (useAuthtorization()) {
+    return <Redirect to={`/`} />;
+  }
+
+  const submit = () => {
+    api.login({
+      email,
+      password,
+    })
+      .then((data) => {
+        dispatch(requiredAuthorization(data));
+        history.push(`/`);
+      })
+    .catch((error) => {
+      setErrorMessage(error.message);
+    });
+    return;
+  };
+
+  const handleSubmit = (evt) => {
+    evt.preventDefault();
+
+    if (email && password) {
+      submit();
+    } else {
+      setErrorMessage(`Please enter all inputs`);
+    }
+  };
+
+  return (
 
     <div className="user-page">
       <header className="page-header user-page__head">
@@ -18,21 +61,45 @@ const SingInPage = () => {
       </header>
 
       <div className="sign-in user-page__content">
-        <htmlForm action="#" className="sign-in__htmlForm">
+        <form action="" className="sign-in__htmlForm" onSubmit={handleSubmit}>
+          {(errorMessage) ? (
+            <div className="sign-in__message">
+              <p>{errorMessage}</p>
+            </div>
+          ) : (null)}
           <div className="sign-in__fields">
             <div className="sign-in__field">
-              <input className="sign-in__input" type="email" placeholder="Email address" name="user-email" id="user-email" />
               <label className="sign-in__label visually-hidden" htmlFor="user-email">Email address</label>
+              <input
+                defaultValue={email}
+                onChange={(evt) => setEmail(evt.target.value)}
+                className="sign-in__input"
+                type="email"
+                placeholder="Email address"
+                name="user-email"
+                id="user-email"
+              />
             </div>
             <div className="sign-in__field">
-              <input className="sign-in__input" type="password" placeholder="Password" name="user-password" id="user-password" />
               <label className="sign-in__label visually-hidden" htmlFor="user-password">Password</label>
+              <input
+                defaultValue={password}
+                onChange={(evt) => setPassword(evt.target.value)}
+                className="sign-in__input"
+                type="password"
+                placeholder="Password"
+                name="user-password"
+                id="user-password"
+              />
             </div>
           </div>
           <div className="sign-in__submit">
-            <button className="sign-in__btn" type="submit">Sign in</button>
+            <button
+              className="sign-in__btn"
+              type="submit"
+            >Sign in</button>
           </div>
-        </htmlForm>
+        </form>
       </div>
 
       <footer className="page-footer">
@@ -50,7 +117,9 @@ const SingInPage = () => {
       </footer>
     </div>
 
-  </>;
+  );
 };
+
+SingInPage.propTypes = signInPageProps;
 
 export default SingInPage;

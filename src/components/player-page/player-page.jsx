@@ -1,42 +1,45 @@
-import React from 'react';
+import React, {useEffect, useRef, useState} from 'react';
+import {useSelector} from 'react-redux';
+import {Redirect, useParams} from 'react-router-dom';
+import PlayerPageView from './player-page-view';
 
 const PlayerPage = () => {
-  return <>
+  const {id} = useParams();
+  const numberId = Number(id);
+  const currentFilm = useSelector(({FILMS}) => FILMS.films.find((el) => el.id === numberId));
+  const loaded = typeof (currentFilm) !== `undefined`;
 
-    <div className="player">
-      <video src="#" className="player__video" poster="img/player-poster.jpg"></video>
+  if (!loaded) {
+    return <Redirect to={`/not-found-page`} />;
+  }
 
-      <button type="button" className="player__exit">Exit</button>
+  const {videoLink, backgroundImage, name} = currentFilm;
+  const videoRef = useRef();
 
-      <div className="player__controls">
-        <div className="player__controls-row">
-          <div className="player__time">
-            <progress className="player__progress" value="30" max="100"></progress>
-            <div className="player__toggler" style={{left: `30%`}}>Toggler</div>
-          </div>
-          <div className="player__time-value">1:30:29</div>
-        </div>
+  const [isPlaying, setIsPlaying] = useState(false);
 
-        <div className="player__controls-row">
-          <button type="button" className="player__play">
-            <svg viewBox="0 0 19 19" width="19" height="19">
-              <use xlinkHref="#play-s"></use>
-            </svg>
-            <span>Play</span>
-          </button>
-          <div className="player__name">Transpotting</div>
+  useEffect(() => {
+    if (isPlaying) {
+      videoRef.current.play();
+      return;
+    }
 
-          <button type="button" className="player__full-screen">
-            <svg viewBox="0 0 27 27" width="27" height="27">
-              <use xlinkHref="#full-screen"></use>
-            </svg>
-            <span>Full screen</span>
-          </button>
-        </div>
-      </div>
-    </div>
+    videoRef.current.pause();
+  }, [isPlaying]);
 
-  </>;
+  const handlePlayBtnClick = () => {
+    setIsPlaying(!isPlaying);
+  };
+
+  const handleFullScreenBtnClick = () => {
+    videoRef.current.requestFullscreen();
+  };
+
+  return (
+
+    <PlayerPageView id={numberId} name={name} videoLink={videoLink} videoRef={videoRef} backgroundImage={backgroundImage} handlePlayBtnClick={handlePlayBtnClick} isPlaying={isPlaying} handleFullScreenBtnClick={handleFullScreenBtnClick} />
+
+  );
 };
 
 export default PlayerPage;

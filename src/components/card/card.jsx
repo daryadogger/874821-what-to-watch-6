@@ -1,27 +1,41 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import {Link} from 'react-router-dom';
+import {useHistory} from 'react-router-dom';
+import cardProps from './card.prop';
+import CardView from './card-view';
+import VideoPlayer from '../video-player/video-player';
+import {shallowEqual, useSelector} from 'react-redux';
 
 const Card = (props) => {
-  const {src, name} = props;
+  const {id, to, onActiveFilmChange, isActive} = props;
 
-  return <>
+  const history = useHistory();
 
-    <article className="small-movie-card catalog__movies-card">
-      <div className="small-movie-card__image">
-        <img src={src} alt={name} width="280" height="175" />
-      </div>
-      <h3 className="small-movie-card__title">
-        <Link className="small-movie-card__link" to="/films/:id">{name}</Link>
-      </h3>
-    </article>
+  const film = useSelector(({FILMS}) => FILMS.films.find((el) => el.id === id), shallowEqual);
+  if (film === null) {
+    history.push(`/not-found-page`);
+  }
 
-  </>;
+  const handleClick = () => {
+    history.push(`/films/${id}`);
+  };
+
+  const handleMouseEnter = () => {
+    onActiveFilmChange(id);
+  };
+
+  const handleMouseLeave = () => {
+    onActiveFilmChange(null);
+  };
+
+  return (
+
+    <CardView film={film.name} to={to} handleClick={handleClick} handleMouseLeave={handleMouseLeave} handleMouseEnter={handleMouseEnter} id={id} >
+      <VideoPlayer isActive={isActive} src={film.previewVideoLink} posterImage={film.previewImage} width={280} height={175} alt={film.name} />
+    </CardView>
+
+  );
 };
 
-Card.propTypes = {
-  src: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired
-};
+Card.propTypes = cardProps;
 
-export default Card;
+export default React.memo(Card);
