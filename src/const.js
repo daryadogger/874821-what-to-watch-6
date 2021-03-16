@@ -1,5 +1,8 @@
 const RATINGS_COUNT = 10;
-const MIN_REVIEW_LENGTH = 50;
-const MAX_REVIEW_LENGTH = 400;
+const ReviewLength = {
+  MIN: 50,
+  MAX: 400
+};
+const SECONDS_IN_HOUR = 60;
 
-export {RATINGS_COUNT, MIN_REVIEW_LENGTH, MAX_REVIEW_LENGTH};
+export {RATINGS_COUNT, ReviewLength, SECONDS_IN_HOUR};

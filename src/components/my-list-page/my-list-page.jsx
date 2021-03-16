@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {Link} from 'react-router-dom';
 import Api from '../../api/api';
-import {ActionCreator} from '../../store/action';
+import {getFavoriteFilms} from '../../store/action';
 import CardsList from '../cards-list/cards-list';
 import User from '../user/user';
 
@@ -10,7 +10,7 @@ const MyListPage = () => {
   const genre = ``;
 
   const api = new Api();
-  const favoriteFilms = useSelector((state) => state.favoriteFilms);
+  const favoriteFilms = useSelector(({FAVORITES}) => FAVORITES.favoriteFilms);
   const loaded = favoriteFilms.length > 0;
   const dispatch = useDispatch();
 
@@ -20,7 +20,7 @@ const MyListPage = () => {
     }
 
     api.loadFavoriteFilms().then((films) => {
-      dispatch(ActionCreator.getFavoriteFilms(films));
+      dispatch(getFavoriteFilms(films));
     });
   }, [loaded]);
 
@@ -39,6 +39,7 @@ const MyListPage = () => {
         <h1 className="page-title user-page__title">My list</h1>
 
         <User />
+
       </header>
 
       <section className="catalog">

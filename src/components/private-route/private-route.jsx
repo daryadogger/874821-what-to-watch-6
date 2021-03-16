@@ -8,6 +8,7 @@ const PrivateRoute = (props) => {
   const authtorizationStatus = useAuthtorization();
 
   return (
+
     <Route
       path={path}
       exact={exact}
@@ -15,6 +16,7 @@ const PrivateRoute = (props) => {
         return (authtorizationStatus ? render(routeProps) : <Redirect to={`/login`} />);
       }}
     />
+
   );
 };
 

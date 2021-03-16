@@ -21,8 +21,9 @@ const selectContent = (tab) => {
 
 const FilmPage = () => {
   const {tab, id} = useParams();
-
-  const currentFilm = useSelector((state) => state.films.find((el) => el.id === Number(id)));
+  const numberId = Number(id);
+  const currentFilm = useSelector(({FILMS}) => FILMS.films.find((el) => el.id === numberId));
+  const {posterImage, backgroundImage, name, genre, released, isFavorite} = currentFilm;
 
   const Content = selectContent(tab);
 
@@ -30,13 +31,13 @@ const FilmPage = () => {
     return <Redirect to={`/not-found-page`} />;
   }
 
-  return <>
+  return (
 
-    <FilmPageFrame posterImage={currentFilm.posterImage} backgroundImage={currentFilm.backgroundImage} name={currentFilm.name} genre={currentFilm.genre} released={currentFilm.released} >
+    <FilmPageFrame posterImage={posterImage} backgroundImage={backgroundImage} name={name} genre={genre} released={released} isFavorite={isFavorite} >
       <Content currentFilm={currentFilm} />
     </FilmPageFrame>
 
-  </>;
+  );
 };
 
 export default FilmPage;

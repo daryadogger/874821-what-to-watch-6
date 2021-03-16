@@ -4,8 +4,8 @@ import {useHistory} from 'react-router';
 import {useParams} from 'react-router';
 import Api from '../../api/api';
 import {useDispatch} from 'react-redux';
-import {ActionCreator} from '../../store/action';
-import {MAX_REVIEW_LENGTH, MIN_REVIEW_LENGTH, RATINGS_COUNT} from '../../const';
+import {postComment} from '../../store/action';
+import {ReviewLength} from '../../const';
 
 const ReviewForm = () => {
   const history = useHistory();
@@ -14,33 +14,31 @@ const ReviewForm = () => {
   const dispatch = useDispatch();
 
   const [review, setReview] = useState({
-    rating: `${RATINGS_COUNT}`,
+    rating: 0,
     comment: ``,
   });
   const [errorMessage, setErrorMessage] = useState(``);
-  const [isPostDisabled, setIsPostDisabled] = useState(false);
+  const [isPostDisabled, setIsPostDisabled] = useState(true);
   const [isFormDisabled, setIsFormDisabled] = useState(false);
 
   useEffect(() => {
-    if (review.comment.length < MIN_REVIEW_LENGTH || review.comment.length > MAX_REVIEW_LENGTH) {
+    if (review.rating === 0 || review.comment.length < ReviewLength.MIN || review.comment.length > ReviewLength.MAX) {
       setIsPostDisabled(true);
     } else {
       setIsPostDisabled(false);
     }
-  }, [review.comment]);
+  }, [review]);
 
   const submit = () => {
-    if (review.rating && review.comment) {
-      api.postReviewById(id, review)
-        .then((data) => {
-          dispatch(ActionCreator.postComment(data));
-          history.push(`/films/${id}`);
-        })
-      .catch((error) => {
-        setErrorMessage(error.message);
-      });
-      return;
-    }
+    api.postReviewById(id, review)
+      .then((data) => {
+        dispatch(postComment(data));
+        history.push(`/films/${id}`);
+      })
+    .catch((error) => {
+      setErrorMessage(error.message);
+    });
+    return;
   };
 
   const handleSubmit = (evt) => {
@@ -48,17 +46,19 @@ const ReviewForm = () => {
 
     setIsFormDisabled(true);
 
-    submit();
+    if (review.rating && review.comment) {
+      submit();
+    }
   };
 
-  const setRating = (evt) => setReview({...review, rating: evt.target.value});
+  const setRating = (evt) => setReview({...review, rating: Number(evt.target.value)});
   const setComment = (evt) => setReview({...review, comment: evt.target.value});
 
-  return <>
+  return (
 
     <ReviewFormView handleSubmit={handleSubmit} setComment={setComment} setRating={setRating} rating={review.rating} comment={review.comment} errorMessage={errorMessage} isPostDisabled={isPostDisabled} isFormDisabled={isFormDisabled} />
 
-  </>;
+  );
 };
 
 export default ReviewForm;

@@ -1,13 +1,8 @@
 import {useSelector} from "react-redux";
 
 const useAuthtorization = () => {
-  const authorizationStatus = useSelector((state) => state.userProfile.id);
-
-  if (authorizationStatus) {
-    return true;
-  } else {
-    return false;
-  }
+  const authorizationStatus = useSelector(({USER}) => typeof USER.userProfile.id !== `undefined`);
+  return authorizationStatus;
 };
 
 export default useAuthtorization;

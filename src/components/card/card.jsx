@@ -1,5 +1,5 @@
 import React from 'react';
-import {Redirect} from 'react-router-dom';
+import {useHistory} from 'react-router-dom';
 import cardProps from './card.prop';
 import CardView from './card-view';
 import VideoPlayer from '../video-player/video-player';
@@ -8,10 +8,16 @@ import {shallowEqual, useSelector} from 'react-redux';
 const Card = (props) => {
   const {id, to, onActiveFilmChange, isActive} = props;
 
-  const film = useSelector((state) => state.films.find((el) => el.id === id), shallowEqual);
+  const history = useHistory();
+
+  const film = useSelector(({FILMS}) => FILMS.films.find((el) => el.id === id), shallowEqual);
   if (film === null) {
-    <Redirect to={`/not-found-page`} />;
+    history.push(`/not-found-page`);
   }
+
+  const handleClick = () => {
+    history.push(`/films/${id}`);
+  };
 
   const handleMouseEnter = () => {
     onActiveFilmChange(id);
@@ -21,15 +27,15 @@ const Card = (props) => {
     onActiveFilmChange(null);
   };
 
-  return <>
+  return (
 
-    <CardView film={film.name} to={to} handleMouseLeave={handleMouseLeave} handleMouseEnter={handleMouseEnter} id={id} >
+    <CardView film={film.name} to={to} handleClick={handleClick} handleMouseLeave={handleMouseLeave} handleMouseEnter={handleMouseEnter} id={id} >
       <VideoPlayer isActive={isActive} src={film.previewVideoLink} posterImage={film.previewImage} width={280} height={175} alt={film.name} />
     </CardView>
 
-  </>;
+  );
 };
 
 Card.propTypes = cardProps;
 
-export default Card;
+export default React.memo(Card);

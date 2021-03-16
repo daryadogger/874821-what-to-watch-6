@@ -6,6 +6,7 @@ const User = () => {
 
   if (useAuthtorization()) {
     return (
+
       <div className="user-block">
         <div className="user-block__avatar">
           <Link to={`/mylist`}>
@@ -13,12 +14,15 @@ const User = () => {
           </Link>
         </div>
       </div>
+
     );
   } else {
     return (
+
       <div className="user-block">
         <Link to={`/login`} className="user-block__link">Sign in</Link>
       </div>
+
     );
   }
 };

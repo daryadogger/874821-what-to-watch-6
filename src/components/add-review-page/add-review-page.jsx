@@ -7,14 +7,15 @@ import User from '../user/user';
 const AddReviewPage = () => {
   const {id} = useParams();
 
-  const currentFilm = useSelector((state) => state.films.find((el) => el.id === Number(id)));
+  const currentFilm = useSelector(({FILMS}) => FILMS.films.find((el) => el.id === Number(id)));
+  const {backgroundImage, name, posterImage} = currentFilm;
 
-  return <>
+  return (
 
     <section className="movie-card movie-card--full">
       <div className="movie-card__header">
         <div className="movie-card__bg">
-          <img src={currentFilm.backgroundImage} alt={currentFilm.name} />
+          <img src={backgroundImage} alt={name} />
         </div>
 
         <h1 className="visually-hidden">WTW</h1>
@@ -31,7 +32,7 @@ const AddReviewPage = () => {
           <nav className="breadcrumbs">
             <ul className="breadcrumbs__list">
               <li className="breadcrumbs__item">
-                <Link to="/films/:id" className="breadcrumbs__link">{currentFilm.name}</Link>
+                <Link to={`/films/${id}`} className="breadcrumbs__link">{name}</Link>
               </li>
               <li className="breadcrumbs__item">
                 <a className="breadcrumbs__link">Add review</a>
@@ -44,7 +45,7 @@ const AddReviewPage = () => {
         </header>
 
         <div className="movie-card__poster movie-card__poster--small">
-          <img src={currentFilm.posterImage} alt={currentFilm.name} width="218" height="327" />
+          <img src={posterImage} alt={name} width="218" height="327" />
         </div>
       </div>
 
@@ -52,7 +53,7 @@ const AddReviewPage = () => {
 
     </section>
 
-  </>;
+  );
 };
 
 export default AddReviewPage;

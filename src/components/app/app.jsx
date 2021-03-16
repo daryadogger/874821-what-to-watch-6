@@ -9,17 +9,17 @@ import PlayerPage from '../player-page/player-page';
 import NotFoundPage from '../not-found-page/not-found-page';
 import {useSelector, useStore} from 'react-redux';
 import Api from '../../api/api';
-import {ActionCreator} from '../../store/action';
+import {getFilmsList, requiredAuthorization} from '../../store/action';
 import {useDispatch} from 'react-redux';
 import LoadingScreen from '../loading-screen/loading-screen';
 import PrivateRoute from '../private-route/private-route';
 import browserHistory from '../../browser-history';
 
-const authSelector = (state) => state.userProfile.id;
+const authSelector = ({USER}) => USER.userProfile.id;
 
 const App = () => {
   const api = new Api();
-  const loaded = useSelector((state) => state.films.length > 0);
+  const loaded = useSelector(({FILMS}) => FILMS.films.length > 0);
   const userStatus = useSelector(authSelector);
 
   const dispatch = useDispatch();
@@ -30,7 +30,7 @@ const App = () => {
     }
 
     api.loadFilms().then((films) => {
-      dispatch(ActionCreator.getFilmsList(films));
+      dispatch(getFilmsList(films));
     });
   }, [loaded]);
 
@@ -42,7 +42,7 @@ const App = () => {
         const currentStatus = authSelector(store.getState());
 
         if (status !== currentStatus) {
-          dispatch(ActionCreator.requiredAuthorization(status));
+          dispatch(requiredAuthorization(status));
         }
       });
     // .catch((error) => {

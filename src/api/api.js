@@ -106,10 +106,9 @@ class Api {
       headers: {
         'Content-Type': `application/json`
       },
-      body: JSON.stringify(status)
+      body: JSON.stringify({id, status})
     });
-    const data = await this.processResponse(rs);
-    return data;
+    return await this.processResponse(rs);
   }
 
   async loadReviewsById(id) {
@@ -130,14 +129,12 @@ class Api {
       },
       body: JSON.stringify(comment)
     });
-    const data = await this.processResponse(rs);
-    return data;
+    return await this.processResponse(rs);
   }
 
   async checkAuth() {
     const rs = await this.fetchWithTimeout(`${this.baseUrl}/login`);
-    const data = await this.processResponse(rs);
-    return data;
+    return await this.processResponse(rs);
   }
 
   async login(user) {
@@ -148,14 +145,12 @@ class Api {
       },
       body: JSON.stringify(user)
     });
-    const data = await this.processResponse(rs);
-    return data;
+    return await this.processResponse(rs);
   }
 
   async logout() {
     const rs = await this.fetchWithTimeout(`${this.baseUrl}/logout`);
-    const data = await this.processResponse(rs);
-    return data;
+    return await this.processResponse(rs);
   }
 }
 

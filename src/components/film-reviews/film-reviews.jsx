@@ -2,14 +2,14 @@ import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {useParams} from 'react-router';
 import Api from '../../api/api';
-import {ActionCreator} from '../../store/action';
+import {getCommentsById} from '../../store/action';
 import FilmReviewItem from '../film-review-item/film-review-item';
 import LoadingScreen from '../loading-screen/loading-screen';
 
 const FilmReviews = () => {
   const api = new Api();
   const {id} = useParams();
-  const reviews = useSelector((state) => state.comments[id]);
+  const reviews = useSelector(({COMMENTS}) => COMMENTS.comments[id]);
 
   const loaded = Array.isArray(reviews);
   const dispatch = useDispatch();
@@ -20,7 +20,7 @@ const FilmReviews = () => {
     }
 
     api.loadReviewsById(id).then((comments) => {
-      dispatch(ActionCreator.getCommentsById({[id]: comments}));
+      dispatch(getCommentsById({[id]: comments}));
     });
 
   }, [loaded]);
@@ -29,17 +29,17 @@ const FilmReviews = () => {
     return <LoadingScreen />;
   }
 
-  return <>
+  return (
 
     <div className="movie-card__reviews movie-card__row">
       <div className="movie-card__reviews-col">
 
-        {reviews.map((review) => <FilmReviewItem key={review.id} comment={review.comment} user={review.user} date={review.date} rating={review.rating} />)}
+        {reviews.map((review) => <FilmReviewItem key={`review-${review.id}`} comment={review.comment} user={review.user} date={review.date} rating={review.rating} />)}
 
       </div>
     </div>
 
-  </>;
+  );
 };
 
-export default FilmReviews;
+export default React.memo(FilmReviews);

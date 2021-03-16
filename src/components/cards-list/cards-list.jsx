@@ -9,7 +9,13 @@ const CardsList = (props) => {
   const {genre, enableButton, initialCount, isUpperCase, currentFilmId, favoriteFilms} = props;
 
   const filmsUrl = `/films`;
-  let idArray = useSelector((state) => state.films.filter((film) => genre === `` || (isUpperCase ? film.genre === genre : film.genre.toLowerCase() === genre)).map((film) => film.id), shallowEqual);
+  let idArray = useSelector(({FILMS}) => FILMS.films.filter((film) => genre === `` || (isUpperCase ? film.genre === genre : film.genre.toLowerCase() === genre)).map((film) => film.id), shallowEqual);
+
+  let favoriteIdArray = [];
+
+  if (favoriteFilms) {
+    favoriteIdArray = favoriteFilms.map((film) => film.id);
+  }
 
   if (currentFilmId) {
     idArray = idArray.filter((id) => {
@@ -44,13 +50,13 @@ const CardsList = (props) => {
     };
   }, [nextFilmId]);
 
-  return <>
+  return (
 
-    <CardsListView idArray={favoriteFilms ? favoriteFilms : idArray.slice(0, count)} filmsUrl={filmsUrl} activeFilmId={activeFilmId} onActiveFilmChange={handleActiveFilmChange} isButtonHidden={!enableButton || count >= idArray.length} onShowMore={onShowMore} />
+    <CardsListView idArray={favoriteFilms ? favoriteIdArray : idArray.slice(0, count)} filmsUrl={filmsUrl} activeFilmId={activeFilmId} onActiveFilmChange={handleActiveFilmChange} isButtonHidden={!enableButton || count >= idArray.length} onShowMore={onShowMore} />
 
-  </>;
+  );
 };
 
 CardsList.propTypes = cardsListProps;
 
-export default CardsList;
+export default React.memo(CardsList);

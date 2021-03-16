@@ -3,7 +3,7 @@ import {useDispatch} from 'react-redux';
 import {Link, Redirect, useHistory} from 'react-router-dom';
 import signInPageProps from './sign-in-page.prop';
 import Api from '../../api/api';
-import {ActionCreator} from '../../store/action';
+import {requiredAuthorization} from '../../store/action';
 import useAuthtorization from '../../api/use-authtorization';
 
 const SingInPage = () => {
@@ -21,31 +21,31 @@ const SingInPage = () => {
   }
 
   const submit = () => {
-    if (email && password) {
-      api.login({
-        email,
-        password,
+    api.login({
+      email,
+      password,
+    })
+      .then((data) => {
+        dispatch(requiredAuthorization(data));
+        history.push(`/`);
       })
-        .then((data) => {
-          dispatch(ActionCreator.requiredAuthorization(data));
-          history.push(`/`);
-        })
-      .catch((error) => {
-        setErrorMessage(error.message);
-      });
-      return;
-    }
-
-    setErrorMessage(`Please enter all inputs`);
+    .catch((error) => {
+      setErrorMessage(error.message);
+    });
+    return;
   };
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
 
-    submit();
+    if (email && password) {
+      submit();
+    } else {
+      setErrorMessage(`Please enter all inputs`);
+    }
   };
 
-  return <>
+  return (
 
     <div className="user-page">
       <header className="page-header user-page__head">
@@ -117,7 +117,7 @@ const SingInPage = () => {
       </footer>
     </div>
 
-  </>;
+  );
 };
 
 SingInPage.propTypes = signInPageProps;

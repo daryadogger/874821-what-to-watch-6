@@ -1,13 +1,13 @@
 import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import Api from '../../api/api';
-import {ActionCreator} from '../../store/action';
+import {getPromoFilm} from '../../store/action';
 import PromoFilmView from '../promo-film/promo-film-view';
 import LoadingScreen from '../loading-screen/loading-screen';
 
 const PromoFilm = () => {
   const api = new Api();
-  const promoFilm = useSelector((state) => state.promoFilm);
+  const promoFilm = useSelector(({PROMO}) => PROMO.promoFilm);
   const loadedPromo = Object.keys(promoFilm).length !== 0;
   const dispatch = useDispatch();
 
@@ -17,7 +17,7 @@ const PromoFilm = () => {
     }
 
     api.loadPromoFilm().then((film) => {
-      dispatch(ActionCreator.getPromoFilm(film));
+      dispatch(getPromoFilm(film));
     });
   }, [loadedPromo]);
 
@@ -25,12 +25,11 @@ const PromoFilm = () => {
     return <LoadingScreen />;
   }
 
-
-  return <>
+  return (
 
     <PromoFilmView promoFilm={promoFilm} />
 
-  </>;
+  );
 };
 
 export default PromoFilm;
