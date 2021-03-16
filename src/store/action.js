@@ -4,7 +4,8 @@ export const ActionType = {
   GET_PROMO_FILM: `main/getPromoFilm`,
   REQUIRED_AUTHORIZATION: `user/requiredAuthorization`,
   GET_FAVORITE_FILMS: `myList/getFavoriteFilms`,
-  POST_COOMENT: `addReview/postComment`
+  POST_COOMENT: `addReview/postComment`,
+  CHANGE_FAVORITE_STATUS: `myList/changeFavoriteStatus`
 };
 
 export const getFilmsList = (payload) => ({
@@ -34,5 +35,10 @@ export const getFavoriteFilms = (payload) => ({
 
 export const postComment = (payload) => ({
   type: ActionType.POST_COOMENT,
+  payload
+});
+
+export const changeFavoriteStatus = (payload) => ({
+  type: ActionType.CHANGE_FAVORITE_STATUS,
   payload
 });

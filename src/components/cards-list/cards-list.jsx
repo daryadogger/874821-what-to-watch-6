@@ -11,6 +11,12 @@ const CardsList = (props) => {
   const filmsUrl = `/films`;
   let idArray = useSelector((state) => state.films.filter((film) => genre === `` || (isUpperCase ? film.genre === genre : film.genre.toLowerCase() === genre)).map((film) => film.id), shallowEqual);
 
+  let favoriteIdArray = [];
+
+  if (favoriteFilms) {
+    favoriteIdArray = favoriteFilms.map((film) => film.id);
+  }
+
   if (currentFilmId) {
     idArray = idArray.filter((id) => {
       return id !== currentFilmId;
@@ -46,7 +52,7 @@ const CardsList = (props) => {
 
   return (
 
-    <CardsListView idArray={favoriteFilms ? favoriteFilms : idArray.slice(0, count)} filmsUrl={filmsUrl} activeFilmId={activeFilmId} onActiveFilmChange={handleActiveFilmChange} isButtonHidden={!enableButton || count >= idArray.length} onShowMore={onShowMore} />
+    <CardsListView idArray={favoriteFilms ? favoriteIdArray : idArray.slice(0, count)} filmsUrl={filmsUrl} activeFilmId={activeFilmId} onActiveFilmChange={handleActiveFilmChange} isButtonHidden={!enableButton || count >= idArray.length} onShowMore={onShowMore} />
 
   );
 };

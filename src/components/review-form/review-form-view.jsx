@@ -1,7 +1,7 @@
 import React from 'react';
 import reviewFormViewProps from './review-form-view.prop';
 import RatingInput from '../rating-input/rating-input';
-import {MAX_REVIEW_LENGTH, MIN_REVIEW_LENGTH, RATINGS_COUNT} from '../../const';
+import {RATINGS_COUNT, ReviewLength} from '../../const';
 
 const ReviewFormView = (props) => {
   const {comment, handleSubmit, setRating, setComment, errorMessage, isPostDisabled, isFormDisabled} = props;
@@ -27,7 +27,7 @@ const ReviewFormView = (props) => {
         </div>
 
         <div className="add-review__text">
-          <textarea className="add-review__textarea" name="review-text" id="review-text" placeholder="Review text" onChange={setComment} defaultValue={comment} minLength={MIN_REVIEW_LENGTH} maxLength={MAX_REVIEW_LENGTH} disabled={isFormDisabled}></textarea>
+          <textarea className="add-review__textarea" name="review-text" id="review-text" placeholder="Review text" onChange={setComment} defaultValue={comment} minLength={ReviewLength.MIN} maxLength={ReviewLength.MAX} disabled={isFormDisabled}></textarea>
           <div className="add-review__submit">
             <button className="add-review__btn" type="submit" disabled={isPostDisabled || isFormDisabled}>Post</button>
           </div>

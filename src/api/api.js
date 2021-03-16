@@ -106,7 +106,7 @@ class Api {
       headers: {
         'Content-Type': `application/json`
       },
-      body: JSON.stringify(status)
+      body: JSON.stringify({id, status})
     });
     return await this.processResponse(rs);
   }

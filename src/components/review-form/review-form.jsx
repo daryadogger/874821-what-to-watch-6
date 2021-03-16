@@ -5,7 +5,7 @@ import {useParams} from 'react-router';
 import Api from '../../api/api';
 import {useDispatch} from 'react-redux';
 import {postComment} from '../../store/action';
-import {MAX_REVIEW_LENGTH, MIN_REVIEW_LENGTH} from '../../const';
+import {ReviewLength} from '../../const';
 
 const ReviewForm = () => {
   const history = useHistory();
@@ -22,7 +22,7 @@ const ReviewForm = () => {
   const [isFormDisabled, setIsFormDisabled] = useState(false);
 
   useEffect(() => {
-    if (review.rating === 0 || review.comment.length < MIN_REVIEW_LENGTH || review.comment.length > MAX_REVIEW_LENGTH) {
+    if (review.rating === 0 || review.comment.length < ReviewLength.MIN || review.comment.length > ReviewLength.MAX) {
       setIsPostDisabled(true);
     } else {
       setIsPostDisabled(false);

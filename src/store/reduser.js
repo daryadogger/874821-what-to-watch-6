@@ -6,6 +6,7 @@ const initialState = {
   comments: {},
   promoFilm: {},
   favoriteFilms: [],
+  favoriteStatus: {},
   userProfile: {},
   postedComment: {}
 };
@@ -46,6 +47,12 @@ const reduser = (state = initialState, action) => {
       return {
         ...state,
         postedComment: action.payload
+      };
+
+    case ActionType.CHANGE_FAVORITE_STATUS:
+      return {
+        ...state,
+        favoriteStatus: action.payload
       };
 
     default:

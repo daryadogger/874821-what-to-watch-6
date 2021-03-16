@@ -39,6 +39,7 @@ const MyListPage = () => {
         <h1 className="page-title user-page__title">My list</h1>
 
         <User />
+
       </header>
 
       <section className="catalog">

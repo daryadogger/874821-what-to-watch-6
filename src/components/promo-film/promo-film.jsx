@@ -25,7 +25,6 @@ const PromoFilm = () => {
     return <LoadingScreen />;
   }
 
-
   return (
 
     <PromoFilmView promoFilm={promoFilm} />

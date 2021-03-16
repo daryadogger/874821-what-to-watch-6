@@ -1,10 +1,12 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
+import FavoriteButton from '../favorite-button/favorite-button';
 import User from '../user/user';
 import promoFIlmViewProps from './promo-film-view.prop';
 
 const PromoFilmView = (props) => {
   const {promoFilm} = props;
-  const {name, genre, posterImage, backgroundImage, released} = promoFilm;
+  const {name, genre, posterImage, backgroundImage, released, id, isFavorite} = promoFilm;
 
   return (
 
@@ -42,18 +44,15 @@ const PromoFilmView = (props) => {
             </p>
 
             <div className="movie-card__buttons">
-              <button className="btn btn--play movie-card__button" type="button">
+              <Link to={`/player/${id}`} className="btn btn--play movie-card__button">
                 <svg viewBox="0 0 19 19" width="19" height="19">
                   <use xlinkHref="#play-s"></use>
                 </svg>
                 <span>Play</span>
-              </button>
-              <button className="btn btn--list movie-card__button" type="button">
-                <svg viewBox="0 0 19 20" width="19" height="20">
-                  <use xlinkHref="#add"></use>
-                </svg>
-                <span>My list</span>
-              </button>
+              </Link>
+
+              <FavoriteButton isFavorite={isFavorite} id={id} />
+
             </div>
           </div>
         </div>
