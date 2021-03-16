@@ -6,7 +6,7 @@ import PlayerPageView from './player-page-view';
 const PlayerPage = () => {
   const {id} = useParams();
   const numberId = Number(id);
-  const currentFilm = useSelector((state) => state.films.find((el) => el.id === numberId));
+  const currentFilm = useSelector(({FILMS}) => FILMS.films.find((el) => el.id === numberId));
   const loaded = typeof (currentFilm) !== `undefined`;
 
   if (!loaded) {

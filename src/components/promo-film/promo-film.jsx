@@ -7,7 +7,7 @@ import LoadingScreen from '../loading-screen/loading-screen';
 
 const PromoFilm = () => {
   const api = new Api();
-  const promoFilm = useSelector((state) => state.promoFilm);
+  const promoFilm = useSelector(({PROMO}) => PROMO.promoFilm);
   const loadedPromo = Object.keys(promoFilm).length !== 0;
   const dispatch = useDispatch();
 

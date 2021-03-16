@@ -10,7 +10,7 @@ const GenresListView = (props) => {
     <ul className="catalog__genres-list">
       <GenreItem label={`All genres`} to={`/`} active={genre === ``} />
 
-      {genresArray.map((label) => <GenreItem key={label} label={label} to={`/catalog/${label.toLowerCase()}`} active={genre === label.toLowerCase()} />)}
+      {genresArray.map((label) => <GenreItem key={`genre-${label}`} label={label} to={`/catalog/${label.toLowerCase()}`} active={genre === label.toLowerCase()} />)}
 
     </ul>
 

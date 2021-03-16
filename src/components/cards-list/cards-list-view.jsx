@@ -9,7 +9,7 @@ const CardsListView = (props) => {
   return <>
 
     <div className="catalog__movies-list">
-      {idArray.map((id) => <Card key={id} id={id} to={`${filmsUrl}/${id}`} onActiveFilmChange={onActiveFilmChange} isActive={id === activeFilmId} />)}
+      {idArray.map((id) => <Card key={`card-${id}`} id={id} to={`${filmsUrl}/${id}`} onActiveFilmChange={onActiveFilmChange} isActive={id === activeFilmId} />)}
     </div>
 
     <BtnShowMore onShowMore={onShowMore} isHidden={isButtonHidden} />

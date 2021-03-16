@@ -10,7 +10,7 @@ const MyListPage = () => {
   const genre = ``;
 
   const api = new Api();
-  const favoriteFilms = useSelector((state) => state.favoriteFilms);
+  const favoriteFilms = useSelector(({FAVORITES}) => FAVORITES.favoriteFilms);
   const loaded = favoriteFilms.length > 0;
   const dispatch = useDispatch();
 

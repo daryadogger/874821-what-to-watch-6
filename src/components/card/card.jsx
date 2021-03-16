@@ -10,7 +10,7 @@ const Card = (props) => {
 
   const history = useHistory();
 
-  const film = useSelector((state) => state.films.find((el) => el.id === id), shallowEqual);
+  const film = useSelector(({FILMS}) => FILMS.films.find((el) => el.id === id), shallowEqual);
   if (film === null) {
     history.push(`/not-found-page`);
   }

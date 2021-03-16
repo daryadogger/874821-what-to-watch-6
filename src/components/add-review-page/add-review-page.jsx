@@ -7,7 +7,7 @@ import User from '../user/user';
 const AddReviewPage = () => {
   const {id} = useParams();
 
-  const currentFilm = useSelector((state) => state.films.find((el) => el.id === Number(id)));
+  const currentFilm = useSelector(({FILMS}) => FILMS.films.find((el) => el.id === Number(id)));
   const {backgroundImage, name, posterImage} = currentFilm;
 
   return (

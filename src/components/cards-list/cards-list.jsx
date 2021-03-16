@@ -9,7 +9,7 @@ const CardsList = (props) => {
   const {genre, enableButton, initialCount, isUpperCase, currentFilmId, favoriteFilms} = props;
 
   const filmsUrl = `/films`;
-  let idArray = useSelector((state) => state.films.filter((film) => genre === `` || (isUpperCase ? film.genre === genre : film.genre.toLowerCase() === genre)).map((film) => film.id), shallowEqual);
+  let idArray = useSelector(({FILMS}) => FILMS.films.filter((film) => genre === `` || (isUpperCase ? film.genre === genre : film.genre.toLowerCase() === genre)).map((film) => film.id), shallowEqual);
 
   let favoriteIdArray = [];
 

@@ -15,11 +15,11 @@ import LoadingScreen from '../loading-screen/loading-screen';
 import PrivateRoute from '../private-route/private-route';
 import browserHistory from '../../browser-history';
 
-const authSelector = (state) => state.userProfile.id;
+const authSelector = ({USER}) => USER.userProfile.id;
 
 const App = () => {
   const api = new Api();
-  const loaded = useSelector((state) => state.films.length > 0);
+  const loaded = useSelector(({FILMS}) => FILMS.films.length > 0);
   const userStatus = useSelector(authSelector);
 
   const dispatch = useDispatch();

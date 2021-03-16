@@ -9,7 +9,7 @@ import LoadingScreen from '../loading-screen/loading-screen';
 const FilmReviews = () => {
   const api = new Api();
   const {id} = useParams();
-  const reviews = useSelector((state) => state.comments[id]);
+  const reviews = useSelector(({COMMENTS}) => COMMENTS.comments[id]);
 
   const loaded = Array.isArray(reviews);
   const dispatch = useDispatch();
@@ -34,7 +34,7 @@ const FilmReviews = () => {
     <div className="movie-card__reviews movie-card__row">
       <div className="movie-card__reviews-col">
 
-        {reviews.map((review) => <FilmReviewItem key={review.id} comment={review.comment} user={review.user} date={review.date} rating={review.rating} />)}
+        {reviews.map((review) => <FilmReviewItem key={`review-${review.id}`} comment={review.comment} user={review.user} date={review.date} rating={review.rating} />)}
 
       </div>
     </div>

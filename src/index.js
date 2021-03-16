@@ -4,10 +4,10 @@ import {createStore} from 'redux';
 import {Provider} from 'react-redux';
 import {composeWithDevTools} from 'redux-devtools-extension';
 import App from './components/app/app';
-import {reduser} from './store/reduser';
+import rootReduser from './store/root-reduser';
 
 const store = createStore(
-    reduser,
+    rootReduser,
     composeWithDevTools()
 );
 
