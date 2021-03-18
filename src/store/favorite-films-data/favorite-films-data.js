@@ -2,7 +2,6 @@ import {ActionType} from '../action';
 
 const initialState = {
   favoriteFilms: [],
-  favoriteStatus: {},
 };
 
 const favoriteFilmsData = (state = initialState, action) => {
@@ -11,12 +10,6 @@ const favoriteFilmsData = (state = initialState, action) => {
       return {
         ...state,
         favoriteFilms: action.payload
-      };
-
-    case ActionType.CHANGE_FAVORITE_STATUS:
-      return {
-        ...state,
-        favoriteStatus: action.payload
       };
 
     default:

@@ -12,6 +12,12 @@ const filmsData = (state = initialState, action) => {
         films: action.payload
       };
 
+    case ActionType.CHANGE_FAVORITE_STATUS:
+      return {
+        ...state,
+        films: {...state.films, ...action.payload}
+      };
+
     default:
       return state;
   }

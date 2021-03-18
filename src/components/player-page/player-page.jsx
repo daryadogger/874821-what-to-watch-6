@@ -3,6 +3,12 @@ import {useSelector} from 'react-redux';
 import {Redirect, useParams} from 'react-router-dom';
 import PlayerPageView from './player-page-view';
 
+const TOGGLER_WIDTH = 17;
+const MouseEvents = {
+  MOVE: `mousemove`,
+  UP: `mouseup`
+};
+
 const PlayerPage = () => {
   const {id} = useParams();
   const numberId = Number(id);
@@ -16,7 +22,10 @@ const PlayerPage = () => {
   const {videoLink, backgroundImage, name} = currentFilm;
   const videoRef = useRef();
 
-  const [isPlaying, setIsPlaying] = useState(false);
+  const indent = 130;
+
+  const [isPlaying, setIsPlaying] = useState(true);
+  const [isProgress, setIsProgress] = useState(0);
 
   useEffect(() => {
     if (isPlaying) {
@@ -35,9 +44,43 @@ const PlayerPage = () => {
     videoRef.current.requestFullscreen();
   };
 
+  const handleProgressClick = (evt) => {
+    const mousePosX = evt.clientX - TOGGLER_WIDTH;
+    const progressBarWidth = window.screen.availWidth - indent;
+    const mousePosPersent = (mousePosX * 100) / progressBarWidth;
+    const filmDuration = Math.round(videoRef.current.duration);
+
+    setIsProgress(Math.floor(mousePosPersent));
+    videoRef.current.currentTime = (mousePosPersent * filmDuration / 100);
+  };
+
+  const onMouseMoveHandler = (evt) => {
+    evt.preventDefault();
+
+    handleProgressClick(evt);
+  };
+
+  const onMouseUpHandler = (evt) => {
+    evt.preventDefault();
+
+    handleProgressClick(evt);
+    document.removeEventListener(MouseEvents.MOVE, onMouseMoveHandler);
+    document.removeEventListener(MouseEvents.UP, onMouseUpHandler);
+  };
+
+  const handleTogglerMove = (evt) => {
+    evt.preventDefault();
+
+    document.addEventListener(MouseEvents.MOVE, onMouseMoveHandler);
+    document.addEventListener(MouseEvents.UP, onMouseUpHandler);
+  };
+
   return (
 
-    <PlayerPageView id={numberId} name={name} videoLink={videoLink} videoRef={videoRef} backgroundImage={backgroundImage} handlePlayBtnClick={handlePlayBtnClick} isPlaying={isPlaying} handleFullScreenBtnClick={handleFullScreenBtnClick} />
+    <PlayerPageView id={numberId} name={name} videoLink={videoLink} videoRef={videoRef}
+      backgroundImage={backgroundImage} onPlayBtnClickHandler={handlePlayBtnClick} isPlaying={isPlaying}
+      onFullScreenBtnClickHandler={handleFullScreenBtnClick} onProgressClickHandler={handleProgressClick}
+      progress={isProgress} onTogglerMoveHandler={handleTogglerMove} />
 
   );
 };

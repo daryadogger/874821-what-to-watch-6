@@ -1,11 +1,11 @@
 export const ActionType = {
-  GET_FILMS_LIST: `main/getFilmsList`,
+  GET_FILMS_LIST: `app/getFilmsList`,
   GET_COMMENTS_BY_ID: `film-page/getComments`,
   GET_PROMO_FILM: `main/getPromoFilm`,
   REQUIRED_AUTHORIZATION: `user/requiredAuthorization`,
   GET_FAVORITE_FILMS: `myList/getFavoriteFilms`,
   POST_COOMENT: `addReview/postComment`,
-  CHANGE_FAVORITE_STATUS: `myList/changeFavoriteStatus`
+  CHANGE_FAVORITE_STATUS: `app/changeFavoriteStatus`
 };
 
 export const getFilmsList = (payload) => ({

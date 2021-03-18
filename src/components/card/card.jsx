@@ -15,6 +15,8 @@ const Card = (props) => {
     history.push(`/not-found-page`);
   }
 
+  const {name, previewVideoLink, previewImage} = film;
+
   const handleClick = () => {
     history.push(`/films/${id}`);
   };
@@ -29,8 +31,8 @@ const Card = (props) => {
 
   return (
 
-    <CardView film={film.name} to={to} handleClick={handleClick} handleMouseLeave={handleMouseLeave} handleMouseEnter={handleMouseEnter} id={id} >
-      <VideoPlayer isActive={isActive} src={film.previewVideoLink} posterImage={film.previewImage} width={280} height={175} alt={film.name} />
+    <CardView film={name} to={to} onClickHandler={handleClick} onMouseLeaveHandler={handleMouseLeave} onMouseEnterHandler={handleMouseEnter} id={id} >
+      <VideoPlayer isActive={isActive} src={previewVideoLink} posterImage={previewImage} width={280} height={175} alt={name} />
     </CardView>
 
   );

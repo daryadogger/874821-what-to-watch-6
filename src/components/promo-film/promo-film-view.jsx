@@ -6,7 +6,7 @@ import promoFIlmViewProps from './promo-film-view.prop';
 
 const PromoFilmView = (props) => {
   const {promoFilm} = props;
-  const {name, genre, posterImage, backgroundImage, released, id, isFavorite} = promoFilm;
+  const {name, genre, posterImage, backgroundImage, released, id} = promoFilm;
 
   return (
 
@@ -51,7 +51,7 @@ const PromoFilmView = (props) => {
                 <span>Play</span>
               </Link>
 
-              <FavoriteButton isFavorite={isFavorite} id={id} />
+              <FavoriteButton id={id} />
 
             </div>
           </div>

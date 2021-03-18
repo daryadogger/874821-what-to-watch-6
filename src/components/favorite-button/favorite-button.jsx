@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import Api from '../../api/api';
 import getButtonsIcon from '../../api/get-buttons-icon';
 import {changeFavoriteStatus} from '../../store/action';
@@ -11,7 +11,9 @@ const FavoriteStatus = {
 };
 
 const FavoriteButton = (props) => {
-  const {isFavorite, id} = props;
+  const {id} = props;
+
+  const isFavorite = useSelector(({FILMS}) => FILMS.films.find((el) => el.id === id).isFavorite);
 
   const api = new Api();
   const dispatch = useDispatch();
@@ -20,7 +22,7 @@ const FavoriteButton = (props) => {
   const changeStatus = (filmId, status) => {
     api.postFavoriteFilm(filmId, status)
       .then((data) => {
-        dispatch(changeFavoriteStatus(data));
+        dispatch(changeFavoriteStatus(data.id, status));
       });
     // .catch((error) => {
     //   setErrorMessage(error.message);
@@ -29,7 +31,7 @@ const FavoriteButton = (props) => {
     return;
   };
 
-  const handleClick = () => {
+  const handleBtnClick = () => {
     const newStatus = isFavorite ? FavoriteStatus.NOT_FAVORITE : FavoriteStatus.FAVOURITE;
     changeStatus(id, newStatus);
 
@@ -38,7 +40,7 @@ const FavoriteButton = (props) => {
 
   return (
 
-    <button onClick={handleClick} className="btn btn--list movie-card__button" type="button">
+    <button onClick={handleBtnClick} className="btn btn--list movie-card__button" type="button">
       {icon}
       <span>My list</span>
     </button>

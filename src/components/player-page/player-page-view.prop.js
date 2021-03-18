@@ -6,9 +6,12 @@ const playerPageViewProps = {
   videoLink: PropTypes.string.isRequired,
   videoRef: PropTypes.object.isRequired,
   backgroundImage: PropTypes.string.isRequired,
-  handlePlayBtnClick: PropTypes.func.isRequired,
+  onPlayBtnClickHandler: PropTypes.func.isRequired,
   isPlaying: PropTypes.bool.isRequired,
-  handleFullScreenBtnClick: PropTypes.func.isRequired,
+  onFullScreenBtnClickHandler: PropTypes.func.isRequired,
+  onProgressClickHandler: PropTypes.func.isRequired,
+  progress: PropTypes.number.isRequired,
+  onTogglerMoveHandler: PropTypes.func.isRequired,
 };
 
 export default playerPageViewProps;

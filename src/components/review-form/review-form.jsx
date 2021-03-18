@@ -56,7 +56,7 @@ const ReviewForm = () => {
 
   return (
 
-    <ReviewFormView handleSubmit={handleSubmit} setComment={setComment} setRating={setRating} rating={review.rating} comment={review.comment} errorMessage={errorMessage} isPostDisabled={isPostDisabled} isFormDisabled={isFormDisabled} />
+    <ReviewFormView onSubmitHandler={handleSubmit} setComment={setComment} setRating={setRating} rating={review.rating} comment={review.comment} errorMessage={errorMessage} isPostDisabled={isPostDisabled} isFormDisabled={isFormDisabled} />
 
   );
 };

@@ -8,7 +8,9 @@ const GenreItem = (props) => {
   return (
 
     <li className={`catalog__genres-item ${active ? `catalog__genres-item--active` : ``}`} >
+
       <Link to={to} className="catalog__genres-link">{label}</Link>
+
     </li>
 
   );
