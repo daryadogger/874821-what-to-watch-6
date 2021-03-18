@@ -2,6 +2,7 @@ import React from 'react';
 import reviewFormViewProps from './review-form-view.prop';
 import RatingInput from '../rating-input/rating-input';
 import {RATINGS_COUNT, ReviewLength} from '../../const';
+import './review-form-styles.css';
 
 const ReviewFormView = (props) => {
   const {comment, onSubmitHandler, setRating, setComment, errorMessage, isPostDisabled, isFormDisabled} = props;

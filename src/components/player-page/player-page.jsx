@@ -20,7 +20,7 @@ const PlayerPage = () => {
   const indent = 130;
 
   const [isPlaying, setIsPlaying] = useState(true);
-  const [isProgress, setIsProgress] = useState(0);
+  const [progress, setProgress] = useState(0);
 
   useEffect(() => {
     if (isPlaying) {
@@ -45,7 +45,7 @@ const PlayerPage = () => {
     const mousePosPersent = (mousePosX * 100) / progressBarWidth;
     const filmDuration = Math.round(videoRef.current.duration);
 
-    setIsProgress(Math.floor(mousePosPersent));
+    setProgress(Math.floor(mousePosPersent));
     videoRef.current.currentTime = (mousePosPersent * filmDuration / 100);
   };
 
@@ -75,7 +75,7 @@ const PlayerPage = () => {
     <PlayerPageView id={numberId} name={name} videoLink={videoLink} videoRef={videoRef}
       backgroundImage={backgroundImage} onPlayBtnClickHandler={handlePlayBtnClick} isPlaying={isPlaying}
       onFullScreenBtnClickHandler={handleFullScreenBtnClick} onProgressClickHandler={handleProgressClick}
-      progress={isProgress} onTogglerMoveHandler={handleTogglerMove} />
+      progress={progress} onTogglerMoveHandler={handleTogglerMove} />
 
   );
 };

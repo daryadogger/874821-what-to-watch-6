@@ -23,7 +23,7 @@ const PlayerPageView = (props) => {
 
         <div className="player__controls-row">
 
-          <PlayButton isPlaying={isPlaying} onPlayBtnClick={onPlayBtnClickHandler} />
+          <PlayButton isPlaying={isPlaying} onPlayBtnClickHandler={onPlayBtnClickHandler} />
 
           <div className="player__name">{name}</div>
 
