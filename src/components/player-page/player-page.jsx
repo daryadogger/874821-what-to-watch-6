@@ -1,13 +1,8 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {useSelector} from 'react-redux';
 import {Redirect, useParams} from 'react-router-dom';
+import {MouseEvents, TOGGLER_WIDTH} from '../../const';
 import PlayerPageView from './player-page-view';
-
-const TOGGLER_WIDTH = 17;
-const MouseEvents = {
-  MOVE: `mousemove`,
-  UP: `mouseup`
-};
 
 const PlayerPage = () => {
   const {id} = useParams();

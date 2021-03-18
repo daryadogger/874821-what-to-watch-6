@@ -2,13 +2,9 @@ import React, {useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import Api from '../../api/api';
 import getButtonsIcon from '../../api/get-buttons-icon';
+import {FavoriteStatus} from '../../const';
 import {changeFavoriteStatus} from '../../store/action';
 import favoriteButtonProps from './favorite-button.prop';
-
-const FavoriteStatus = {
-  FAVOURITE: 1,
-  NOT_FAVORITE: 0
-};
 
 const FavoriteButton = (props) => {
   const {id} = props;

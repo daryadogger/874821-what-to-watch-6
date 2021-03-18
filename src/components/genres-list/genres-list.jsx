@@ -2,8 +2,7 @@ import React from 'react';
 import GenresListView from '../genres-list/genres-list-view';
 import {shallowEqual, useSelector} from 'react-redux';
 import genresListProps from '../genres-list/genres-list.prop';
-
-const GENRES_COUNT = 9;
+import {GENRES_COUNT} from '../../const';
 
 const GenresList = (props) => {
   const {genre} = props;

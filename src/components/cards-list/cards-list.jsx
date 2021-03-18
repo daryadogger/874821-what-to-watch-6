@@ -1,9 +1,9 @@
 import React, {useState, useEffect} from 'react';
 import {shallowEqual, useSelector} from 'react-redux';
+import {DELAY_TIME} from '../../const';
 import CardsListView from '../cards-list/cards-list-view';
 import cardsListProps from '../cards-list/cards-list.prop';
 
-const DELAY_TIME = 1000;
 
 const CardsList = (props) => {
   const {genre, enableButton, initialCount, isUpperCase, currentFilmId, favoriteFilms} = props;
