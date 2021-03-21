@@ -23,5 +23,5 @@ const FilmReviewItem = (props) => {
 
 FilmReviewItem.propTypes = filmReviewItemProps;
 
-export default React.memo(FilmReviewItem);
+export default FilmReviewItem;
 

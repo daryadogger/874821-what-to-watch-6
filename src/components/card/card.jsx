@@ -4,6 +4,7 @@ import cardProps from './card.prop';
 import CardView from './card-view';
 import VideoPlayer from '../video-player/video-player';
 import {shallowEqual, useSelector} from 'react-redux';
+import {Pages} from '../../const';
 
 // to storage ?
 const selectFilmForCard = (FILMS, id) => {
@@ -16,6 +17,7 @@ const selectFilmForCard = (FILMS, id) => {
 };
 
 const useSelectFilmForCard = (id) => useSelector(({FILMS}) => selectFilmForCard(FILMS, id), shallowEqual);
+
 
 const Card = (props) => {
   const {id, to, onActiveFilmChange, isActive} = props;
@@ -38,7 +40,7 @@ const Card = (props) => {
 
 
   if (film === null) {
-    return <Redirect to={`/not-found-page`} />;
+    return <Redirect to={Pages.NOT_FOUND_PAGE} />;
   }
 
   return (

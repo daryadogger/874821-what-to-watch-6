@@ -5,13 +5,14 @@ import FilmOverview from '../film-overview/film-overview';
 import FilmReviews from '../film-reviews/film-reviews';
 import FilmPageFrame from '../film-page-frame/film-page-frame';
 import {useSelector} from 'react-redux';
+import {Pages, Tabs} from '../../const';
 
 const selectContent = (tab) => {
   switch (tab) {
-    case `details`:
+    case Tabs.DETAILS:
       return FilmDetails;
 
-    case `reviews`:
+    case Tabs.REVIEWS:
       return FilmReviews;
 
     default:
@@ -28,7 +29,7 @@ const FilmPage = () => {
   const Content = selectContent(tab);
 
   if (typeof (currentFilm) === `undefined`) {
-    return <Redirect to={`/not-found-page`} />;
+    return <Redirect to={Pages.NOT_FOUND_PAGE} />;
   }
 
   return (

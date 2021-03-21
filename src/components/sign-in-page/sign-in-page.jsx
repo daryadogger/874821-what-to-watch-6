@@ -5,6 +5,7 @@ import Api from '../../api/api';
 import {requiredAuthorization} from '../../store/action';
 import useAuthtorization from '../../api/use-authtorization';
 import SignInPageView from '../sign-in-page/sign-in-page-view';
+import {Pages, ERROR_EMPTY_INPUTS} from '../../const';
 
 const SignInPage = () => {
   const history = useHistory();
@@ -17,7 +18,7 @@ const SignInPage = () => {
   const dispatch = useDispatch();
 
   if (useAuthtorization()) {
-    return <Redirect to={`/`} />;
+    return <Redirect to={Pages.MAIN} />;
   }
 
   const submit = () => {
@@ -27,7 +28,7 @@ const SignInPage = () => {
     })
       .then((data) => {
         dispatch(requiredAuthorization(data));
-        history.push(`/`);
+        history.push(Pages.MAIN);
       })
     .catch((error) => {
       setErrorMessage(error.message);
@@ -41,7 +42,7 @@ const SignInPage = () => {
     if (email && password) {
       submit();
     } else {
-      setErrorMessage(`Please enter all inputs`);
+      setErrorMessage(ERROR_EMPTY_INPUTS);
     }
   };
 

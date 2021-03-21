@@ -1,6 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import useAuthtorization from '../../api/use-authtorization';
+import {Pages} from '../../const';
 
 const User = () => {
 
@@ -9,8 +10,8 @@ const User = () => {
 
       <div className="user-block">
         <div className="user-block__avatar">
-          <Link to={`/mylist`}>
-            <img src="img/avatar.jpg" alt="User avatar" width={63} height={63} />
+          <Link to={Pages.MY_LIST}>
+            <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
           </Link>
         </div>
       </div>
@@ -20,7 +21,7 @@ const User = () => {
     return (
 
       <div className="user-block">
-        <Link to={`/login`} className="user-block__link">Sign in</Link>
+        <Link to={Pages.LOGIN} className="user-block__link">Sign in</Link>
       </div>
 
     );

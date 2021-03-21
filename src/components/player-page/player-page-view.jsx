@@ -3,16 +3,19 @@ import {Link} from 'react-router-dom';
 import PlayButton from '../play-button/play-button';
 import PlayerTimeControls from '../player-time-controls/player-time-controls';
 import playerPageViewProps from './player-page-view.prop';
+import {Pages} from '../../const';
 
 const PlayerPageView = (props) => {
   const {id, name, videoLink, videoRef, backgroundImage, onPlayBtnClickHandler, isPlaying, onFullScreenBtnClickHandler, onProgressClickHandler, progress, onTogglerMoveHandler} = props;
+
+  const hrefToFilm = `${Pages.FILMS}/${id}`;
 
   return (
 
     <div className="player">
       <video muted={false} src={videoLink} ref={videoRef} className="player__video" poster={backgroundImage} onClick={onPlayBtnClickHandler} ></video>
 
-      <Link to={`/films/${id}`} className="player__exit">Exit</Link>
+      <Link to={hrefToFilm} className="player__exit">Exit</Link>
 
       <div className="player__controls">
         <div className="player__controls-row">

@@ -1,6 +1,7 @@
 import React from 'react';
 import {useSelector} from 'react-redux';
 import {Link, useParams} from 'react-router-dom';
+import {Pages} from '../../const';
 import ReviewForm from '../review-form/review-form';
 import User from '../user/user';
 
@@ -9,6 +10,8 @@ const AddReviewPage = () => {
 
   const currentFilm = useSelector(({FILMS}) => FILMS.films.find((el) => el.id === Number(id)));
   const {backgroundImage, name, posterImage} = currentFilm;
+
+  const hrefToFilm = `${Pages.FILMS}/${id}`;
 
   return (
 
@@ -22,7 +25,7 @@ const AddReviewPage = () => {
 
         <header className="page-header">
           <div className="logo">
-            <Link to="/" className="logo__link">
+            <Link to={Pages.MAIN} className="logo__link">
               <span className="logo__letter logo__letter--1">W</span>
               <span className="logo__letter logo__letter--2">T</span>
               <span className="logo__letter logo__letter--3">W</span>
@@ -32,7 +35,7 @@ const AddReviewPage = () => {
           <nav className="breadcrumbs">
             <ul className="breadcrumbs__list">
               <li className="breadcrumbs__item">
-                <Link to={`/films/${id}`} className="breadcrumbs__link">{name}</Link>
+                <Link to={hrefToFilm} className="breadcrumbs__link">{name}</Link>
               </li>
               <li className="breadcrumbs__item">
                 <a className="breadcrumbs__link">Add review</a>

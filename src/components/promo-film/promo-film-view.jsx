@@ -1,5 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
+import {Pages} from '../../const';
 import FavoriteButton from '../favorite-button/favorite-button';
 import User from '../user/user';
 import promoFIlmViewProps from './promo-film-view.prop';
@@ -7,6 +8,8 @@ import promoFIlmViewProps from './promo-film-view.prop';
 const PromoFilmView = (props) => {
   const {promoFilm} = props;
   const {name, genre, posterImage, backgroundImage, released, id} = promoFilm;
+
+  const hrefToPlayer = `${Pages.PLAYER}/${id}`;
 
   return (
 
@@ -44,7 +47,7 @@ const PromoFilmView = (props) => {
             </p>
 
             <div className="movie-card__buttons">
-              <Link to={`/player/${id}`} className="btn btn--play movie-card__button">
+              <Link to={hrefToPlayer} className="btn btn--play movie-card__button">
                 <svg viewBox="0 0 19 19" width="19" height="19">
                   <use xlinkHref="#play-s"></use>
                 </svg>

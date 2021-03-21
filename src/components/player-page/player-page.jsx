@@ -1,7 +1,7 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {useSelector} from 'react-redux';
 import {Redirect, useParams} from 'react-router-dom';
-import {MouseEvents, TOGGLER_WIDTH} from '../../const';
+import {MouseEvents, Pages, TOGGLER_WIDTH} from '../../const';
 import PlayerPageView from './player-page-view';
 
 const PlayerPage = () => {
@@ -11,7 +11,7 @@ const PlayerPage = () => {
   const loaded = typeof (currentFilm) !== `undefined`;
 
   if (!loaded) {
-    return <Redirect to={`/not-found-page`} />;
+    return <Redirect to={Pages.NOT_FOUND_PAGE} />;
   }
 
   const {videoLink, backgroundImage, name} = currentFilm;

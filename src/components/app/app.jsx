@@ -14,6 +14,7 @@ import {useDispatch} from 'react-redux';
 import LoadingScreen from '../loading-screen/loading-screen';
 import PrivateRoute from '../private-route/private-route';
 import browserHistory from '../../browser-history';
+import {AppRoute} from '../../const';
 
 const authSelector = ({USER}) => USER.userProfile.id;
 
@@ -57,22 +58,22 @@ const App = () => {
   return (
     <BrowserRouter history={browserHistory}>
       <Switch>
-        <Route exact path="/">
+        <Route exact path={AppRoute.MAIN}>
           <MainPage />
         </Route>
-        <Route exact path="/login" render={() => (
+        <Route exact path={AppRoute.LOGIN} render={() => (
           <SignInPage />
         )}>
         </Route>
-        <PrivateRoute exact path="/mylist" render={() => <MyListPage />} />
-        <PrivateRoute exact path="/films/:id/review" render={() => <AddReviewPage />} />
-        <Route exact path="/films/:id/:tab?">
+        <PrivateRoute exact path={AppRoute.MY_LIST} render={() => <MyListPage />} />
+        <PrivateRoute exact path={AppRoute.ADD_REVIEW} render={() => <AddReviewPage />} />
+        <Route exact path={AppRoute.FILM}>
           <FilmPage />
         </Route>
-        <Route exact path="/player/:id">
+        <Route exact path={AppRoute.PLAYER}>
           <PlayerPage />
         </Route>
-        <Route exact path="/catalog/:genre">
+        <Route exact path={AppRoute.CATALOG}>
           <MainPage />
         </Route>
         <Route>

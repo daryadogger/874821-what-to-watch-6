@@ -5,13 +5,14 @@ import {useParams} from 'react-router';
 import Api from '../../api/api';
 import {useDispatch} from 'react-redux';
 import {postComment} from '../../store/action';
-import {ReviewLength} from '../../const';
+import {Pages, ReviewLength} from '../../const';
 
 const ReviewForm = () => {
   const history = useHistory();
   const {id} = useParams();
   const api = new Api();
   const dispatch = useDispatch();
+  const hrefToFilm = `${Pages.FILMS}/${id}`;
 
   const [review, setReview] = useState({
     rating: 0,
@@ -33,7 +34,7 @@ const ReviewForm = () => {
     api.postReviewById(id, review)
       .then((data) => {
         dispatch(postComment(data));
-        history.push(`/films/${id}`);
+        history.push(hrefToFilm);
       })
     .catch((error) => {
       setErrorMessage(error.message);
