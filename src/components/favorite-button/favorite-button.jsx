@@ -1,19 +1,11 @@
 import React, {useCallback, useState} from 'react';
-import {shallowEqual, useDispatch, useSelector} from 'react-redux';
+import {useDispatch} from 'react-redux';
 import Api from '../../api/api';
 import getButtonsIcon from '../../api/get-buttons-icon';
 import {FavoriteStatus} from '../../const';
 import {changeFavoriteStatus} from '../../store/action';
+import {useSelectFavoriteStatus} from '../../store/hooks/use-select-favorite-status';
 import favoriteButtonProps from './favorite-button.prop';
-
-// to storage ?
-const selectFavoriteStatus = (FILMS, id) => {
-  const found = FILMS.films.find((el) => el.id === id).isFavorite;
-  return found;
-};
-
-const useSelectFavoriteStatus = (id) => useSelector(({FILMS}) => selectFavoriteStatus(FILMS, id), shallowEqual);
-
 
 const FavoriteButton = (props) => {
   const {id} = props;

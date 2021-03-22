@@ -1,17 +1,9 @@
 import React, {useEffect} from 'react';
-import {shallowEqual, useDispatch, useSelector} from 'react-redux';
+import {useDispatch} from 'react-redux';
 import Api from '../../api/api';
 import {getFavoriteFilms} from '../../store/action';
+import {useSelectFavoriteFilms} from '../../store/hooks/use-select-favorite-films';
 import MyListPageView from './my-list-page-view';
-
-// to storage ?
-const selectFavoriteFilms = (FAVORITES) => {
-  const found = FAVORITES.favoriteFilms;
-  return found;
-};
-
-const useSelectFavoriteFilms = () => useSelector(({FAVORITES}) => selectFavoriteFilms(FAVORITES), shallowEqual);
-
 
 const MyListPage = () => {
   const genre = ``;

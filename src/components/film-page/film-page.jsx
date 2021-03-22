@@ -1,33 +1,9 @@
 import React from 'react';
 import {Redirect, useParams} from 'react-router-dom';
-import FilmDetails from '../film-details/film-details';
-import FilmOverview from '../film-overview/film-overview';
-import FilmReviews from '../film-reviews/film-reviews';
 import FilmPageFrame from '../film-page-frame/film-page-frame';
-import {shallowEqual, useSelector} from 'react-redux';
-import {Pages, Tabs} from '../../const';
-
-// to storage ?
-const selectFilm = (FILMS, id) => {
-  const found = FILMS.films.find((el) => el.id === id);
-  return found;
-};
-
-const useSelectFilm = (id) => useSelector(({FILMS}) => selectFilm(FILMS, id), shallowEqual);
-
-
-const selectContent = (tab) => {
-  switch (tab) {
-    case Tabs.DETAILS:
-      return FilmDetails;
-
-    case Tabs.REVIEWS:
-      return FilmReviews;
-
-    default:
-      return FilmOverview;
-  }
-};
+import {Pages} from '../../const';
+import {useSelectFilm} from '../../store/hooks/use-select-film';
+import selectContent from '../../store/hooks/use-select-content';
 
 const FilmPage = () => {
   const {tab, id} = useParams();

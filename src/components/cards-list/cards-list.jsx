@@ -1,23 +1,14 @@
 import React, {useState, useEffect, useCallback} from 'react';
-import {shallowEqual, useSelector} from 'react-redux';
 import {DELAY_TIME, Pages} from '../../const';
+import {useSelectFilmsArray} from '../../store/hooks/use-select-films-array';
 import CardsListView from '../cards-list/cards-list-view';
 import cardsListProps from '../cards-list/cards-list.prop';
-
-// to storage ?
-const selectFilmArray = (FILMS, genre, isUpperCase) => {
-  const found = FILMS.films.filter((film) => genre === `` || (isUpperCase ? film.genre === genre : film.genre.toLowerCase() === genre)).map((film) => film.id);
-  return found;
-};
-
-const useSelectFilmArray = (genre, isUpperCase) => useSelector(({FILMS}) => selectFilmArray(FILMS, genre, isUpperCase), shallowEqual);
-
 
 const CardsList = (props) => {
   const {genre, enableButton, initialCount, isUpperCase, currentFilmId, favoriteFilms} = props;
 
   const filmsUrl = Pages.FILMS;
-  let idArray = useSelectFilmArray(genre, isUpperCase);
+  let idArray = useSelectFilmsArray(genre, isUpperCase);
 
   let favoriteIdArray = [];
 

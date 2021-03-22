@@ -1,17 +1,9 @@
 import React, {useCallback, useEffect, useRef, useState} from 'react';
-import {shallowEqual, useSelector} from 'react-redux';
 import {Redirect, useParams} from 'react-router-dom';
 import formatFilmDuration from '../../api/format-film-duration';
 import {MouseEvents, Pages, TOGGLER_WIDTH} from '../../const';
+import {useSelectFilmForPlayer} from '../../store/hooks/use-select-film-for-player';
 import PlayerPageView from './player-page-view';
-
-// to storage ?
-const selectFilmForPlayer = (FILMS, id) => {
-  const found = FILMS.films.find((el) => el.id === id);
-  return found;
-};
-
-const useSelectFilmForPlayer = (id) => useSelector(({FILMS}) => selectFilmForPlayer(FILMS, id), shallowEqual);
 
 const INDENT = 130;
 

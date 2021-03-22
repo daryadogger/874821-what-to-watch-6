@@ -1,20 +1,9 @@
 import React from 'react';
-import {shallowEqual, useSelector} from 'react-redux';
 import {Link, useParams} from 'react-router-dom';
 import {Pages} from '../../const';
+import {useSelectFilmForAddReview} from '../../store/hooks/use-select-film-for-add-review';
 import ReviewForm from '../review-form/review-form';
 import User from '../user/user';
-
-// to storage ?
-const selectFilmForAddReview = (FILMS, id) => {
-  const found = FILMS.films.find((el) => el.id === id);
-
-  const {backgroundImage, name, posterImage} = found;
-  return {backgroundImage, name, posterImage};
-};
-
-const useSelectFilmForAddReview = (id) => useSelector(({FILMS}) => selectFilmForAddReview(FILMS, id), shallowEqual);
-
 
 const AddReviewPage = () => {
   const {id} = useParams();

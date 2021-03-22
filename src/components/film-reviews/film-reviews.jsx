@@ -1,19 +1,11 @@
 import React, {useEffect} from 'react';
-import {shallowEqual, useDispatch, useSelector} from 'react-redux';
+import {useDispatch} from 'react-redux';
 import {useParams} from 'react-router';
 import Api from '../../api/api';
 import {getCommentsById} from '../../store/action';
+import {useSelectComments} from '../../store/hooks/use-select-comments';
 import FilmReviewItem from '../film-review-item/film-review-item';
 import LoadingScreen from '../loading-screen/loading-screen';
-
-// to storage ?
-const selectComments = (COMMENTS, id) => {
-  const found = COMMENTS.comments[id];
-  return found;
-};
-
-const useSelectComments = (id) => useSelector(({COMMENTS}) => selectComments(COMMENTS, id), shallowEqual);
-
 
 const FilmReviews = () => {
   const api = new Api();
