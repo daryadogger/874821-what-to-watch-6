@@ -4,14 +4,24 @@ import FilmDetails from '../film-details/film-details';
 import FilmOverview from '../film-overview/film-overview';
 import FilmReviews from '../film-reviews/film-reviews';
 import FilmPageFrame from '../film-page-frame/film-page-frame';
-import {useSelector} from 'react-redux';
+import {shallowEqual, useSelector} from 'react-redux';
+import {Pages, Tabs} from '../../const';
+
+// to storage ?
+const selectFilm = (FILMS, id) => {
+  const found = FILMS.films.find((el) => el.id === id);
+  return found;
+};
+
+const useSelectFilm = (id) => useSelector(({FILMS}) => selectFilm(FILMS, id), shallowEqual);
+
 
 const selectContent = (tab) => {
   switch (tab) {
-    case `details`:
+    case Tabs.DETAILS:
       return FilmDetails;
 
-    case `reviews`:
+    case Tabs.REVIEWS:
       return FilmReviews;
 
     default:
@@ -22,13 +32,13 @@ const selectContent = (tab) => {
 const FilmPage = () => {
   const {tab, id} = useParams();
   const numberId = Number(id);
-  const currentFilm = useSelector(({FILMS}) => FILMS.films.find((el) => el.id === numberId));
+  const currentFilm = useSelectFilm(numberId);
   const {posterImage, backgroundImage, name, genre, released, isFavorite} = currentFilm;
 
   const Content = selectContent(tab);
 
   if (typeof (currentFilm) === `undefined`) {
-    return <Redirect to={`/not-found-page`} />;
+    return <Redirect to={Pages.NOT_FOUND_PAGE} />;
   }
 
   return (

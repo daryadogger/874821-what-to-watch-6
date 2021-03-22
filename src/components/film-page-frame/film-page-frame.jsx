@@ -5,8 +5,7 @@ import filmPageFrameProps from './film-page-frame.prop';
 import User from '../user/user';
 import useAuthtorization from '../../api/use-authtorization';
 import FavoriteButton from '../favorite-button/favorite-button';
-
-const COUNT_OF_SIMULAR_FILMS = 4;
+import {COUNT_OF_SIMULAR_FILMS, Pages, Tabs} from '../../const';
 
 const FilmPageFrame = (props) => {
   const {children, posterImage, backgroundImage, name, genre, released, isFavorite} = props;
@@ -14,6 +13,8 @@ const FilmPageFrame = (props) => {
   const {id, tab} = useParams();
   const {path} = useRouteMatch();
   const currentFilmId = Number(id);
+
+  const hrefToPlayer = `${Pages.PLAYER}/${id}`;
 
   return <>
 
@@ -27,7 +28,7 @@ const FilmPageFrame = (props) => {
 
         <header className="page-header movie-card__head">
           <div className="logo">
-            <Link to="/" className="logo__link">
+            <Link to={Pages.MAIN} className="logo__link">
               <span className="logo__letter logo__letter--1">W</span>
               <span className="logo__letter logo__letter--2">T</span>
               <span className="logo__letter logo__letter--3">W</span>
@@ -46,16 +47,16 @@ const FilmPageFrame = (props) => {
             </p>
 
             <div className="movie-card__buttons">
-              <Link to={`/player/${id}`} className="btn btn--play movie-card__button">
+              <Link to={hrefToPlayer} className="btn btn--play movie-card__button">
                 <svg viewBox="0 0 19 19" width="19" height="19">
                   <use xlinkHref="#play-s"></use>
                 </svg>
                 <span>Play</span>
               </Link>
 
-              <FavoriteButton isFavorite={isFavorite} id={currentFilmId} />
+              {useAuthtorization() ? <FavoriteButton isFavorite={isFavorite} id={currentFilmId} /> : ``}
 
-              {useAuthtorization() ? <Link to={generatePath(path, {id, tab: `review`})} className="btn movie-card__button">Add review</Link> : ``}
+              {useAuthtorization() ? <Link to={generatePath(path, {id, tab: Pages.REVIEW})} className="btn movie-card__button">Add review</Link> : ``}
             </div>
           </div>
         </div>
@@ -74,11 +75,11 @@ const FilmPageFrame = (props) => {
                   <Link to={generatePath(path, {id})}
                     className="movie-nav__link">Overview</Link>
                 </li>
-                <li className={`movie-nav__item ${tab === `details` ? `movie-nav__item--active` : ``}`}>
-                  <Link to={generatePath(path, {id, tab: `details`})} className="movie-nav__link">Details</Link>
+                <li className={`movie-nav__item ${tab === Tabs.DETAILS ? `movie-nav__item--active` : ``}`}>
+                  <Link to={generatePath(path, {id, tab: Tabs.DETAILS})} className="movie-nav__link">Details</Link>
                 </li>
-                <li className={`movie-nav__item ${tab === `reviews` ? `movie-nav__item--active` : ``}`}>
-                  <Link to={generatePath(path, {id, tab: `reviews`})} className="movie-nav__link">Reviews</Link>
+                <li className={`movie-nav__item ${tab === Tabs.REVIEWS ? `movie-nav__item--active` : ``}`}>
+                  <Link to={generatePath(path, {id, tab: Tabs.REVIEWS})} className="movie-nav__link">Reviews</Link>
                 </li>
               </ul>
             </nav>
@@ -100,7 +101,7 @@ const FilmPageFrame = (props) => {
 
       <footer className="page-footer">
         <div className="logo">
-          <Link to="/" className="logo__link logo__link--light">
+          <Link to={Pages.MAIN} className="logo__link logo__link--light">
             <span className="logo__letter logo__letter--1">W</span>
             <span className="logo__letter logo__letter--2">T</span>
             <span className="logo__letter logo__letter--3">W</span>

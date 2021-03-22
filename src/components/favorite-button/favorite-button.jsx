@@ -1,17 +1,24 @@
-import React, {useState} from 'react';
-import {useDispatch} from 'react-redux';
+import React, {useCallback, useState} from 'react';
+import {shallowEqual, useDispatch, useSelector} from 'react-redux';
 import Api from '../../api/api';
 import getButtonsIcon from '../../api/get-buttons-icon';
+import {FavoriteStatus} from '../../const';
 import {changeFavoriteStatus} from '../../store/action';
 import favoriteButtonProps from './favorite-button.prop';
 
-const FavoriteStatus = {
-  FAVOURITE: 1,
-  NOT_FAVORITE: 0
+// to storage ?
+const selectFavoriteStatus = (FILMS, id) => {
+  const found = FILMS.films.find((el) => el.id === id).isFavorite;
+  return found;
 };
 
+const useSelectFavoriteStatus = (id) => useSelector(({FILMS}) => selectFavoriteStatus(FILMS, id), shallowEqual);
+
+
 const FavoriteButton = (props) => {
-  const {isFavorite, id} = props;
+  const {id} = props;
+
+  const isFavorite = useSelectFavoriteStatus(id);
 
   const api = new Api();
   const dispatch = useDispatch();
@@ -20,7 +27,7 @@ const FavoriteButton = (props) => {
   const changeStatus = (filmId, status) => {
     api.postFavoriteFilm(filmId, status)
       .then((data) => {
-        dispatch(changeFavoriteStatus(data));
+        dispatch(changeFavoriteStatus(data.id, status));
       });
     // .catch((error) => {
     //   setErrorMessage(error.message);
@@ -29,16 +36,16 @@ const FavoriteButton = (props) => {
     return;
   };
 
-  const handleClick = () => {
+  const handleBtnClick = useCallback(() => {
     const newStatus = isFavorite ? FavoriteStatus.NOT_FAVORITE : FavoriteStatus.FAVOURITE;
     changeStatus(id, newStatus);
 
     setIcon(getButtonsIcon(isFavorite));
-  };
+  }, [id, isFavorite]);
 
   return (
 
-    <button onClick={handleClick} className="btn btn--list movie-card__button" type="button">
+    <button onClick={handleBtnClick} className="btn btn--list movie-card__button" type="button">
       {icon}
       <span>My list</span>
     </button>

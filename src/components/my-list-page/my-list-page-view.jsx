@@ -1,9 +1,14 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import {Pages} from '../../const';
+import CardsList from '../cards-list/cards-list';
+import User from '../user/user';
+import myListPageViewProps from './my-list-page-view.prop';
 
-const NotFoundPage = () => {
-  return (
+const MyListPageView = (props) => {
+  const {genre, favoriteFilms} = props;
+
+  return <>
 
     <div className="user-page">
       <header className="page-header user-page__head">
@@ -14,12 +19,19 @@ const NotFoundPage = () => {
             <span className="logo__letter logo__letter--3">W</span>
           </Link>
         </div>
+
+        <h1 className="page-title user-page__title">My list</h1>
+
+        <User />
+
       </header>
 
-      <div className="sign-in user-page__content">
-        <h1>404. Page not found</h1>
-        <Link to={Pages.MAIN}>Вернуться на главную</Link>
-      </div>
+      <section className="catalog">
+        <h2 className="catalog__title visually-hidden">Catalog</h2>
+
+        <CardsList genre={genre} favoriteFilms={favoriteFilms} />
+
+      </section>
 
       <footer className="page-footer">
         <div className="logo">
@@ -36,7 +48,9 @@ const NotFoundPage = () => {
       </footer>
     </div>
 
-  );
+  </>;
 };
 
-export default NotFoundPage;
+MyListPageView.propTypes = myListPageViewProps;
+
+export default MyListPageView;

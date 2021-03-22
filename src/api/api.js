@@ -147,11 +147,6 @@ class Api {
     });
     return await this.processResponse(rs);
   }
-
-  async logout() {
-    const rs = await this.fetchWithTimeout(`${this.baseUrl}/logout`);
-    return await this.processResponse(rs);
-  }
 }
 
 export default Api;
