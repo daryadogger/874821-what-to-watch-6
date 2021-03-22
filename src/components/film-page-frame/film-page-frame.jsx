@@ -54,7 +54,7 @@ const FilmPageFrame = (props) => {
                 <span>Play</span>
               </Link>
 
-              <FavoriteButton isFavorite={isFavorite} id={currentFilmId} />
+              {useAuthtorization() ? <FavoriteButton isFavorite={isFavorite} id={currentFilmId} /> : ``}
 
               {useAuthtorization() ? <Link to={generatePath(path, {id, tab: Pages.REVIEW})} className="btn movie-card__button">Add review</Link> : ``}
             </div>

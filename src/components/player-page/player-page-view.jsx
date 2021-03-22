@@ -6,21 +6,21 @@ import playerPageViewProps from './player-page-view.prop';
 import {Pages} from '../../const';
 
 const PlayerPageView = (props) => {
-  const {id, name, videoLink, videoRef, backgroundImage, onPlayBtnClickHandler, isPlaying, onFullScreenBtnClickHandler, onProgressClickHandler, progress, onTogglerMoveHandler} = props;
+  const {id, time, name, videoLink, videoRef, backgroundImage, onPlayBtnClickHandler, isPlaying, onFullScreenBtnClickHandler, onProgressClickHandler, progress, onTogglerMoveHandler, onTimeUpdate} = props;
 
   const hrefToFilm = `${Pages.FILMS}/${id}`;
 
   return (
 
     <div className="player">
-      <video muted={false} src={videoLink} ref={videoRef} className="player__video" poster={backgroundImage} onClick={onPlayBtnClickHandler} ></video>
+      <video muted={false} src={videoLink} ref={videoRef} className="player__video" poster={backgroundImage} onClick={onPlayBtnClickHandler} onTimeUpdate={onTimeUpdate} ></video>
 
       <Link to={hrefToFilm} className="player__exit">Exit</Link>
 
       <div className="player__controls">
         <div className="player__controls-row">
 
-          <PlayerTimeControls progress={progress} onProgressClickHandler={onProgressClickHandler} onTogglerMoveHandler={onTogglerMoveHandler} />
+          <PlayerTimeControls progress={progress} onProgressClickHandler={onProgressClickHandler} onTogglerMoveHandler={onTogglerMoveHandler} time={time} />
 
         </div>
 

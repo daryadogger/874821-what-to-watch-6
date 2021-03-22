@@ -1,5 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
+import useAuthtorization from '../../api/use-authtorization';
 import {Pages} from '../../const';
 import FavoriteButton from '../favorite-button/favorite-button';
 import User from '../user/user';
@@ -54,7 +55,7 @@ const PromoFilmView = (props) => {
                 <span>Play</span>
               </Link>
 
-              <FavoriteButton id={id} />
+              {useAuthtorization() ? <FavoriteButton id={id} /> : ``}
 
             </div>
           </div>

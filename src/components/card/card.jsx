@@ -21,13 +21,14 @@ const useSelectFilmForCard = (id) => useSelector(({FILMS}) => selectFilmForCard(
 
 const Card = (props) => {
   const {id, to, onActiveFilmChange, isActive} = props;
+  const hrefToFilm = `${Pages.FILMS}/${id}`;
 
   const history = useHistory();
 
   const film = useSelectFilmForCard(id);
 
   const handleCardClick = useCallback(() => {
-    history.push(`/films/${id}`);
+    history.push(hrefToFilm);
   }, [id]);
 
   const handleMouseEnter = useCallback(() => {
