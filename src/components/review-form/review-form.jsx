@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import ReviewFormView from '../review-form/review-form-view';
 import {useHistory} from 'react-router';
 import {useParams} from 'react-router';
@@ -42,7 +42,7 @@ const ReviewForm = () => {
     return;
   };
 
-  const handleSubmit = (evt) => {
+  const handleSubmit = useCallback((evt) => {
     evt.preventDefault();
 
     setIsFormDisabled(true);
@@ -50,7 +50,7 @@ const ReviewForm = () => {
     if (review.rating && review.comment) {
       submit();
     }
-  };
+  }, []);
 
   const setRating = (evt) => setReview({...review, rating: Number(evt.target.value)});
   const setComment = (evt) => setReview({...review, comment: evt.target.value});

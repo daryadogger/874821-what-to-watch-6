@@ -13,6 +13,7 @@ const selectFilmForPlayer = (FILMS, id) => {
 
 const useSelectFilmForPlayer = (id) => useSelector(({FILMS}) => selectFilmForPlayer(FILMS, id), shallowEqual);
 
+const INDENT = 130;
 
 const PlayerPage = () => {
   const {id} = useParams();
@@ -26,8 +27,6 @@ const PlayerPage = () => {
 
   const {videoLink, backgroundImage, name} = currentFilm;
   const videoRef = useRef();
-
-  const INDENT = 130;
 
   const [isPlaying, setIsPlaying] = useState(true);
   const [progress, setProgress] = useState(0);
@@ -46,44 +45,43 @@ const PlayerPage = () => {
     setIsPlaying(!isPlaying);
   }, [isPlaying]);
 
+
   const handleFullScreenBtnClick = useCallback(() => {
     videoRef.current.requestFullscreen();
   }, []);
 
-  const handleProgressClick = (evt) => {
-    const posX = evt.clientX - TOGGLER_WIDTH;
-    const timePos = (posX * 100) / (window.screen.availWidth - INDENT);
-
-    setProgress(Math.floor(timePos));
-    videoRef.current.currentTime = (timePos * Math.round(videoRef.current.duration)) / 100;
-    setTime(formatFilmDuration(videoRef.current.currentTime));
-  };
-
-  const handleTimeUpdate = () => {
+  const handleTimeUpdate = useCallback(() => {
     const duration = videoRef.current.duration;
     const currentTime = videoRef.current.currentTime;
     setTime(formatFilmDuration(duration - currentTime));
     const currentProgress = Math.floor(currentTime) / Math.floor(duration) * 100;
     setProgress(currentProgress);
-  };
+  }, []);
 
-  const onMouseMoveHandler = (evt) => {
-    evt.preventDefault();
+  const handleProgressClick = useCallback((evt) => {
+    const duration = videoRef.current.duration;
+    const posX = evt.clientX - TOGGLER_WIDTH;
+    const timePos = (posX * 100) / (window.screen.availWidth - INDENT);
+
+    setProgress(Math.floor(timePos));
+    videoRef.current.currentTime = (timePos * Math.round(videoRef.current.duration)) / 100;
+    setTime(formatFilmDuration(duration - videoRef.current.currentTime));
+  }, []);
+
+  const onMouseMoveHandler = useCallback((evt) => {
     handleProgressClick(evt);
-  };
+  }, []);
 
-  const onMouseUpHandler = (evt) => {
-    evt.preventDefault();
+  const onMouseUpHandler = useCallback((evt) => {
     handleProgressClick(evt);
     document.removeEventListener(MouseEvents.MOVE, onMouseMoveHandler);
     document.removeEventListener(MouseEvents.UP, onMouseUpHandler);
-  };
+  }, []);
 
-  const handleTogglerMove = (evt) => {
-    evt.preventDefault();
+  const handleTogglerMove = useCallback(() => {
     document.addEventListener(MouseEvents.MOVE, onMouseMoveHandler);
     document.addEventListener(MouseEvents.UP, onMouseUpHandler);
-  };
+  }, []);
 
   return (
 
