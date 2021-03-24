@@ -10,8 +10,6 @@ const PromoFilmView = (props) => {
   const {promoFilm} = props;
   const {name, genre, posterImage, backgroundImage, released, id} = promoFilm;
 
-  const hrefToPlayer = `${Pages.PLAYER}/${id}`;
-
   return (
 
     <section className="movie-card">
@@ -48,7 +46,7 @@ const PromoFilmView = (props) => {
             </p>
 
             <div className="movie-card__buttons">
-              <Link to={hrefToPlayer} className="btn btn--play movie-card__button">
+              <Link to={Pages.hrefToPlayer(id)} className="btn btn--play movie-card__button">
                 <svg viewBox="0 0 19 19" width="19" height="19">
                   <use xlinkHref="#play-s"></use>
                 </svg>

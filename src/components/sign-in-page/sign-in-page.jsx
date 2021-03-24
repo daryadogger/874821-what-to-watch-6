@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from 'react';
+import React, {useState} from 'react';
 import {useDispatch} from 'react-redux';
 import {Redirect, useHistory} from 'react-router-dom';
 import Api from '../../api/api';
@@ -36,7 +36,7 @@ const SignInPage = () => {
     return;
   };
 
-  const handleSubmit = useCallback((evt) => {
+  const handleSubmit = (evt) => {
     evt.preventDefault();
 
     if (email && password) {
@@ -44,7 +44,7 @@ const SignInPage = () => {
     } else {
       setErrorMessage(ERROR_EMPTY_INPUTS);
     }
-  }, []);
+  };
 
   return (
 

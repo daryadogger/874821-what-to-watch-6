@@ -8,14 +8,13 @@ import {useSelectFilmForCard} from '../../store/hooks/use-select-film-for-card';
 
 const Card = (props) => {
   const {id, to, onActiveFilmChange, isActive} = props;
-  const hrefToFilm = `${Pages.FILMS}/${id}`;
 
   const history = useHistory();
 
   const film = useSelectFilmForCard(id);
 
   const handleCardClick = useCallback(() => {
-    history.push(hrefToFilm);
+    history.push(Pages.hrefToFilm(id));
   }, [id]);
 
   const handleMouseEnter = useCallback(() => {

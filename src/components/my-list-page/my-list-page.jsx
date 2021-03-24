@@ -1,7 +1,8 @@
 import React, {useEffect} from 'react';
 import {useDispatch} from 'react-redux';
 import Api from '../../api/api';
-import {getFavoriteFilms} from '../../store/action';
+import {Pages} from '../../const';
+import {getError, getFavoriteFilms} from '../../store/action';
 import {useSelectFavoriteFilms} from '../../store/hooks/use-select-favorite-films';
 import MyListPageView from './my-list-page-view';
 
@@ -18,9 +19,15 @@ const MyListPage = () => {
       return;
     }
 
-    api.loadFavoriteFilms().then((films) => {
-      dispatch(getFavoriteFilms(films));
-    });
+    api.loadFavoriteFilms()
+      .then((films) => {
+        dispatch(getFavoriteFilms(films));
+      })
+      .catch((error) => {
+        const errorText = error.name + `: ` + error.message;
+        const url = Pages.MAIN;
+        dispatch(getError({errorText, url}));
+      });
   }, [loaded]);
 
   return <>

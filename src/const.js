@@ -45,9 +45,14 @@ const Pages = {
   REVIEW: `review`,
   MAIN: `/`,
   CATALOG: `/catalog`,
-  PLAYER: `/player`,
   LOGIN: `/login`,
-  MY_LIST: `/mylist`
+  MY_LIST: `/mylist`,
+  hrefToFilm(id) {
+    return `/films/${id}`;
+  },
+  hrefToPlayer(id) {
+    return `/player/${id}`;
+  },
 };
 
 export {RATINGS_COUNT, ReviewLength, SECONDS_IN_HOUR, DELAY_TIME, FavoriteStatus, COUNT_OF_SIMULAR_FILMS, GENRES_COUNT, MAX_COUNT_OF_FILMS, TOGGLER_WIDTH, MouseEvents, Tabs, AppRoute, Pages, ALL_GENRES, ERROR_EMPTY_INPUTS};

@@ -10,8 +10,6 @@ const AddReviewPage = () => {
   const numberId = Number(id);
   const currentFilm = useSelectFilmForAddReview(numberId);
 
-  const hrefToFilm = `${Pages.FILMS}/${id}`;
-
   return (
 
     <section className="movie-card movie-card--full">
@@ -34,7 +32,7 @@ const AddReviewPage = () => {
           <nav className="breadcrumbs">
             <ul className="breadcrumbs__list">
               <li className="breadcrumbs__item">
-                <Link to={hrefToFilm} className="breadcrumbs__link">{currentFilm.name}</Link>
+                <Link to={Pages.hrefToFilm(id)} className="breadcrumbs__link">{currentFilm.name}</Link>
               </li>
               <li className="breadcrumbs__item">
                 <a className="breadcrumbs__link">Add review</a>

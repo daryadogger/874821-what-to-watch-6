@@ -1,4 +1,4 @@
-import {getFilmsList, getCommentsById, getPromoFilm, requiredAuthorization, getFavoriteFilms, postComment, changeFavoriteStatus, ActionType} from '../store/action';
+import {getFilmsList, getCommentsById, getPromoFilm, requiredAuthorization, getFavoriteFilms, postComment, changeFavoriteStatus, getError, ActionType} from '../store/action';
 
 describe(`Action creators work correctly`, () => {
   it(`Action creator 'getFilmsList' returns correct action with payload`, () => {
@@ -76,6 +76,17 @@ describe(`Action creators work correctly`, () => {
     };
 
     expect(changeFavoriteStatus(films)).toEqual(expectedAction);
+  });
+
+  it(`Action creator 'getError' returns correct action with payload`, () => {
+    const error = {};
+
+    const expectedAction = {
+      type: ActionType.GET_ERROR,
+      payload: error,
+    };
+
+    expect(getError(error)).toEqual(expectedAction);
   });
 
 });

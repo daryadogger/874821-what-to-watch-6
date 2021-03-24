@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import ReviewFormView from '../review-form/review-form-view';
 import {useHistory} from 'react-router';
 import {useParams} from 'react-router';
@@ -12,7 +12,6 @@ const ReviewForm = () => {
   const {id} = useParams();
   const api = new Api();
   const dispatch = useDispatch();
-  const hrefToFilm = `${Pages.FILMS}/${id}`;
 
   const [review, setReview] = useState({
     rating: 0,
@@ -34,7 +33,7 @@ const ReviewForm = () => {
     api.postReviewById(id, review)
       .then((data) => {
         dispatch(postComment(data));
-        history.push(hrefToFilm);
+        history.push(Pages.hrefToFilm(id));
       })
     .catch((error) => {
       setErrorMessage(error.message);
@@ -42,7 +41,7 @@ const ReviewForm = () => {
     return;
   };
 
-  const handleSubmit = useCallback((evt) => {
+  const handleSubmit = (evt) => {
     evt.preventDefault();
 
     setIsFormDisabled(true);
@@ -50,7 +49,7 @@ const ReviewForm = () => {
     if (review.rating && review.comment) {
       submit();
     }
-  }, []);
+  };
 
   const setRating = (evt) => setReview({...review, rating: Number(evt.target.value)});
   const setComment = (evt) => setReview({...review, comment: evt.target.value});

@@ -8,14 +8,12 @@ import {Pages} from '../../const';
 const PlayerPageView = (props) => {
   const {id, time, name, videoLink, videoRef, backgroundImage, onPlayBtnClickHandler, isPlaying, onFullScreenBtnClickHandler, onProgressClickHandler, progress, onTogglerMoveHandler, onTimeUpdate} = props;
 
-  const hrefToFilm = `${Pages.FILMS}/${id}`;
-
   return (
 
     <div className="player">
       <video muted={false} src={videoLink} ref={videoRef} className="player__video" poster={backgroundImage} onClick={onPlayBtnClickHandler} onTimeUpdate={onTimeUpdate} ></video>
 
-      <Link to={hrefToFilm} className="player__exit">Exit</Link>
+      <Link to={Pages.hrefToFilm(id)} className="player__exit">Exit</Link>
 
       <div className="player__controls">
         <div className="player__controls-row">

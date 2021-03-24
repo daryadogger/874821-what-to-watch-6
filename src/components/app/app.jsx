@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Switch, Route, Router as BrowserRouter} from 'react-router-dom';
 import MainPage from '../main-page/main-page';
 import SignInPage from '../sign-in-page/sign-in-page';
@@ -7,32 +7,42 @@ import FilmPage from '../film-page/film-page';
 import AddReviewPage from '../add-review-page/add-review-page';
 import PlayerPage from '../player-page/player-page';
 import NotFoundPage from '../not-found-page/not-found-page';
-import {useSelector, useStore} from 'react-redux';
+import {useStore} from 'react-redux';
 import Api from '../../api/api';
-import {getFilmsList, requiredAuthorization} from '../../store/action';
+import {getError, getFilmsList, requiredAuthorization} from '../../store/action';
 import {useDispatch} from 'react-redux';
 import LoadingScreen from '../loading-screen/loading-screen';
 import PrivateRoute from '../private-route/private-route';
 import browserHistory from '../../browser-history';
-import {AppRoute} from '../../const';
-
-const authSelector = ({USER}) => USER.userProfile.id;
+import {AppRoute, Pages} from '../../const';
+import {selectAuth, useSelectAuth} from '../../store/hooks/use-select-auth';
+import {useSelectFilms} from '../../store/hooks/use-select-films';
 
 const App = () => {
   const api = new Api();
-  const loaded = useSelector(({FILMS}) => FILMS.films.length > 0);
-  const userStatus = useSelector(authSelector);
+  const loaded = useSelectFilms().length > 0;
+
+  const userStatus = useSelectAuth();
 
   const dispatch = useDispatch();
+
+  const [errorStatus, setErrorStatus] = useState(false);
 
   useEffect(() => {
     if (loaded) {
       return;
     }
 
-    api.loadFilms().then((films) => {
-      dispatch(getFilmsList(films));
-    });
+    api.loadFilms()
+      .then((films) => {
+        dispatch(getFilmsList(films));
+      })
+      .catch((error) => {
+        const errorText = error.name + `: ` + error.message;
+        const url = Pages.MAIN;
+        dispatch(getError({errorText, url}));
+        setErrorStatus(true);
+      });
   }, [loaded]);
 
   const store = useStore();
@@ -40,15 +50,18 @@ const App = () => {
   useEffect(() => {
     api.checkAuth()
       .then((status) => {
-        const currentStatus = authSelector(store.getState());
+        const currentStatus = selectAuth(store.getState());
 
         if (status !== currentStatus) {
           dispatch(requiredAuthorization(status));
         }
+      })
+      .catch((error) => {
+        const errorText = error.name + `: ` + error.message;
+        const url = Pages.LOGIN;
+        dispatch(getError({errorText, url}));
+        setErrorStatus(true);
       });
-    // .catch((error) => {
-    //   console.log(error);
-    // });
   }, [userStatus]);
 
   if (!loaded) {
@@ -59,7 +72,7 @@ const App = () => {
     <BrowserRouter history={browserHistory}>
       <Switch>
         <Route exact path={AppRoute.MAIN}>
-          <MainPage />
+          <MainPage errorStatus={errorStatus} />
         </Route>
         <Route exact path={AppRoute.LOGIN} render={() => (
           <SignInPage />

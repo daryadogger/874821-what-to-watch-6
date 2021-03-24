@@ -2,7 +2,8 @@ import React, {useEffect} from 'react';
 import {useDispatch} from 'react-redux';
 import {useParams} from 'react-router';
 import Api from '../../api/api';
-import {getCommentsById} from '../../store/action';
+import {Pages} from '../../const';
+import {getCommentsById, getError} from '../../store/action';
 import {useSelectComments} from '../../store/hooks/use-select-comments';
 import FilmReviewItem from '../film-review-item/film-review-item';
 import LoadingScreen from '../loading-screen/loading-screen';
@@ -20,9 +21,15 @@ const FilmReviews = () => {
       return;
     }
 
-    api.loadReviewsById(id).then((comments) => {
-      dispatch(getCommentsById({[id]: comments}));
-    });
+    api.loadReviewsById(id)
+      .then((comments) => {
+        dispatch(getCommentsById({[id]: comments}));
+      })
+      .catch((error) => {
+        const errorText = error.name + `: ` + error.message;
+        const url = Pages.hrefToFilm(id);
+        dispatch(getError({errorText, url}));
+      });
 
   }, [loaded]);
 
