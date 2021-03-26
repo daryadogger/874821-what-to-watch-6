@@ -30,22 +30,23 @@ const ReviewForm = () => {
   }, [review]);
 
   const submit = () => {
-    api.postReviewById(id, review)
-      .then((data) => {
-        dispatch(getCommentsById({[id]: data}));
+    (async () => {
+      try {
+        const reviewData = await api.postReviewById(id, review);
+        dispatch(getCommentsById({[id]: reviewData}));
         history.push(Pages.hrefToFilm(id));
-      })
-    .catch((error) => {
-      const {httpStatus} = error;
+      } catch (error) {
+        const {httpStatus} = error;
 
-      if (typeof (httpStatus) !== `undefined` && httpStatus === 401) {
-        dispatch(requiredAuthorization({}));
-        dispatch(getError({errorText: `К сожалению, сервер Вас забыл, повторите вход`, url: Pages.LOGIN}));
-        return;
+        if (typeof (httpStatus) !== `undefined` && httpStatus === 401) {
+          dispatch(requiredAuthorization({}));
+          dispatch(getError({errorText: `К сожалению, сервер Вас забыл, повторите вход`, url: Pages.LOGIN}));
+          return;
+        }
+
+        setErrorMessage(error.message);
       }
-
-      setErrorMessage(error.message);
-    });
+    })();
     return;
   };
 

@@ -17,11 +17,14 @@ const FavoriteButton = (props) => {
   const [icon, setIcon] = useState(getButtonsIcon(isFavorite));
 
   const changeStatus = (filmId, status) => {
-    api.postFavoriteFilm(filmId, status)
-      .then((data) => {
-        dispatch(changeFavoriteStatus(data.id, status));
-      })
-      .catch();
+    (async () => {
+      try {
+        const film = await api.postFavoriteFilm(filmId, status);
+        dispatch(changeFavoriteStatus(film.id, status));
+      } catch (err) {
+        return;
+      }
+    })();
 
     return;
   };

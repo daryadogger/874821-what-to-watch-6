@@ -18,7 +18,6 @@ import {AppRoute} from '../../const';
 import {selectAuth, useSelectAuth} from '../../store/hooks/use-select-auth';
 import ErrorScreen from '../error-screen/error-screen';
 import useFilmsLoaded from '../../store/hooks/use-films-loaded';
-import {ignoreAuth} from '../../api/ignore-auth';
 
 const App = () => {
   const api = new Api();
@@ -28,45 +27,35 @@ const App = () => {
 
   const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   (async () => {
-  //     if (loaded) {
-  //       return;
-  //     }
-
-  //     try {
-  //       const films = await api.loadFilms();
-  //       dispatch(getFilmsList(films));
-  //     } catch (err) {
-  //       return;
-  //     }
-  //   })();
-  // }, [loaded]);
-
   useEffect(() => {
-    if (loaded) {
-      return;
-    }
+    (async () => {
+      if (loaded) {
+        return;
+      }
 
-    api.loadFilms()
-      .then((films) => {
+      try {
+        const films = await api.loadFilms();
         dispatch(getFilmsList(films));
-      })
-      .catch(ignoreAuth);
+      } catch (err) {
+        return;
+      }
+    })();
   }, [loaded]);
 
   const store = useStore();
 
   useEffect(() => {
-    api.checkAuth()
-      .then((status) => {
+    (async () => {
+      try {
+        const status = await api.checkAuth();
         const currentStatus = selectAuth(store.getState());
-
         if (status !== currentStatus) {
           dispatch(requiredAuthorization(status));
         }
-      })
-      .catch(ignoreAuth);
+      } catch (err) {
+        return;
+      }
+    })();
   }, [userStatus]);
 
   if (!loaded) {

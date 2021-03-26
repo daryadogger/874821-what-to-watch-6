@@ -5,7 +5,6 @@ import {getPromoFilm} from '../../store/action';
 import PromoFilmView from '../promo-film/promo-film-view';
 import LoadingScreen from '../loading-screen/loading-screen';
 import {useSelectPromoFilm} from '../../store/hooks/use-select-promo-film';
-import {ignoreAuth} from '../../api/ignore-auth';
 
 const PromoFilm = () => {
   const api = new Api();
@@ -14,15 +13,18 @@ const PromoFilm = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (loadedPromo) {
-      return;
-    }
+    (async () => {
+      if (loadedPromo) {
+        return;
+      }
 
-    api.loadPromoFilm()
-      .then((film) => {
+      try {
+        const film = await api.loadPromoFilm();
         dispatch(getPromoFilm(film));
-      })
-      .catch(ignoreAuth);
+      } catch (err) {
+        return;
+      }
+    })();
   }, [loadedPromo]);
 
   if (!loadedPromo) {

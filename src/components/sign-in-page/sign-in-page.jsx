@@ -22,17 +22,15 @@ const SignInPage = () => {
   }
 
   const submit = () => {
-    api.login({
-      email,
-      password,
-    })
-      .then((data) => {
+    (async () => {
+      try {
+        const data = await api.login({email, password});
         dispatch(requiredAuthorization(data));
         history.push(Pages.MAIN);
-      })
-    .catch((error) => {
-      setErrorMessage(error.message);
-    });
+      } catch (error) {
+        setErrorMessage(error.message);
+      }
+    })();
     return;
   };
 

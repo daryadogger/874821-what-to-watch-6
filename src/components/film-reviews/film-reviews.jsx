@@ -2,7 +2,6 @@ import React, {useEffect} from 'react';
 import {useDispatch} from 'react-redux';
 import {useParams} from 'react-router';
 import Api from '../../api/api';
-import {ignoreAuth} from '../../api/ignore-auth';
 import {getCommentsById} from '../../store/action';
 import {useSelectComments} from '../../store/hooks/use-select-comments';
 import FilmReviewItem from '../film-review-item/film-review-item';
@@ -17,16 +16,18 @@ const FilmReviews = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (loaded) {
-      return;
-    }
+    (async () => {
+      if (loaded) {
+        return;
+      }
 
-    api.loadReviewsById(id)
-      .then((comments) => {
+      try {
+        const comments = await api.loadReviewsById(id);
         dispatch(getCommentsById({[id]: comments}));
-      })
-      .catch(ignoreAuth);
-
+      } catch (err) {
+        return;
+      }
+    })();
   }, [loaded]);
 
   if (!loaded) {
