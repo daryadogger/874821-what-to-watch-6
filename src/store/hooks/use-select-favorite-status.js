@@ -1,7 +1,7 @@
 import {shallowEqual, useSelector} from "react-redux";
 
 const selectFavoriteStatus = (FILMS, id) => {
-  const found = FILMS.films.find((el) => el.id === id).isFavorite;
+  const found = FILMS.find((el) => el.id === id).isFavorite;
   return found;
 };
 

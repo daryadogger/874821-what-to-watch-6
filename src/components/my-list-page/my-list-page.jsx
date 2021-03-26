@@ -1,11 +1,10 @@
 import React, {useEffect} from 'react';
 import {useDispatch} from 'react-redux';
 import Api from '../../api/api';
+import {ignoreAuth} from '../../api/ignore-auth';
 import {getFavoriteFilms} from '../../store/action';
 import {useSelectFavoriteFilms} from '../../store/hooks/use-select-favorite-films';
 import MyListPageView from './my-list-page-view';
-
-const ignoreAuth = () => {};
 
 const MyListPage = () => {
   const genre = ``;

@@ -1,7 +1,7 @@
 import {shallowEqual, useSelector} from "react-redux";
 
 const selectFilmForCard = (FILMS, id) => {
-  const found = FILMS.films.find((el) => el.id === id);
+  const found = FILMS.find((el) => el.id === id);
   if (typeof (found) === `undefined`) {
     return undefined;
   }

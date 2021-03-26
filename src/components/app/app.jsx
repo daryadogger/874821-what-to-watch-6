@@ -18,8 +18,7 @@ import {AppRoute} from '../../const';
 import {selectAuth, useSelectAuth} from '../../store/hooks/use-select-auth';
 import ErrorScreen from '../error-screen/error-screen';
 import useFilmsLoaded from '../../store/hooks/use-films-loaded';
-
-const ignoreAuth = () => {};
+import {ignoreAuth} from '../../api/ignore-auth';
 
 const App = () => {
   const api = new Api();

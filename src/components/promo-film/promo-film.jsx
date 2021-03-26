@@ -5,8 +5,7 @@ import {getPromoFilm} from '../../store/action';
 import PromoFilmView from '../promo-film/promo-film-view';
 import LoadingScreen from '../loading-screen/loading-screen';
 import {useSelectPromoFilm} from '../../store/hooks/use-select-promo-film';
-
-const ignoreAuth = () => {};
+import {ignoreAuth} from '../../api/ignore-auth';
 
 const PromoFilm = () => {
   const api = new Api();

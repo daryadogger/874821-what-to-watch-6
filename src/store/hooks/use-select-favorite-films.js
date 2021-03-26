@@ -1,10 +1,10 @@
 import {shallowEqual, useSelector} from "react-redux";
 
-const selectFavoriteFilms = (FAVORITES) => {
-  const found = FAVORITES.favoriteFilms;
+const selectFavoriteFilms = (FILMS) => {
+  const found = FILMS.filter((el) => el.isFavorite === true);
   return found;
 };
 
-const useSelectFavoriteFilms = () => useSelector(({FAVORITES}) => selectFavoriteFilms(FAVORITES), shallowEqual);
+const useSelectFavoriteFilms = () => useSelector(({FILMS}) => selectFavoriteFilms(FILMS), shallowEqual);
 
 export {selectFavoriteFilms, useSelectFavoriteFilms};

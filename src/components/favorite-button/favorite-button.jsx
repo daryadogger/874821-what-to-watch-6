@@ -20,10 +20,8 @@ const FavoriteButton = (props) => {
     api.postFavoriteFilm(filmId, status)
       .then((data) => {
         dispatch(changeFavoriteStatus(data.id, status));
-      });
-    // .catch((error) => {
-    //   setErrorMessage(error.message);
-    // });
+      })
+      .catch();
 
     return;
   };
