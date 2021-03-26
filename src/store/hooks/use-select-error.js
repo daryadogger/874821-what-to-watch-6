@@ -1,10 +1,9 @@
 import {shallowEqual, useSelector} from "react-redux";
 
 const selectError = (ERROR) => {
-  const found = ERROR.error;
+  const found = ERROR;
 
-
-  if (typeof (found) === `undefined`) {
+  if (typeof (found) === `undefined` || typeof (found.errorText) === `undefined`) {
     return undefined;
   }
 

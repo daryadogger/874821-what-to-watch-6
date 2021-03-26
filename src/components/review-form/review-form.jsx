@@ -4,7 +4,7 @@ import {useHistory} from 'react-router';
 import {useParams} from 'react-router';
 import Api from '../../api/api';
 import {useDispatch} from 'react-redux';
-import {postComment} from '../../store/action';
+import {getCommentsById, getError, requiredAuthorization} from '../../store/action';
 import {Pages, ReviewLength} from '../../const';
 
 const ReviewForm = () => {
@@ -32,10 +32,18 @@ const ReviewForm = () => {
   const submit = () => {
     api.postReviewById(id, review)
       .then((data) => {
-        dispatch(postComment(data));
+        dispatch(getCommentsById({[id]: data}));
         history.push(Pages.hrefToFilm(id));
       })
     .catch((error) => {
+      const {httpStatus} = error;
+
+      if (typeof (httpStatus) !== `undefined` && httpStatus === 401) {
+        dispatch(requiredAuthorization({}));
+        dispatch(getError({errorText: `К сожалению, сервер Вас забыл, повторите вход`, url: Pages.LOGIN}));
+        return;
+      }
+
       setErrorMessage(error.message);
     });
     return;

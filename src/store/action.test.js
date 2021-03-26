@@ -1,6 +1,20 @@
 import {getFilmsList, getCommentsById, getPromoFilm, requiredAuthorization, getFavoriteFilms, postComment, changeFavoriteStatus, getError, ActionType} from '../store/action';
 
-describe(`Action creators work correctly`, () => {
+describe(`Поведение requiredAuthorization`, () => {
+  it(`Получает объект, состоящий из полей и возвращает объект, где данные как payload`, () => {
+    const data = {
+      id: 1,
+      email: `Oliver.conner@gmail.com`,
+      name: `Oliver.conner`,
+      /* eslint-disable camelcase */avatar_url: `img/1.png` /* eslint-enable camelcase */
+    };
+
+    const result = requiredAuthorization(data);
+
+    expect(result.payload).toEqual(data);
+  });
+
+
   it(`Action creator 'getFilmsList' returns correct action with payload`, () => {
     const filmsArr = [];
 
@@ -12,16 +26,6 @@ describe(`Action creators work correctly`, () => {
     expect(getFilmsList(filmsArr)).toEqual(expectedAction);
   });
 
-  it(`Action creator 'getCommentsById' returns correct action with payload`, () => {
-    const comments = [];
-
-    const expectedAction = {
-      type: ActionType.GET_COMMENTS_BY_ID,
-      payload: {id: comments},
-    };
-
-    expect(getCommentsById({id: comments})).toEqual(expectedAction);
-  });
 
   it(`Action creator 'getPromoFilm' returns correct action with payload`, () => {
     const promoFilm = {};

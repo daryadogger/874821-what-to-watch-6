@@ -14,7 +14,9 @@ class Api {
       if (response.ok) {
         resolve(response.json());
       } else {
-        reject(new Error(`${response.status} - ${response.statusText}`));
+        const error = new Error(`${response.status} - ${response.statusText}`);
+        error.httpStatus = response.status;
+        reject(error);
       }
     });
   }

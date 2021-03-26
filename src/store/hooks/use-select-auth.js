@@ -1,7 +1,7 @@
 import {shallowEqual, useSelector} from "react-redux";
 
 const selectAuth = (USER) => {
-  const found = USER.userProfile;
+  const found = USER;
   if (typeof (found) === `undefined`) {
     return undefined;
   }

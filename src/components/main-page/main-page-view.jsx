@@ -3,16 +3,12 @@ import CardsList from '../cards-list/cards-list';
 import mainPageViewProps from '../main-page/main-page-view.prop';
 import GenresList from '../genres-list/genres-list';
 import PromoFilm from '../promo-film/promo-film';
-import ErrorScreen from '../error-screen/error-screen';
 
 
 const MainPageView = (props) => {
-  const {filmGenre, initialCount, errorStatus} = props;
+  const {filmGenre, initialCount} = props;
 
   return <>
-    {(errorStatus) ? (
-      <ErrorScreen />
-    ) : (null)}
 
     <PromoFilm />
 

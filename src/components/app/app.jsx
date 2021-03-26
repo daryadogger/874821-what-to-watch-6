@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import {Switch, Route, Router as BrowserRouter} from 'react-router-dom';
 import MainPage from '../main-page/main-page';
 import SignInPage from '../sign-in-page/sign-in-page';
@@ -9,24 +9,40 @@ import PlayerPage from '../player-page/player-page';
 import NotFoundPage from '../not-found-page/not-found-page';
 import {useStore} from 'react-redux';
 import Api from '../../api/api';
-import {getError, getFilmsList, requiredAuthorization} from '../../store/action';
+import {getFilmsList, requiredAuthorization} from '../../store/action';
 import {useDispatch} from 'react-redux';
 import LoadingScreen from '../loading-screen/loading-screen';
 import PrivateRoute from '../private-route/private-route';
 import browserHistory from '../../browser-history';
-import {AppRoute, Pages} from '../../const';
+import {AppRoute} from '../../const';
 import {selectAuth, useSelectAuth} from '../../store/hooks/use-select-auth';
-import {useSelectFilms} from '../../store/hooks/use-select-films';
+import ErrorScreen from '../error-screen/error-screen';
+import useFilmsLoaded from '../../store/hooks/use-films-loaded';
+
+const ignoreAuth = () => {};
 
 const App = () => {
   const api = new Api();
-  const loaded = useSelectFilms().length > 0;
+  const loaded = useFilmsLoaded();
 
   const userStatus = useSelectAuth();
 
   const dispatch = useDispatch();
 
-  const [errorStatus, setErrorStatus] = useState(false);
+  // useEffect(() => {
+  //   (async () => {
+  //     if (loaded) {
+  //       return;
+  //     }
+
+  //     try {
+  //       const films = await api.loadFilms();
+  //       dispatch(getFilmsList(films));
+  //     } catch (err) {
+  //       return;
+  //     }
+  //   })();
+  // }, [loaded]);
 
   useEffect(() => {
     if (loaded) {
@@ -37,12 +53,7 @@ const App = () => {
       .then((films) => {
         dispatch(getFilmsList(films));
       })
-      .catch((error) => {
-        const errorText = error.name + `: ` + error.message;
-        const url = Pages.MAIN;
-        dispatch(getError({errorText, url}));
-        setErrorStatus(true);
-      });
+      .catch(ignoreAuth);
   }, [loaded]);
 
   const store = useStore();
@@ -56,12 +67,7 @@ const App = () => {
           dispatch(requiredAuthorization(status));
         }
       })
-      .catch((error) => {
-        const errorText = error.name + `: ` + error.message;
-        const url = Pages.LOGIN;
-        dispatch(getError({errorText, url}));
-        setErrorStatus(true);
-      });
+      .catch(ignoreAuth);
   }, [userStatus]);
 
   if (!loaded) {
@@ -72,7 +78,7 @@ const App = () => {
     <BrowserRouter history={browserHistory}>
       <Switch>
         <Route exact path={AppRoute.MAIN}>
-          <MainPage errorStatus={errorStatus} />
+          <MainPage />
         </Route>
         <Route exact path={AppRoute.LOGIN} render={() => (
           <SignInPage />
@@ -93,6 +99,9 @@ const App = () => {
           <NotFoundPage />
         </Route>
       </Switch>
+
+      <ErrorScreen />
+
     </BrowserRouter>
   );
 };

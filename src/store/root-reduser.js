@@ -1,10 +1,10 @@
 import {combineReducers} from 'redux';
-import {commentsData} from './comments-data/comments-data';
-import {errorData} from './error-data/error-data';
+import {comments} from './comments/comments';
+import {error} from './error/error';
 import {favoriteFilmsData} from './favorite-films-data/favorite-films-data';
 import {filmsData} from './films-data/films-data';
-import {promoFilmData} from './promo-film-data/promo-film-data';
-import {userData} from './user-data/user-data';
+import {promoFilm} from './promo-film/promo-film';
+import {user} from './user/user';
 
 
 export const NameSpace = {
@@ -19,8 +19,8 @@ export const NameSpace = {
 export default combineReducers({
   [NameSpace.FILMS]: filmsData,
   [NameSpace.FAVORITES]: favoriteFilmsData,
-  [NameSpace.COMMENTS]: commentsData,
-  [NameSpace.PROMO]: promoFilmData,
-  [NameSpace.USER]: userData,
-  [NameSpace.ERROR]: errorData,
+  [NameSpace.COMMENTS]: comments,
+  [NameSpace.PROMO]: promoFilm,
+  [NameSpace.USER]: user,
+  [NameSpace.ERROR]: error,
 });

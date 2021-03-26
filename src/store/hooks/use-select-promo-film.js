@@ -1,7 +1,7 @@
 import {shallowEqual, useSelector} from "react-redux";
 
 const selectPromoFilm = (PROMO) => {
-  const found = PROMO.promoFilm;
+  const found = PROMO;
   return found;
 };
 
