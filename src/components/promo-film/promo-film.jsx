@@ -1,18 +1,10 @@
 import React, {useEffect} from 'react';
-import {shallowEqual, useDispatch, useSelector} from 'react-redux';
+import {useDispatch} from 'react-redux';
 import Api from '../../api/api';
 import {getPromoFilm} from '../../store/action';
 import PromoFilmView from '../promo-film/promo-film-view';
 import LoadingScreen from '../loading-screen/loading-screen';
-
-// to storage ?
-const selectPromoFilm = (PROMO) => {
-  const found = PROMO.promoFilm;
-  return found;
-};
-
-const useSelectPromoFilm = () => useSelector(({PROMO}) => selectPromoFilm(PROMO), shallowEqual);
-
+import {useSelectPromoFilm} from '../../store/hooks/use-select-promo-film';
 
 const PromoFilm = () => {
   const api = new Api();
@@ -21,13 +13,18 @@ const PromoFilm = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (loadedPromo) {
-      return;
-    }
+    (async () => {
+      if (loadedPromo) {
+        return;
+      }
 
-    api.loadPromoFilm().then((film) => {
-      dispatch(getPromoFilm(film));
-    });
+      try {
+        const film = await api.loadPromoFilm();
+        dispatch(getPromoFilm(film));
+      } catch (err) {
+        return;
+      }
+    })();
   }, [loadedPromo]);
 
   if (!loadedPromo) {

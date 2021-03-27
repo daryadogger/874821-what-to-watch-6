@@ -3,32 +3,18 @@ import {Redirect, useHistory} from 'react-router-dom';
 import cardProps from './card.prop';
 import CardView from './card-view';
 import VideoPlayer from '../video-player/video-player';
-import {shallowEqual, useSelector} from 'react-redux';
 import {Pages} from '../../const';
-
-// to storage ?
-const selectFilmForCard = (FILMS, id) => {
-  const found = FILMS.films.find((el) => el.id === id);
-  if (typeof (found) === `undefined`) {
-    return undefined;
-  }
-  const {name, previewVideoLink, previewImage} = found;
-  return {name, previewVideoLink, previewImage};
-};
-
-const useSelectFilmForCard = (id) => useSelector(({FILMS}) => selectFilmForCard(FILMS, id), shallowEqual);
-
+import {useSelectFilmForCard} from '../../store/hooks/use-select-film-for-card';
 
 const Card = (props) => {
   const {id, to, onActiveFilmChange, isActive} = props;
-  const hrefToFilm = `${Pages.FILMS}/${id}`;
 
   const history = useHistory();
 
   const film = useSelectFilmForCard(id);
 
   const handleCardClick = useCallback(() => {
-    history.push(hrefToFilm);
+    history.push(Pages.hrefToFilm(id));
   }, [id]);
 
   const handleMouseEnter = useCallback(() => {

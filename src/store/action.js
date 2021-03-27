@@ -3,9 +3,8 @@ export const ActionType = {
   GET_COMMENTS_BY_ID: `film-page/getComments`,
   GET_PROMO_FILM: `main/getPromoFilm`,
   REQUIRED_AUTHORIZATION: `user/requiredAuthorization`,
-  GET_FAVORITE_FILMS: `myList/getFavoriteFilms`,
-  POST_COOMENT: `addReview/postComment`,
-  CHANGE_FAVORITE_STATUS: `app/changeFavoriteStatus`
+  CHANGE_FAVORITE_STATUS: `app/changeFavoriteStatus`,
+  GET_ERROR: `app/getError`
 };
 
 export const getFilmsList = (payload) => ({
@@ -28,17 +27,12 @@ export const requiredAuthorization = (payload) => ({
   payload
 });
 
-export const getFavoriteFilms = (payload) => ({
-  type: ActionType.GET_FAVORITE_FILMS,
-  payload
-});
-
-export const postComment = (payload) => ({
-  type: ActionType.POST_COOMENT,
-  payload
-});
-
 export const changeFavoriteStatus = (payload) => ({
   type: ActionType.CHANGE_FAVORITE_STATUS,
+  payload
+});
+
+export const getError = (payload) => ({
+  type: ActionType.GET_ERROR,
   payload
 });

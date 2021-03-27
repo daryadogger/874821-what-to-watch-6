@@ -14,8 +14,6 @@ const FilmPageFrame = (props) => {
   const {path} = useRouteMatch();
   const currentFilmId = Number(id);
 
-  const hrefToPlayer = `${Pages.PLAYER}/${id}`;
-
   return <>
 
     <section className="movie-card movie-card--full">
@@ -47,7 +45,7 @@ const FilmPageFrame = (props) => {
             </p>
 
             <div className="movie-card__buttons">
-              <Link to={hrefToPlayer} className="btn btn--play movie-card__button">
+              <Link to={Pages.hrefToPlayer(id)} className="btn btn--play movie-card__button">
                 <svg viewBox="0 0 19 19" width="19" height="19">
                   <use xlinkHref="#play-s"></use>
                 </svg>

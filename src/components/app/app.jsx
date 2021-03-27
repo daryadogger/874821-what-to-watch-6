@@ -7,7 +7,7 @@ import FilmPage from '../film-page/film-page';
 import AddReviewPage from '../add-review-page/add-review-page';
 import PlayerPage from '../player-page/player-page';
 import NotFoundPage from '../not-found-page/not-found-page';
-import {useSelector, useStore} from 'react-redux';
+import {useStore} from 'react-redux';
 import Api from '../../api/api';
 import {getFilmsList, requiredAuthorization} from '../../store/action';
 import {useDispatch} from 'react-redux';
@@ -15,40 +15,47 @@ import LoadingScreen from '../loading-screen/loading-screen';
 import PrivateRoute from '../private-route/private-route';
 import browserHistory from '../../browser-history';
 import {AppRoute} from '../../const';
-
-const authSelector = ({USER}) => USER.userProfile.id;
+import {selectAuth, useSelectAuth} from '../../store/hooks/use-select-auth';
+import ErrorScreen from '../error-screen/error-screen';
+import useFilmsLoaded from '../../store/hooks/use-films-loaded';
 
 const App = () => {
   const api = new Api();
-  const loaded = useSelector(({FILMS}) => FILMS.films.length > 0);
-  const userStatus = useSelector(authSelector);
+  const loaded = useFilmsLoaded();
+
+  const userStatus = useSelectAuth();
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (loaded) {
-      return;
-    }
+    (async () => {
+      if (loaded) {
+        return;
+      }
 
-    api.loadFilms().then((films) => {
-      dispatch(getFilmsList(films));
-    });
+      try {
+        const films = await api.loadFilms();
+        dispatch(getFilmsList(films));
+      } catch (err) {
+        return;
+      }
+    })();
   }, [loaded]);
 
   const store = useStore();
 
   useEffect(() => {
-    api.checkAuth()
-      .then((status) => {
-        const currentStatus = authSelector(store.getState());
-
+    (async () => {
+      try {
+        const status = await api.checkAuth();
+        const currentStatus = selectAuth(store.getState());
         if (status !== currentStatus) {
           dispatch(requiredAuthorization(status));
         }
-      });
-    // .catch((error) => {
-    //   console.log(error);
-    // });
+      } catch (err) {
+        return;
+      }
+    })();
   }, [userStatus]);
 
   if (!loaded) {
@@ -80,6 +87,9 @@ const App = () => {
           <NotFoundPage />
         </Route>
       </Switch>
+
+      <ErrorScreen />
+
     </BrowserRouter>
   );
 };

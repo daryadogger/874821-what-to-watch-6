@@ -4,7 +4,6 @@ import {MAX_COUNT_OF_FILMS} from '../../const';
 import MainPageView from '../main-page/main-page-view';
 
 const MainPage = () => {
-
   const {genre} = useParams();
   const filmGenre = typeof (genre) === `undefined` ? `` : genre;
 

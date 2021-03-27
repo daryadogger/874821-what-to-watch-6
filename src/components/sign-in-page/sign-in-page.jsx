@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from 'react';
+import React, {useState} from 'react';
 import {useDispatch} from 'react-redux';
 import {Redirect, useHistory} from 'react-router-dom';
 import Api from '../../api/api';
@@ -22,21 +22,19 @@ const SignInPage = () => {
   }
 
   const submit = () => {
-    api.login({
-      email,
-      password,
-    })
-      .then((data) => {
+    (async () => {
+      try {
+        const data = await api.login({email, password});
         dispatch(requiredAuthorization(data));
         history.push(Pages.MAIN);
-      })
-    .catch((error) => {
-      setErrorMessage(error.message);
-    });
+      } catch (error) {
+        setErrorMessage(error.message);
+      }
+    })();
     return;
   };
 
-  const handleSubmit = useCallback((evt) => {
+  const handleSubmit = (evt) => {
     evt.preventDefault();
 
     if (email && password) {
@@ -44,7 +42,7 @@ const SignInPage = () => {
     } else {
       setErrorMessage(ERROR_EMPTY_INPUTS);
     }
-  }, []);
+  };
 
   return (
 

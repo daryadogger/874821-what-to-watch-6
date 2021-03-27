@@ -1,10 +1,10 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import ReviewFormView from '../review-form/review-form-view';
 import {useHistory} from 'react-router';
 import {useParams} from 'react-router';
 import Api from '../../api/api';
 import {useDispatch} from 'react-redux';
-import {postComment} from '../../store/action';
+import {getCommentsById, getError, requiredAuthorization} from '../../store/action';
 import {Pages, ReviewLength} from '../../const';
 
 const ReviewForm = () => {
@@ -12,7 +12,6 @@ const ReviewForm = () => {
   const {id} = useParams();
   const api = new Api();
   const dispatch = useDispatch();
-  const hrefToFilm = `${Pages.FILMS}/${id}`;
 
   const [review, setReview] = useState({
     rating: 0,
@@ -31,18 +30,27 @@ const ReviewForm = () => {
   }, [review]);
 
   const submit = () => {
-    api.postReviewById(id, review)
-      .then((data) => {
-        dispatch(postComment(data));
-        history.push(hrefToFilm);
-      })
-    .catch((error) => {
-      setErrorMessage(error.message);
-    });
+    (async () => {
+      try {
+        const reviewData = await api.postReviewById(id, review);
+        dispatch(getCommentsById({[id]: reviewData}));
+        history.push(Pages.hrefToFilm(id));
+      } catch (error) {
+        const {httpStatus} = error;
+
+        if (typeof (httpStatus) !== `undefined` && httpStatus === 401) {
+          dispatch(requiredAuthorization({}));
+          dispatch(getError({errorText: `К сожалению, сервер Вас забыл, повторите вход`, url: Pages.LOGIN}));
+          return;
+        }
+
+        setErrorMessage(error.message);
+      }
+    })();
     return;
   };
 
-  const handleSubmit = useCallback((evt) => {
+  const handleSubmit = (evt) => {
     evt.preventDefault();
 
     setIsFormDisabled(true);
@@ -50,7 +58,7 @@ const ReviewForm = () => {
     if (review.rating && review.comment) {
       submit();
     }
-  }, []);
+  };
 
   const setRating = (evt) => setReview({...review, rating: Number(evt.target.value)});
   const setComment = (evt) => setReview({...review, comment: evt.target.value});
