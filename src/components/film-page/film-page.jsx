@@ -9,13 +9,13 @@ const FilmPage = () => {
   const {tab, id} = useParams();
   const numberId = Number(id);
   const currentFilm = useSelectFilm(numberId);
-  const {posterImage, backgroundImage, name, genre, released, isFavorite} = currentFilm;
-
-  const Content = selectContent(tab);
 
   if (typeof (currentFilm) === `undefined`) {
     return <Redirect to={Pages.NOT_FOUND_PAGE} />;
   }
+  const {posterImage, backgroundImage, name, genre, released, isFavorite} = currentFilm;
+
+  const Content = selectContent(tab);
 
   return (
 
