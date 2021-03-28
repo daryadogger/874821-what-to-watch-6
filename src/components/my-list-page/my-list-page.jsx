@@ -1,68 +1,21 @@
-import React, {useEffect} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
-import {Link} from 'react-router-dom';
-import Api from '../../api/api';
-import {getFavoriteFilms} from '../../store/action';
-import CardsList from '../cards-list/cards-list';
-import User from '../user/user';
+import React from 'react';
+import {useSelectFavoriteFilms} from '../../store/hooks/use-select-favorite-films';
+import LoadingScreen from '../loading-screen/loading-screen';
+import MyListPageView from './my-list-page-view';
 
 const MyListPage = () => {
   const genre = ``;
 
-  const api = new Api();
-  const favoriteFilms = useSelector(({FAVORITES}) => FAVORITES.favoriteFilms);
+  const favoriteFilms = useSelectFavoriteFilms();
   const loaded = favoriteFilms.length > 0;
-  const dispatch = useDispatch();
 
-  useEffect(() => {
-    if (loaded) {
-      return;
-    }
-
-    api.loadFavoriteFilms().then((films) => {
-      dispatch(getFavoriteFilms(films));
-    });
-  }, [loaded]);
+  if (!loaded) {
+    return <LoadingScreen />;
+  }
 
   return <>
 
-    <div className="user-page">
-      <header className="page-header user-page__head">
-        <div className="logo">
-          <Link to="/" className="logo__link">
-            <span className="logo__letter logo__letter--1">W</span>
-            <span className="logo__letter logo__letter--2">T</span>
-            <span className="logo__letter logo__letter--3">W</span>
-          </Link>
-        </div>
-
-        <h1 className="page-title user-page__title">My list</h1>
-
-        <User />
-
-      </header>
-
-      <section className="catalog">
-        <h2 className="catalog__title visually-hidden">Catalog</h2>
-
-        <CardsList genre={genre} favoriteFilms={favoriteFilms} />
-
-      </section>
-
-      <footer className="page-footer">
-        <div className="logo">
-          <Link to="/" className="logo__link logo__link--light">
-            <span className="logo__letter logo__letter--1">W</span>
-            <span className="logo__letter logo__letter--2">T</span>
-            <span className="logo__letter logo__letter--3">W</span>
-          </Link>
-        </div>
-
-        <div className="copyright">
-          <p>© 2019 What to watch Ltd.</p>
-        </div>
-      </footer>
-    </div>
+    <MyListPageView genre={genre} favoriteFilms={favoriteFilms} />
 
   </>;
 };

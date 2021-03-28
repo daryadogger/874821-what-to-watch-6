@@ -1,24 +1,30 @@
 import React, {useEffect} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
+import {useDispatch} from 'react-redux';
 import Api from '../../api/api';
 import {getPromoFilm} from '../../store/action';
 import PromoFilmView from '../promo-film/promo-film-view';
 import LoadingScreen from '../loading-screen/loading-screen';
+import {useSelectPromoFilm} from '../../store/hooks/use-select-promo-film';
 
 const PromoFilm = () => {
   const api = new Api();
-  const promoFilm = useSelector(({PROMO}) => PROMO.promoFilm);
+  const promoFilm = useSelectPromoFilm();
   const loadedPromo = Object.keys(promoFilm).length !== 0;
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (loadedPromo) {
-      return;
-    }
+    (async () => {
+      if (loadedPromo) {
+        return;
+      }
 
-    api.loadPromoFilm().then((film) => {
-      dispatch(getPromoFilm(film));
-    });
+      try {
+        const film = await api.loadPromoFilm();
+        dispatch(getPromoFilm(film));
+      } catch (err) {
+        return;
+      }
+    })();
   }, [loadedPromo]);
 
   if (!loadedPromo) {

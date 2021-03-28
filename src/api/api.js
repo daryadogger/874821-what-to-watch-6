@@ -14,7 +14,9 @@ class Api {
       if (response.ok) {
         resolve(response.json());
       } else {
-        reject(new Error(`${response.status} - ${response.statusText}`));
+        const error = new Error(`${response.status} - ${response.statusText}`);
+        error.httpStatus = response.status;
+        reject(error);
       }
     });
   }
@@ -145,11 +147,6 @@ class Api {
       },
       body: JSON.stringify(user)
     });
-    return await this.processResponse(rs);
-  }
-
-  async logout() {
-    const rs = await this.fetchWithTimeout(`${this.baseUrl}/logout`);
     return await this.processResponse(rs);
   }
 }

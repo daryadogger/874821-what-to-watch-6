@@ -1,14 +1,12 @@
 import React from 'react';
 import GenresListView from '../genres-list/genres-list-view';
-import {shallowEqual, useSelector} from 'react-redux';
 import genresListProps from '../genres-list/genres-list.prop';
-
-const GENRES_COUNT = 9;
+import {GENRES_COUNT} from '../../const';
+import {useSelectGenresArray} from '../../store/hooks/use-select-genres-array';
 
 const GenresList = (props) => {
   const {genre} = props;
-
-  const genresArray = useSelector(({FILMS}) => [...new Set(FILMS.films.map((film) => film.genre))], shallowEqual);
+  const genresArray = useSelectGenresArray();
 
   return (
 

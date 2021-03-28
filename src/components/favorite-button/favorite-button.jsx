@@ -1,44 +1,44 @@
-import React, {useState} from 'react';
+import React, {useCallback, useState} from 'react';
 import {useDispatch} from 'react-redux';
 import Api from '../../api/api';
 import getButtonsIcon from '../../api/get-buttons-icon';
+import {FavoriteStatus} from '../../const';
 import {changeFavoriteStatus} from '../../store/action';
+import {useSelectFavoriteStatus} from '../../store/hooks/use-select-favorite-status';
 import favoriteButtonProps from './favorite-button.prop';
 
-const FavoriteStatus = {
-  FAVOURITE: 1,
-  NOT_FAVORITE: 0
-};
-
 const FavoriteButton = (props) => {
-  const {isFavorite, id} = props;
+  const {id} = props;
+
+  const isFavorite = useSelectFavoriteStatus(id);
 
   const api = new Api();
   const dispatch = useDispatch();
   const [icon, setIcon] = useState(getButtonsIcon(isFavorite));
 
   const changeStatus = (filmId, status) => {
-    api.postFavoriteFilm(filmId, status)
-      .then((data) => {
-        dispatch(changeFavoriteStatus(data));
-      });
-    // .catch((error) => {
-    //   setErrorMessage(error.message);
-    // });
+    (async () => {
+      try {
+        const film = await api.postFavoriteFilm(filmId, status);
+        dispatch(changeFavoriteStatus(film.id, status));
+      } catch (err) {
+        return;
+      }
+    })();
 
     return;
   };
 
-  const handleClick = () => {
+  const handleBtnClick = useCallback(() => {
     const newStatus = isFavorite ? FavoriteStatus.NOT_FAVORITE : FavoriteStatus.FAVOURITE;
     changeStatus(id, newStatus);
 
     setIcon(getButtonsIcon(isFavorite));
-  };
+  }, [id, isFavorite]);
 
   return (
 
-    <button onClick={handleClick} className="btn btn--list movie-card__button" type="button">
+    <button onClick={handleBtnClick} className="btn btn--list movie-card__button" type="button">
       {icon}
       <span>My list</span>
     </button>

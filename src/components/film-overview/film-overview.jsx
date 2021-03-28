@@ -29,4 +29,4 @@ const FilmOverview = (props) => {
 
 FilmOverview.propTypes = filmOverviewProps;
 
-export default React.memo(FilmOverview);
+export default FilmOverview;

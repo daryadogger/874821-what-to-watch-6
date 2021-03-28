@@ -4,8 +4,8 @@ import {useHistory} from 'react-router';
 import {useParams} from 'react-router';
 import Api from '../../api/api';
 import {useDispatch} from 'react-redux';
-import {postComment} from '../../store/action';
-import {ReviewLength} from '../../const';
+import {getCommentsById, getError, requiredAuthorization} from '../../store/action';
+import {Pages, ReviewLength} from '../../const';
 
 const ReviewForm = () => {
   const history = useHistory();
@@ -30,14 +30,23 @@ const ReviewForm = () => {
   }, [review]);
 
   const submit = () => {
-    api.postReviewById(id, review)
-      .then((data) => {
-        dispatch(postComment(data));
-        history.push(`/films/${id}`);
-      })
-    .catch((error) => {
-      setErrorMessage(error.message);
-    });
+    (async () => {
+      try {
+        const reviewData = await api.postReviewById(id, review);
+        dispatch(getCommentsById({[id]: reviewData}));
+        history.push(Pages.hrefToFilm(id));
+      } catch (error) {
+        const {httpStatus} = error;
+
+        if (typeof (httpStatus) !== `undefined` && httpStatus === 401) {
+          dispatch(requiredAuthorization({}));
+          dispatch(getError({errorText: `К сожалению, сервер Вас забыл, повторите вход`, url: Pages.LOGIN}));
+          return;
+        }
+
+        setErrorMessage(error.message);
+      }
+    })();
     return;
   };
 
@@ -56,7 +65,7 @@ const ReviewForm = () => {
 
   return (
 
-    <ReviewFormView handleSubmit={handleSubmit} setComment={setComment} setRating={setRating} rating={review.rating} comment={review.comment} errorMessage={errorMessage} isPostDisabled={isPostDisabled} isFormDisabled={isFormDisabled} />
+    <ReviewFormView onSubmitHandler={handleSubmit} setComment={setComment} setRating={setRating} rating={review.rating} comment={review.comment} errorMessage={errorMessage} isPostDisabled={isPostDisabled} isFormDisabled={isFormDisabled} />
 
   );
 };

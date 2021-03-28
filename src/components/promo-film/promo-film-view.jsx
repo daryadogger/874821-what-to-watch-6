@@ -1,12 +1,14 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
+import useAuthtorization from '../../api/use-authtorization';
+import {Pages} from '../../const';
 import FavoriteButton from '../favorite-button/favorite-button';
 import User from '../user/user';
 import promoFIlmViewProps from './promo-film-view.prop';
 
 const PromoFilmView = (props) => {
   const {promoFilm} = props;
-  const {name, genre, posterImage, backgroundImage, released, id, isFavorite} = promoFilm;
+  const {name, genre, posterImage, backgroundImage, released, id} = promoFilm;
 
   return (
 
@@ -44,14 +46,14 @@ const PromoFilmView = (props) => {
             </p>
 
             <div className="movie-card__buttons">
-              <Link to={`/player/${id}`} className="btn btn--play movie-card__button">
+              <Link to={Pages.hrefToPlayer(id)} className="btn btn--play movie-card__button">
                 <svg viewBox="0 0 19 19" width="19" height="19">
                   <use xlinkHref="#play-s"></use>
                 </svg>
                 <span>Play</span>
               </Link>
 
-              <FavoriteButton isFavorite={isFavorite} id={id} />
+              {useAuthtorization() ? <FavoriteButton id={id} /> : ``}
 
             </div>
           </div>

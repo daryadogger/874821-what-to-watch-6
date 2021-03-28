@@ -1,11 +1,9 @@
 import React from 'react';
 import {useParams} from 'react-router-dom';
+import {MAX_COUNT_OF_FILMS} from '../../const';
 import MainPageView from '../main-page/main-page-view';
 
-const MAX_COUNT_OF_FILMS = 8;
-
 const MainPage = () => {
-
   const {genre} = useParams();
   const filmGenre = typeof (genre) === `undefined` ? `` : genre;
 

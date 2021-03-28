@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {Switch, Route, Router as BrowserRouter} from 'react-router-dom';
+import {Switch, Route} from 'react-router-dom';
 import MainPage from '../main-page/main-page';
 import SignInPage from '../sign-in-page/sign-in-page';
 import MyListPage from '../my-list-page/my-list-page';
@@ -7,80 +7,87 @@ import FilmPage from '../film-page/film-page';
 import AddReviewPage from '../add-review-page/add-review-page';
 import PlayerPage from '../player-page/player-page';
 import NotFoundPage from '../not-found-page/not-found-page';
-import {useSelector, useStore} from 'react-redux';
+import {useStore} from 'react-redux';
 import Api from '../../api/api';
 import {getFilmsList, requiredAuthorization} from '../../store/action';
 import {useDispatch} from 'react-redux';
 import LoadingScreen from '../loading-screen/loading-screen';
 import PrivateRoute from '../private-route/private-route';
-import browserHistory from '../../browser-history';
-
-const authSelector = ({USER}) => USER.userProfile.id;
+import {AppRoute} from '../../const';
+import {selectAuth, useSelectAuth} from '../../store/hooks/use-select-auth';
+import ErrorScreen from '../error-screen/error-screen';
+import useFilmsLoaded from '../../store/hooks/use-films-loaded';
 
 const App = () => {
   const api = new Api();
-  const loaded = useSelector(({FILMS}) => FILMS.films.length > 0);
-  const userStatus = useSelector(authSelector);
+  const loaded = useFilmsLoaded();
+
+  const userStatus = useSelectAuth();
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (loaded) {
-      return;
-    }
+    (async () => {
+      if (loaded) {
+        return;
+      }
 
-    api.loadFilms().then((films) => {
-      dispatch(getFilmsList(films));
-    });
+      try {
+        const films = await api.loadFilms();
+        dispatch(getFilmsList(films));
+      } catch (err) {
+        return;
+      }
+    })();
   }, [loaded]);
 
   const store = useStore();
 
   useEffect(() => {
-    api.checkAuth()
-      .then((status) => {
-        const currentStatus = authSelector(store.getState());
-
+    (async () => {
+      try {
+        const status = await api.checkAuth();
+        const currentStatus = selectAuth(store.getState());
         if (status !== currentStatus) {
           dispatch(requiredAuthorization(status));
         }
-      });
-    // .catch((error) => {
-    //   console.log(error);
-    // });
+      } catch (err) {
+        return;
+      }
+    })();
   }, [userStatus]);
 
   if (!loaded) {
     return <LoadingScreen />;
   }
 
-  return (
-    <BrowserRouter history={browserHistory}>
-      <Switch>
-        <Route exact path="/">
-          <MainPage />
-        </Route>
-        <Route exact path="/login" render={() => (
-          <SignInPage />
-        )}>
-        </Route>
-        <PrivateRoute exact path="/mylist" render={() => <MyListPage />} />
-        <PrivateRoute exact path="/films/:id/review" render={() => <AddReviewPage />} />
-        <Route exact path="/films/:id/:tab?">
-          <FilmPage />
-        </Route>
-        <Route exact path="/player/:id">
-          <PlayerPage />
-        </Route>
-        <Route exact path="/catalog/:genre">
-          <MainPage />
-        </Route>
-        <Route>
-          <NotFoundPage />
-        </Route>
-      </Switch>
-    </BrowserRouter>
-  );
+  return <>
+    <Switch>
+      <Route exact path={AppRoute.MAIN}>
+        <MainPage />
+      </Route>
+      <Route exact path={AppRoute.LOGIN} render={() => (
+        <SignInPage />
+      )}>
+      </Route>
+      <PrivateRoute exact path={AppRoute.MY_LIST} render={() => <MyListPage />} />
+      <PrivateRoute exact path={AppRoute.ADD_REVIEW} render={() => <AddReviewPage />} />
+      <Route exact path={AppRoute.FILM}>
+        <FilmPage />
+      </Route>
+      <Route exact path={AppRoute.PLAYER}>
+        <PlayerPage />
+      </Route>
+      <Route exact path={AppRoute.CATALOG}>
+        <MainPage />
+      </Route>
+      <Route>
+        <NotFoundPage />
+      </Route>
+    </Switch>
+
+    <ErrorScreen />
+  </>;
 };
 
 export default App;
