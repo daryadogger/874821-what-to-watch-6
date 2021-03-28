@@ -1,49 +1,39 @@
 import React from 'react';
 import {render} from '@testing-library/react';
-import {useSelectFilmForAddReview} from '../../store/hooks/use-select-film-for-add-review';
+import * as M from '../../store/hooks/use-select-film-for-add-review';
 import AddReviewPage from './add-review-page';
-import {MemoryRouter, Redirect, useParams} from 'react-router-dom';
+import {MemoryRouter, Redirect, Router, useParams} from 'react-router-dom';
 import ShallowRenderer from 'react-test-renderer/shallow';
-
-jest.mock(`../../store/hooks/use-select-film-for-add-review`, () => {
-  return {useSelectFilmForAddReview: jest.fn()};
-});
-jest.mock(`react-router-dom`, () => {
-  return {useParams: jest.fn()};
-});
-
-const Component = () => {
-  throw new Error(`Error`);
-  // return (<div>404. Page not found</div>);
-};
-
-const Child = () => {
-  return (<Redirect to={`/`} />);
-};
-
+import { renderWithRouter } from '../../browser-history';
+import { Provider } from 'react-redux';
+import configureStore from 'redux-mock-store';
+import { createMemoryHistory } from 'history';
+import { Pages } from '../../const';
 
 describe(`Поведение компонента 'AddReviewPage'`, () => {
-  it(`Возвращает not-found, если фильма нет в хранилище`, () => {
-    useSelectFilmForAddReview.mockImplementation(() => undefined);
-    useParams.mockImplementation(() => 42);
+  it(`Возвращает not-found, если фильма нет в хранилище и пользователь авторизован`, () => {
 
-    const renderer = new ShallowRenderer();
-    renderer.render(<MemoryRouter><Child /></MemoryRouter>);
-    const result = renderer.getRenderOutput();
+    const mockStore = configureStore([]);
+    const store = mockStore({FILMS:[],USER:{id:1}});
+    const history = createMemoryHistory();
+    M.useSelectFilmForAddReview = jest.fn(()=>undefined);
+    const {getByText} = render(<Provider store={store}><Router history={history}><AddReviewPage/></Router></Provider>);
 
-    expect(typeof (Redirect)).toBe(`undefined`);
-    expect(result.type).toBe(Redirect);
-
-
-    // const {getByText} = render(
-    //     <Child />
-    //     // <AddReviewPage />
-    // );
-
-    // expect(getByText(`404. Page not found`)).toBeInTheDocument();
+    expect(history.location.pathname).toBe(Pages.NOT_FOUND_PAGE);
   });
 
-  it(`Возвращает компонент 'AddReviewPage', если фильм есть в хранилище`, () => {
+  it(`Возвращает компонент 'AddReviewPage', если фильм есть в хранилище и пользователь авторизован`, () => {
+    const mockStore = configureStore([]);
+    const filmIdToReview = 42;
+    const store = mockStore({
+      FILMS:[{id:filmIdToReview, backgroundImage:`/`, name:`name`}],
+      USER:{id:1}
+    });
+    const history = createMemoryHistory();
+    //history.push(`films/42`);
+M.useSelectFilmForAddReview = jest.fn(()=>filmIdToReview);
+    const {getByText} = render(<Provider store={store}><Router history={history}><AddReviewPage/></Router></Provider>);
 
+    expect(getByText(`Post`)).toBeInTheDocument();
   });
 });
