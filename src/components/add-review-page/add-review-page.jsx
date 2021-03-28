@@ -10,9 +10,8 @@ const AddReviewPage = () => {
   const numberId = Number(id);
   const currentFilm = useSelectFilmForAddReview(numberId);
 
-  if (typeof (currentFilm) === `undefined`) {
-    return <div></div>;
-    // return <Redirect to={Pages.NOT_FOUND_PAGE} />;
+  if (typeof (currentFilm) === `undefined`) {  
+    return <Redirect to={Pages.NOT_FOUND_PAGE} />;
   }
 
   return (
