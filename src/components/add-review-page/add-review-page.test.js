@@ -14,7 +14,7 @@ describe(`Поведение компонента 'AddReviewPage'`, () => {
     const mockStore = configureStore([]);
     const store = mockStore({FILMS: [], USER: {id: 1}});
     const history = createMemoryHistory();
-    M.useSelectFilmForAddReview = jest.fn(()=> undefined);
+    M.useSelectFilmForAddReview = jest.fn(()=>undefined);
     render(
         <Provider store={store}>
           <Router history={history}>
