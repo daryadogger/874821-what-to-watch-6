@@ -17,9 +17,7 @@ describe(`Поведение компонента 'GenreItem'`, () => {
         </Router>
     );
 
-    const textElement = getByText(label);
-
-    expect(textElement).toBeInTheDocument();
+    expect(getByText(label)).toBeInTheDocument();
   });
 
 });

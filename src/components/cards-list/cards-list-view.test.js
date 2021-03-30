@@ -48,9 +48,9 @@ describe(`Поведение компонента 'CardsListView'`, () => {
         </Provider>
     );
 
-    const elements = container.querySelector(`.small-movie-card`);
+    const element = container.querySelector(`.small-movie-card`);
 
-    expect(elements).toBeInTheDocument();
+    expect(element).toBeInTheDocument();
 
   });
 });

@@ -25,9 +25,7 @@ describe(`Поведение компонента 'GenresList'`, () => {
         </Provider>
     );
 
-    const text = getByText(genre);
-
-    expect(text).toBeInTheDocument();
+    expect(getByText(genre)).toBeInTheDocument();
   });
 
 

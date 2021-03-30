@@ -23,6 +23,7 @@ describe(`Поведение компонента NotFoundPage`, () => {
     const {getByText, history} = renderWithRouter(<NotFoundPage/>);
     const el = getByText(linkLable);
     fireEvent.click(el);
+
     expect(history.location.pathname).toBe(`/`);
   });
 });

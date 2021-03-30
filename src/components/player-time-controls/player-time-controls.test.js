@@ -19,11 +19,8 @@ describe(`Поведение компонента 'PlayerTimeControls'`, () => {
         </Router>
     );
 
-    const textElement = getByText(`Toggler`);
-    const timeElement = getByText(time);
-
-    expect(textElement).toBeInTheDocument();
-    expect(timeElement).toBeInTheDocument();
+    expect(getByText(`Toggler`)).toBeInTheDocument();
+    expect(getByText(time)).toBeInTheDocument();
   });
 
 });

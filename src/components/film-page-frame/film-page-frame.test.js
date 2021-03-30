@@ -28,12 +28,8 @@ describe(`Поведение компонента 'FilmPageFrame'`, () => {
         </Provider>
     );
 
-    const filmName = getByText(name);
-    const filmRelease = getByText(released);
-    const filmGenre = getByText(genre);
-
-    expect(filmName).toBeInTheDocument();
-    expect(filmRelease).toBeInTheDocument();
-    expect(filmGenre).toBeInTheDocument();
+    expect(getByText(name)).toBeInTheDocument();
+    expect(getByText(released)).toBeInTheDocument();
+    expect(getByText(genre)).toBeInTheDocument();
   });
 });

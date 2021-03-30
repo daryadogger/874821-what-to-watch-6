@@ -32,6 +32,7 @@ it(`Находит текстовое содержимое в компонент
         <FilmOverview currentFilm={currentFilm} />
       </Router>
   );
+
   const firstElement = getByText(`Director: ${currentFilm.director}`);
   const secondElement = getByText(`Starring: ${currentFilm.starring.join(`, `)}`);
 

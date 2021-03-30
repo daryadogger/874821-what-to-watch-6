@@ -32,9 +32,7 @@ it(`Находит текстовое содержимое в компонент
         <FilmDetails currentFilm={currentFilm} />
       </Router>
   );
-  const firstTitleElement = getByText(`Director`);
-  const secondTitleElement = getByText(`Genre`);
 
-  expect(firstTitleElement).toBeInTheDocument();
-  expect(secondTitleElement).toBeInTheDocument();
+  expect(getByText(`Director`)).toBeInTheDocument();
+  expect(getByText(`Genre`)).toBeInTheDocument();
 });

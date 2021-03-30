@@ -21,9 +21,7 @@ describe(`Поведение компонента 'CardView'`, () => {
         </Router>
     );
 
-    const textElement = getByText(film);
-
-    expect(textElement).toBeInTheDocument();
+    expect(getByText(film)).toBeInTheDocument();
   });
 
 });

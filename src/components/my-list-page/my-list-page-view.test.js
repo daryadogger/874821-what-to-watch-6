@@ -41,11 +41,8 @@ describe(`Поведение компонента 'MyListPageView'`, () => {
         </Provider>
     );
 
-    const titleElement = getByText(`My list`);
-    const textElement = getByText(`Catalog`);
-
-    expect(titleElement).toBeInTheDocument();
-    expect(textElement).toBeInTheDocument();
+    expect(getByText(`My list`)).toBeInTheDocument();
+    expect(getByText(`Catalog`)).toBeInTheDocument();
   });
 
 });

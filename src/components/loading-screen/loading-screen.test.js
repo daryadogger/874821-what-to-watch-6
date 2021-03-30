@@ -6,7 +6,6 @@ it(`Отображает LoadingScreen`, () => {
   const {getByText} = render(
       <LoadingScreen />
   );
-  const textElement = getByText(`Loading...`);
 
-  expect(textElement).toBeInTheDocument();
+  expect(getByText(`Loading...`)).toBeInTheDocument();
 });

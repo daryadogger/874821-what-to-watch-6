@@ -19,9 +19,7 @@ describe(`Поведение компонента 'User'`, () => {
         </Provider>
     );
 
-    const textElement = getByText(`Sign in`);
-
-    expect(textElement).toBeInTheDocument();
+    expect(getByText(`Sign in`)).toBeInTheDocument();
   });
 
   it(`Возвращает аватар пользователя, если он авторизован`, () => {
@@ -36,9 +34,7 @@ describe(`Поведение компонента 'User'`, () => {
         </Provider>
     );
 
-    const textElement = queryByText(`Sign in`);
-
-    expect(textElement).not.toBeInTheDocument();
+    expect(queryByText(`Sign in`)).not.toBeInTheDocument();
   });
 
 });

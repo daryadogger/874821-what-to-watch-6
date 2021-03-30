@@ -16,8 +16,6 @@ describe(`Поведение компонента 'BtnShowMore'`, () => {
         </Router>
     );
 
-    const buttonElement = getByText(`Show more`);
-
-    expect(buttonElement).toBeInTheDocument();
+    expect(getByText(`Show more`)).toBeInTheDocument();
   });
 });

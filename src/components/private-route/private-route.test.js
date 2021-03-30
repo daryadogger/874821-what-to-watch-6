@@ -1,7 +1,7 @@
 import React from 'react';
 import {Router, Route} from 'react-router-dom';
 import {createMemoryHistory} from 'history';
-import {render, screen} from '@testing-library/react';
+import {render} from '@testing-library/react';
 import configureStore from 'redux-mock-store';
 import {Provider} from 'react-redux';
 import PrivateRoute from './private-route';
@@ -19,7 +19,7 @@ describe(`Поведение PrivateRouter`, () => {
       USER: {}
     });
 
-    render(
+    const {queryByText, getByText} = render(
         <Provider store={store}>
           <Router history={history}>
             <Route exact path="/login"><h1>Public Route</h1></Route>
@@ -32,8 +32,8 @@ describe(`Поведение PrivateRouter`, () => {
         </Provider>
     );
 
-    expect(screen.queryByText(/Private Route/i)).not.toBeInTheDocument();
-    expect(screen.getByText(/Public Route/i)).toBeInTheDocument();
+    expect(queryByText(`Private Route`)).not.toBeInTheDocument();
+    expect(getByText(`Public Route`)).toBeInTheDocument();
   });
 
   it(`Пускает пользователя на приватный маршрут, когда он авторизован`, () => {
@@ -46,7 +46,7 @@ describe(`Поведение PrivateRouter`, () => {
       }
     });
 
-    render(
+    const {queryByText, getByText} = render(
         <Provider store={store}>
           <Router history={history}>
             <Route exact path="/login"><h1>Public Route</h1></Route>
@@ -59,7 +59,7 @@ describe(`Поведение PrivateRouter`, () => {
         </Provider>
     );
 
-    expect(screen.getByText(/Private Route/i)).toBeInTheDocument();
-    expect(screen.queryByText(/Public Route/i)).not.toBeInTheDocument();
+    expect(getByText(`Private Route`)).toBeInTheDocument();
+    expect(queryByText(`Public Route`)).not.toBeInTheDocument();
   });
 });

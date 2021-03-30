@@ -21,9 +21,7 @@ it(`Находит текстовое содержимое в компонент
         <FilmReviewItem comment={comment} user={user} date={date} rating={rating} />
       </Router>
   );
-  const firstElement = getByText(comment);
-  const secondElement = getByText(user.name);
 
-  expect(firstElement).toBeInTheDocument();
-  expect(secondElement).toBeInTheDocument();
+  expect(getByText(comment)).toBeInTheDocument();
+  expect(getByText(user.name)).toBeInTheDocument();
 });

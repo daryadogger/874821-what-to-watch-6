@@ -58,9 +58,7 @@ describe(`Поведение компонента 'PromoFilmView'`, () => {
         </Provider>
     );
 
-    const textElement = getByText(`My list`);
-
-    expect(textElement).toBeInTheDocument();
+    expect(getByText(`My list`)).toBeInTheDocument();
   });
 
   it(`Не отображает кнопку 'Добавить к просмотру' в промо-блоке, если пользователь неавторизирован`, () => {
@@ -84,9 +82,7 @@ describe(`Поведение компонента 'PromoFilmView'`, () => {
         </Provider>
     );
 
-    const textElement = queryByText(`My list`);
-
-    expect(textElement).not.toBeInTheDocument();
+    expect(queryByText(`My list`)).not.toBeInTheDocument();
   });
 
 });

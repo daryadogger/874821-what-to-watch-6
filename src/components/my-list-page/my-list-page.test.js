@@ -58,9 +58,7 @@ describe(`Поведение компонента 'MyListPage'`, () => {
         </Provider>
     );
 
-    const titleElement = getByText(`Loading...`);
-
-    expect(titleElement).toBeInTheDocument();
+    expect(getByText(`Loading...`)).toBeInTheDocument();
   });
 
 });

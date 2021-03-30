@@ -10,9 +10,8 @@ describe(`Поведение компонента PlayButton`, () => {
     const {getByText} = render(
         <PlayButton onPlayBtnClickHandler={onPlayBtnClickHandler} isPlaying={isPlaying} />
     );
-    const textElement = getByText(`Pause`);
 
-    expect(textElement).toBeInTheDocument();
+    expect(getByText(`Pause`)).toBeInTheDocument();
   });
 
   it(`Отображает Play, если фильм не идет`, () => {
@@ -22,8 +21,7 @@ describe(`Поведение компонента PlayButton`, () => {
     const {getByText} = render(
         <PlayButton onPlayBtnClickHandler={onPlayBtnClickHandler} isPlaying={isPlaying} />
     );
-    const textElement = getByText(`Play`);
 
-    expect(textElement).toBeInTheDocument();
+    expect(getByText(`Play`)).toBeInTheDocument();
   });
 });

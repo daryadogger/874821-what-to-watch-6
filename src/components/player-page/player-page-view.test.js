@@ -31,13 +31,9 @@ describe(`Поведение компонента 'PlayerPageView'`, () => {
         </Router>
     );
 
-    const textElement = getByText(`Full screen`);
-    const titleElement = getByText(name);
-    const linkElement = getByText(`Exit`);
-
-    expect(textElement).toBeInTheDocument();
-    expect(titleElement).toBeInTheDocument();
-    expect(linkElement).toBeInTheDocument();
+    expect(getByText(`Full screen`)).toBeInTheDocument();
+    expect(getByText(name)).toBeInTheDocument();
+    expect(getByText(`Exit`)).toBeInTheDocument();
   });
 
 });

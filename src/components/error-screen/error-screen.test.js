@@ -20,10 +20,9 @@ describe(`Поведение компонента 'ErrorScreen'`, () => {
         </Provider>
     );
 
-    const title = getByText(`Error!`);
     const text = getByText(`К сожалению, возникла ошибка. Вы будете перенаправлены на другую страницу.`);
 
-    expect(title).toBeInTheDocument();
+    expect(getByText(`Error!`)).toBeInTheDocument();
     expect(text).toBeInTheDocument();
   });
 
