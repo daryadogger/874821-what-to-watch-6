@@ -28,7 +28,7 @@ const ReviewFormView = (props) => {
         </div>
 
         <div className="add-review__text">
-          <textarea className="add-review__textarea" name="review-text" id="review-text" placeholder="Review text" onChange={setComment} defaultValue={comment} minLength={ReviewLength.MIN} maxLength={ReviewLength.MAX} disabled={isFormDisabled}></textarea>
+          <textarea className="add-review__textarea" name="review-text" id="review-text" placeholder="Review text" data-testid="textarea" onChange={setComment} defaultValue={comment} minLength={ReviewLength.MIN} maxLength={ReviewLength.MAX} disabled={isFormDisabled}></textarea>
           <div className="add-review__submit">
             <button className="add-review__btn" type="submit" disabled={isPostDisabled || isFormDisabled}>Post</button>
           </div>

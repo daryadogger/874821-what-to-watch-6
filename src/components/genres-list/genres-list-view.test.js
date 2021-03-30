@@ -16,9 +16,9 @@ describe(`Поведение компонента 'GenresListView'`, () => {
         </Router>
     );
 
-    const textElement = container.querySelector(`.catalog__genres-list`);
+    const element = container.querySelector(`.catalog__genres-list`);
 
-    expect(textElement).toBeInTheDocument();
+    expect(element).toBeInTheDocument();
   });
 
 });

@@ -1,5 +1,6 @@
 import React from 'react';
 import {render} from '@testing-library/react';
+// import * as redux from 'react-redux';
 // import * as M from '../../store/hooks/use-select-film';
 import {Router} from 'react-router-dom';
 import {Provider} from 'react-redux';
@@ -24,6 +25,8 @@ describe(`Поведение компонента 'FilmPage'`, () => {
 
     expect(history.location.pathname).toBe(Pages.NOT_FOUND_PAGE);
   });
+
+  // Не получает фильм из хранилища
 
   // it(`Возвращает компонент 'FilmPage', если фильм есть в хранилище`, () => {
   //   const mockStore = configureStore([]);
