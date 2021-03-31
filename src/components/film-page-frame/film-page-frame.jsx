@@ -3,9 +3,9 @@ import {Link, useParams, generatePath, useRouteMatch} from 'react-router-dom';
 import CardsList from '../cards-list/cards-list';
 import filmPageFrameProps from './film-page-frame.prop';
 import User from '../user/user';
-import useAuthtorization from '../../api/use-authtorization';
 import FavoriteButton from '../favorite-button/favorite-button';
 import {COUNT_OF_SIMULAR_FILMS, Pages, Tabs} from '../../const';
+import {useAuthtorization} from '../../store/hooks/use-authtorization';
 
 const FilmPageFrame = (props) => {
   const {children, posterImage, backgroundImage, name, genre, released, isFavorite} = props;

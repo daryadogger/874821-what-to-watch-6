@@ -1,5 +1,5 @@
 import React from 'react';
-import {Link, useParams} from 'react-router-dom';
+import {Link, Redirect, useParams} from 'react-router-dom';
 import {Pages} from '../../const';
 import {useSelectFilmForAddReview} from '../../store/hooks/use-select-film-for-add-review';
 import ReviewForm from '../review-form/review-form';
@@ -10,12 +10,16 @@ const AddReviewPage = () => {
   const numberId = Number(id);
   const currentFilm = useSelectFilmForAddReview(numberId);
 
+  if (typeof (currentFilm) === `undefined`) {
+    return <Redirect to={Pages.NOT_FOUND_PAGE} />;
+  }
+
   return (
 
     <section className="movie-card movie-card--full">
       <div className="movie-card__header">
         <div className="movie-card__bg">
-          <img src={currentFilm.backgroundImage} alt={name} />
+          <img src={currentFilm.backgroundImage} alt={currentFilm.name} />
         </div>
 
         <h1 className="visually-hidden">WTW</h1>

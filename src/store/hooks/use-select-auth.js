@@ -1,6 +1,6 @@
 import {shallowEqual, useSelector} from "react-redux";
 
-const selectAuth = (USER) => {
+export const selectAuth = (USER) => {
   const found = USER;
   if (typeof (found) === `undefined`) {
     return undefined;
@@ -9,6 +9,4 @@ const selectAuth = (USER) => {
   return {id};
 };
 
-const useSelectAuth = () => useSelector(({USER}) => selectAuth(USER), shallowEqual);
-
-export {selectAuth, useSelectAuth};
+export const useSelectAuth = () => useSelector(({USER}) => selectAuth(USER), shallowEqual);

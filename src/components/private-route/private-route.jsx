@@ -1,7 +1,7 @@
 import React from 'react';
 import {Redirect, Route} from 'react-router';
-import useAuthtorization from '../../api/use-authtorization';
 import {Pages} from '../../const';
+import {useAuthtorization} from '../../store/hooks/use-authtorization';
 import privateRouteProps from './private-route.prop';
 
 const PrivateRoute = (props) => {

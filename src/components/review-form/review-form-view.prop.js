@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 
 const cardsListProps = {
-  rating: PropTypes.number.isRequired,
   comment: PropTypes.string.isRequired,
   onSubmitHandler: PropTypes.func.isRequired,
   setComment: PropTypes.func.isRequired,

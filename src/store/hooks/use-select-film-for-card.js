@@ -1,6 +1,6 @@
 import {shallowEqual, useSelector} from "react-redux";
 
-const selectFilmForCard = (FILMS, id) => {
+export const selectFilmForCard = (FILMS, id) => {
   const found = FILMS.find((el) => el.id === id);
   if (typeof (found) === `undefined`) {
     return undefined;
@@ -9,6 +9,4 @@ const selectFilmForCard = (FILMS, id) => {
   return {name, previewVideoLink, previewImage};
 };
 
-const useSelectFilmForCard = (id) => useSelector(({FILMS}) => selectFilmForCard(FILMS, id), shallowEqual);
-
-export {selectFilmForCard, useSelectFilmForCard};
+export const useSelectFilmForCard = (id) => useSelector(({FILMS}) => selectFilmForCard(FILMS, id), shallowEqual);

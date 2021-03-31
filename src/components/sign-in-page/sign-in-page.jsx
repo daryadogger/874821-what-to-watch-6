@@ -3,9 +3,9 @@ import {useDispatch} from 'react-redux';
 import {Redirect, useHistory} from 'react-router-dom';
 import Api from '../../api/api';
 import {requiredAuthorization} from '../../store/action';
-import useAuthtorization from '../../api/use-authtorization';
 import SignInPageView from '../sign-in-page/sign-in-page-view';
 import {Pages, ERROR_EMPTY_INPUTS} from '../../const';
+import {useAuthtorization} from '../../store/hooks/use-authtorization';
 
 const SignInPage = () => {
   const history = useHistory();

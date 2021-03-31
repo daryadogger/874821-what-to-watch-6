@@ -39,6 +39,7 @@ const SignInPageView = (props) => {
                 placeholder="Email address"
                 name="user-email"
                 id="user-email"
+                data-testid="login"
               />
             </div>
             <div className="sign-in__field">
@@ -51,6 +52,7 @@ const SignInPageView = (props) => {
                 placeholder="Password"
                 name="user-password"
                 id="user-password"
+                data-testid="password"
               />
             </div>
           </div>
