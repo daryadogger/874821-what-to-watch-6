@@ -50,20 +50,4 @@ describe(`Поведение компонента 'MyListPage'`, () => {
     expect(titleElement).toBeInTheDocument();
     expect(textElement).toBeInTheDocument();
   });
-
-  it(`Отображает компонент загрузки, если в хранилище еще не загружены нужные данные`, () => {
-    const mockStore = configureStore([]);
-    const store = mockStore({FILMS: []});
-    const history = createMemoryHistory();
-    const {getByText} = render(
-        <Provider store={store}>
-          <Router history={history}>
-            <MyListPage />
-          </Router>
-        </Provider>
-    );
-
-    expect(getByText(`Loading...`)).toBeInTheDocument();
-  });
-
 });
