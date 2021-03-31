@@ -7,6 +7,11 @@ import configureStore from 'redux-mock-store';
 import App from './app';
 
 describe(`Тестирование маршрутов`, () => {
+  beforeAll(() => {
+    window.HTMLMediaElement.prototype.play = () => {};
+    window.HTMLMediaElement.prototype.load = () => {};
+    window.HTMLMediaElement.prototype.pause = () => {};
+  });
   it(`Отображает 'LoadingScreen', если в хранилище еще не пришли данные о фильмах`, () => {
     const history = createMemoryHistory();
     const mockStore = configureStore([]);

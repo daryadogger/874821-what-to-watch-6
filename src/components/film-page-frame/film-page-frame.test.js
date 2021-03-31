@@ -7,6 +7,11 @@ import {Provider} from 'react-redux';
 import configureStore from 'redux-mock-store';
 
 describe(`Поведение компонента 'FilmPageFrame'`, () => {
+  beforeAll(() => {
+    window.HTMLMediaElement.prototype.play = () => {};
+    window.HTMLMediaElement.prototype.load = () => {};
+    window.HTMLMediaElement.prototype.pause = () => {};
+  });
   it(`Отображает компонент, если в пропс переданы нужные данные`, () => {
     const posterImage = ``;
     const backgroundImage = ``;

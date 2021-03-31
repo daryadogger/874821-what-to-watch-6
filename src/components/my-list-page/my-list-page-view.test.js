@@ -7,6 +7,11 @@ import {createMemoryHistory} from 'history';
 import MyListPageView from './my-list-page-view';
 
 describe(`Поведение компонента 'MyListPageView'`, () => {
+  beforeAll(() => {
+    window.HTMLMediaElement.prototype.play = () => {};
+    window.HTMLMediaElement.prototype.load = () => {};
+    window.HTMLMediaElement.prototype.pause = () => {};
+  });
   it(`Отображает компонент, если в пропс пришли нужные данные`, () => {
     const genre = ``;
     const data = {

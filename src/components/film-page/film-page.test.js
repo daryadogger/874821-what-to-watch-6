@@ -1,13 +1,14 @@
 import React from 'react';
 import {render} from '@testing-library/react';
-// import * as redux from 'react-redux';
-// import * as M from '../../store/hooks/use-select-film';
-import {Router} from 'react-router-dom';
+import * as M from '../../store/hooks/use-select-film';
+import R from 'react-router';
 import {Provider} from 'react-redux';
 import configureStore from 'redux-mock-store';
 import {createMemoryHistory} from 'history';
-import {Pages} from '../../const';
+import {Pages, Tabs} from '../../const';
 import FilmPage from './film-page';
+import ShallowRenderer from 'react-test-renderer/shallow';
+import FilmPageFrame from '../film-page-frame/film-page-frame';
 
 describe(`Поведение компонента 'FilmPage'`, () => {
   it(`Возвращает not-found, если фильма нет в хранилище`, () => {
@@ -17,50 +18,42 @@ describe(`Поведение компонента 'FilmPage'`, () => {
     const history = createMemoryHistory();
     render(
         <Provider store={store}>
-          <Router history={history}>
+          <R.Router history={history}>
             <FilmPage />
-          </Router>
+          </R.Router>
         </Provider>
     );
 
     expect(history.location.pathname).toBe(Pages.NOT_FOUND_PAGE);
   });
 
-  // Не получает фильм из хранилища
+  it(`Возвращает компонент 'FilmPage', если фильм есть в хранилище`, () => {
+    const data = {
+      id: 42,
+      name: `The Grand Budapest Hotel`,
+      posterImage: `img/the-grand-budapest-hotel-poster.jpg`,
+      previewImage: `img/the-grand-budapest-hotel.jpg`,
+      backgroundImage: `img/the-grand-budapest-hotel-bg.jpg`,
+      backgroundColor: `#ffffff`,
+      videoLink: `https://some-link`,
+      previewVideoLink: `https://some-link`,
+      description: `In the 1930s, the Grand Budapest Hotel is a popular European ski resort, presided over by concierge Gustave H. (Ralph Fiennes). Zero, a junior lobby boy, becomes Gustave's friend and protege.`,
+      rating: 8.9,
+      scoresCount: 240,
+      director: `Wes Andreson`,
+      starring: [`Bill Murray`, `Edward Norton`, `Jude Law`, `Willem Dafoe`, `Saoirse Ronan`],
+      runTime: 99,
+      genre: `Comedy`,
+      released: 2014,
+      isFavorite: false
+    };
+    M.useSelectFilm = jest.fn(()=>data);
+    R.useParams = jest.fn(()=>({tab: Tabs.DETAILS, id: 42}));
+    const renderer = new ShallowRenderer();
+    const result = renderer.render(
+        <FilmPage />
+    );
 
-  // it(`Возвращает компонент 'FilmPage', если фильм есть в хранилище`, () => {
-  //   const mockStore = configureStore([]);
-  //   const filmId = 42;
-  //   const data = {
-  //     id: 42,
-  //     name: `The Grand Budapest Hotel`,
-  //     posterImage: `img/the-grand-budapest-hotel-poster.jpg`,
-  //     previewImage: `img/the-grand-budapest-hotel.jpg`,
-  //     backgroundImage: `img/the-grand-budapest-hotel-bg.jpg`,
-  //     backgroundColor: `#ffffff`,
-  //     videoLink: `https://some-link`,
-  //     previewVideoLink: `https://some-link`,
-  //     description: `In the 1930s, the Grand Budapest Hotel is a popular European ski resort, presided over by concierge Gustave H. (Ralph Fiennes). Zero, a junior lobby boy, becomes Gustave's friend and protege.`,
-  //     rating: 8.9,
-  //     scoresCount: 240,
-  //     director: `Wes Andreson`,
-  //     starring: [`Bill Murray`, `Edward Norton`, `Jude Law`, `Willem Dafoe`, `Saoirse Ronan`],
-  //     runTime: 99,
-  //     genre: `Comedy`,
-  //     released: 2014,
-  //     isFavorite: false
-  //   };
-  //   const store = mockStore({FILMS: [data], USER: {id: 1}});
-  //   const history = createMemoryHistory();
-  //   M.useSelectFilm = jest.fn(()=>filmId);
-  //   render(
-  //       <Provider store={store}>
-  //         <Router history={history}>
-  //           <FilmPage />
-  //         </Router>
-  //       </Provider>
-  //   );
-
-  //   expect(history.location.pathname).toBe(Pages.hrefToFilm(data.id));
-  // });
+    expect(result.type).toBe(FilmPageFrame);
+  });
 });

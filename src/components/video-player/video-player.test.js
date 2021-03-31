@@ -5,6 +5,7 @@ import VideoPlayer from './video-player';
 describe(`Поведение компонента VideoPlayer`, () => {
   beforeAll(() => {
     window.HTMLMediaElement.prototype.play = () => {};
+    window.HTMLMediaElement.prototype.load = () => {};
     window.HTMLMediaElement.prototype.pause = () => {};
   });
 

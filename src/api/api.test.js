@@ -89,31 +89,23 @@ describe(`Тестирование api 'checkAuth'`, () => {
 
 });
 
-// не возвращает объект, похожий на profile, а просто пустой возвращает
+describe(`Тестирование api 'login'`, () => {
+  it(`Возвращает объект данных о пользователе`, async () => {
+    const user = {
+      email: `Oliver.conner@gmail.com`,
+      password: `12345678`
+    };
+    const mockFetchWithTimeout = Api.prototype.fetchWithTimeout = jest.fn();
+    const mockProcessResponse = Api.prototype.processResponse = jest.fn();
 
-// describe(`Тестирование api 'login'`, () => {
-//   it(`Возвращает объект данных о пользователе`, async () => {
-//     const user = {
-//       email: `Oliver.conner@gmail.com`,
-//       password: `12345678`
-//     };
-//     const profile = {
-//       id: 1,
-//       email: `Oliver.conner@gmail.com`,
-//       name: `Oliver.conner`,
-//       /* eslint-disable camelcase */ avatar_url: `img/1.png`/* eslint-enable camelcase */
-//     };
-//     const mockFetchWithTimeout = Api.prototype.fetchWithTimeout = jest.fn();
-//     const mockProcessResponse = Api.prototype.processResponse = jest.fn();
+    mockFetchWithTimeout.mockImplementation(() => Promise.resolve(true));
+    mockProcessResponse.mockImplementation(() => Promise.resolve({}));
+    const api = new Api();
+    const data = await api.login(user);
+    expect(data).toBeInstanceOf(Object);
+  });
 
-//     mockFetchWithTimeout.mockImplementation(() => Promise.resolve(true));
-//     mockProcessResponse.mockImplementation(() => Promise.resolve({}));
-//     const api = new Api();
-//     const data = await api.login(user);
-//     expect(data).toEqual(profile);
-//   });
-
-// });
+});
 
 describe(`Тестирование api 'postReviewById'`, () => {
   it(`Возвращает объект данных о комментарии`, async () => {

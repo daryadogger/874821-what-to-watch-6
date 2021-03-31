@@ -8,13 +8,13 @@ describe(`Поведение компонента 'PlayerPageView'`, () => {
 
   it(`Отображает компонент, если в пропс пришли нужные данные`, () => {
 
-    const useRef = jest.spyOn(React, `useRef`).mockReturnValue({});
+    const useRef = jest.fn(() => ({current: null}));
 
     const id = 1;
     const name = `Name`;
     const progress = 10;
     const time = `1:30:00`;
-    const videoRef = useRef;
+    const videoRef = useRef();
     const videoLink = ``;
     const backgroundImage = ``;
     const isPlaying = true;

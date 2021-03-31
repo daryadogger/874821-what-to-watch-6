@@ -7,6 +7,11 @@ import {createMemoryHistory} from 'history';
 import MyListPage from './my-list-page';
 
 describe(`Поведение компонента 'MyListPage'`, () => {
+  beforeAll(() => {
+    window.HTMLMediaElement.prototype.play = () => {};
+    window.HTMLMediaElement.prototype.load = () => {};
+    window.HTMLMediaElement.prototype.pause = () => {};
+  });
   it(`Отображает компонент, если в хранилище уже загружены нужные данные`, () => {
     const data = {
       id: 1,

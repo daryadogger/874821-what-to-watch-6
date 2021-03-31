@@ -8,6 +8,11 @@ import CardsListView from './cards-list-view';
 import * as M from '../../store/hooks/use-select-film-for-card';
 
 describe(`Поведение компонента 'CardsListView'`, () => {
+  beforeAll(() => {
+    window.HTMLMediaElement.prototype.play = () => {};
+    window.HTMLMediaElement.prototype.load = () => {};
+    window.HTMLMediaElement.prototype.pause = () => {};
+  });
   it(`Отображает компонент, если в пропс переданы нужные данные`, () => {
     const idArray = [1, 2];
     const onActiveFilmChange = jest.fn();

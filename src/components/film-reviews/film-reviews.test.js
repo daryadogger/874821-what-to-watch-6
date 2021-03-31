@@ -2,10 +2,13 @@ import React from 'react';
 import {render} from '@testing-library/react';
 import * as M from '../../store/hooks/use-select-comments';
 import {Router} from 'react-router-dom';
+import R from 'react-router';
 import {Provider} from 'react-redux';
+import * as redux from 'react-redux';
 import configureStore from 'redux-mock-store';
 import {createMemoryHistory} from 'history';
 import FilmReviews from './film-reviews';
+import ShallowRenderer from 'react-test-renderer/shallow';
 
 describe(`Поведение компонента 'FilmReviews'`, () => {
   it(`Отображает Loading компонент, если комментариев еще нет в хранилище`, () => {
@@ -24,40 +27,35 @@ describe(`Поведение компонента 'FilmReviews'`, () => {
     expect(getByText(`Loading...`)).toBeInTheDocument();
   });
 
-  // it(`Отображает комментарии к фильму, если он есть в хранилище`, () => {
-  //   const filmId = 42;
-  //   const data = {
-  //     id: 42,
-  //     name: `The Grand Budapest Hotel`,
-  //     posterImage: `img/the-grand-budapest-hotel-poster.jpg`,
-  //     previewImage: `img/the-grand-budapest-hotel.jpg`,
-  //     backgroundImage: `img/the-grand-budapest-hotel-bg.jpg`,
-  //     backgroundColor: `#ffffff`,
-  //     videoLink: `https://some-link`,
-  //     previewVideoLink: `https://some-link`,
-  //     description: `In the 1930s, the Grand Budapest Hotel is a popular European ski resort, presided over by concierge Gustave H. (Ralph Fiennes). Zero, a junior lobby boy, becomes Gustave's friend and protege.`,
-  //     rating: 8.9,
-  //     scoresCount: 240,
-  //     director: `Wes Andreson`,
-  //     starring: [`Bill Murray`, `Edward Norton`, `Jude Law`, `Willem Dafoe`, `Saoirse Ronan`],
-  //     runTime: 99,
-  //     genre: `Comedy`,
-  //     released: 2014,
-  //     isFavorite: false
-  //   };
+  it(`Отображает комментарии к фильму, если он есть в хранилище`, () => {
+    const element = {filmId: 42};
+    const coments = [element, {
+      user: {
+        id: 4,
+        name: `Kate Muir`
+      },
+      rating: 8.9,
+      comment: ``
+    }];
 
-  //   const mockStore = configureStore([]);
-  //   const store = mockStore({FILMS: [data]});
-  //   const history = createMemoryHistory();
-  //   M.useSelectComments = jest.fn(()=> filmId);
-  //   const {queryByText} = render(
-  //       <Provider store={store}>
-  //         <Router history={history}>
-  //           <FilmReviews />
-  //         </Router>
-  //       </Provider>
-  //   );
+    M.useSelectComments = jest.fn(()=> coments);
+    R.useParams = jest.fn(()=>({id: 42}));
+    jest.spyOn(redux, `useDispatch`);
 
-  //   expect(queryByText(`Loading...`)).not.toBeInTheDocument();
-  // });
+    const mockStore = configureStore([]);
+    const store = mockStore({});
+
+    const renderer = new ShallowRenderer();
+    renderer.render(
+        <Provider store={store}>
+          <Router history={history}>
+            <FilmReviews />
+          </Router>
+        </Provider>
+    );
+
+    // console.log(result)
+
+    expect().toBe();
+  });
 });
