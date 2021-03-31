@@ -1,8 +1,7 @@
 import {useSelector} from "react-redux";
 
-const useAuthtorization = () => {
-  const authorizationStatus = useSelector(({USER}) => typeof USER.id !== `undefined`);
-  return authorizationStatus;
+export const selectAuthtorization = (USER) => {
+  return typeof USER.id !== `undefined`;
 };
 
-export default useAuthtorization;
+export const useAuthtorization = () => useSelector(({USER}) => selectAuthtorization(USER));

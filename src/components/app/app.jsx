@@ -16,7 +16,7 @@ import PrivateRoute from '../private-route/private-route';
 import {AppRoute} from '../../const';
 import {selectAuth, useSelectAuth} from '../../store/hooks/use-select-auth';
 import ErrorScreen from '../error-screen/error-screen';
-import useFilmsLoaded from '../../store/hooks/use-films-loaded';
+import {useFilmsLoaded} from '../../store/hooks/use-films-loaded';
 
 const App = () => {
   const api = new Api();

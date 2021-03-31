@@ -5,7 +5,7 @@ import filmPageFrameProps from './film-page-frame.prop';
 import User from '../user/user';
 import FavoriteButton from '../favorite-button/favorite-button';
 import {COUNT_OF_SIMULAR_FILMS, Pages, Tabs} from '../../const';
-import useAuthtorization from '../../store/hooks/use-authtorization';
+import {useAuthtorization} from '../../store/hooks/use-authtorization';
 
 const FilmPageFrame = (props) => {
   const {children, posterImage, backgroundImage, name, genre, released, isFavorite} = props;

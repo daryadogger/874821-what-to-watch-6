@@ -1,6 +1,6 @@
 import {shallowEqual, useSelector} from "react-redux";
 
-const selectError = (ERROR) => {
+export const selectError = (ERROR) => {
   const found = ERROR;
 
   if (typeof (found) === `undefined` || typeof (found.errorText) === `undefined`) {
@@ -11,6 +11,4 @@ const selectError = (ERROR) => {
   return {errorText, url};
 };
 
-const useSelectError = () => useSelector(({ERROR}) => selectError(ERROR), shallowEqual);
-
-export {selectError, useSelectError};
+export const useSelectError = () => useSelector(({ERROR}) => selectError(ERROR), shallowEqual);

@@ -5,7 +5,7 @@ import Api from '../../api/api';
 import {requiredAuthorization} from '../../store/action';
 import SignInPageView from '../sign-in-page/sign-in-page-view';
 import {Pages, ERROR_EMPTY_INPUTS} from '../../const';
-import useAuthtorization from '../../store/hooks/use-authtorization';
+import {useAuthtorization} from '../../store/hooks/use-authtorization';
 
 const SignInPage = () => {
   const history = useHistory();

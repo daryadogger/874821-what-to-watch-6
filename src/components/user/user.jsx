@@ -1,7 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import {Pages} from '../../const';
-import useAuthtorization from '../../store/hooks/use-authtorization';
+import {useAuthtorization} from '../../store/hooks/use-authtorization';
 
 const User = () => {
 

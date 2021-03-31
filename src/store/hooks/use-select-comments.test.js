@@ -5,9 +5,9 @@ describe(`Поведение селектора 'selectComments'`, () => {
     const filmId = 1;
     const element = {filmId: 1};
     const coments = [element, {}];
-    const arr = {[filmId]: coments};
+    const object = {[filmId]: coments};
 
-    const result = selectComments(arr, filmId);
+    const result = selectComments(object, filmId);
 
     expect(result).toBe(coments);
   });
