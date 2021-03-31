@@ -40,22 +40,13 @@ describe(`Поведение компонента 'FilmReviews'`, () => {
 
     M.useSelectComments = jest.fn(()=> coments);
     R.useParams = jest.fn(()=>({id: 42}));
-    jest.spyOn(redux, `useDispatch`);
-
-    const mockStore = configureStore([]);
-    const store = mockStore({});
+    redux.useDispatch = jest.fn();
 
     const renderer = new ShallowRenderer();
-    renderer.render(
-        <Provider store={store}>
-          <Router history={history}>
-            <FilmReviews />
-          </Router>
-        </Provider>
+    const result = renderer.render(
+        <FilmReviews />
     );
 
-    // console.log(result)
-
-    expect().toBe();
+    expect(result.type).toBe(`div`);
   });
 });
