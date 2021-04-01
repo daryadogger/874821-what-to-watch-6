@@ -6,7 +6,9 @@ const cardsListViewProps = {
   idArray: PropTypes.arrayOf(
       PropTypes.number.isRequired
   ).isRequired,
-  acitveFilmId: PropTypes.number
+  acitveFilmId: PropTypes.number,
+  isHidden: PropTypes.bool,
+  onShowMore: PropTypes.func.isRequired,
 };
 
 export default cardsListViewProps;
