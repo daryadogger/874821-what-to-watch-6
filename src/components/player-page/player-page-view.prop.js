@@ -12,6 +12,8 @@ const playerPageViewProps = {
   onProgressClickHandler: PropTypes.func.isRequired,
   progress: PropTypes.number.isRequired,
   onTogglerMoveHandler: PropTypes.func.isRequired,
+  onTimeUpdate: PropTypes.func.isRequired,
+  time: PropTypes.string.isRequired,
 };
 
 export default playerPageViewProps;
