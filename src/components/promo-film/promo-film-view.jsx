@@ -1,6 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import {Pages} from '../../const';
+import {getHrefToPlayer} from '../../api/get-href';
 import {useAuthtorization} from '../../store/hooks/use-authtorization';
 import FavoriteButton from '../favorite-button/favorite-button';
 import User from '../user/user';
@@ -46,7 +46,7 @@ const PromoFilmView = (props) => {
             </p>
 
             <div className="movie-card__buttons">
-              <Link to={Pages.hrefToPlayer(id)} className="btn btn--play movie-card__button">
+              <Link to={getHrefToPlayer(id)} className="btn btn--play movie-card__button">
                 <svg viewBox="0 0 19 19" width="19" height="19">
                   <use xlinkHref="#play-s"></use>
                 </svg>

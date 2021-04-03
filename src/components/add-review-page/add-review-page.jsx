@@ -1,6 +1,7 @@
 import React from 'react';
 import {Link, Redirect, useParams} from 'react-router-dom';
-import {Pages} from '../../const';
+import {getHrefToFilm} from '../../api/get-href';
+import {Page} from '../../const';
 import {useSelectFilmForAddReview} from '../../store/hooks/use-select-film-for-add-review';
 import ReviewForm from '../review-form/review-form';
 import User from '../user/user';
@@ -11,7 +12,7 @@ const AddReviewPage = () => {
   const currentFilm = useSelectFilmForAddReview(numberId);
 
   if (typeof (currentFilm) === `undefined`) {
-    return <Redirect to={Pages.NOT_FOUND_PAGE} />;
+    return <Redirect to={Page.NOT_FOUND_PAGE} />;
   }
 
   return (
@@ -26,7 +27,7 @@ const AddReviewPage = () => {
 
         <header className="page-header">
           <div className="logo">
-            <Link to={Pages.MAIN} className="logo__link">
+            <Link to={Page.MAIN} className="logo__link">
               <span className="logo__letter logo__letter--1">W</span>
               <span className="logo__letter logo__letter--2">T</span>
               <span className="logo__letter logo__letter--3">W</span>
@@ -36,7 +37,7 @@ const AddReviewPage = () => {
           <nav className="breadcrumbs">
             <ul className="breadcrumbs__list">
               <li className="breadcrumbs__item">
-                <Link to={Pages.hrefToFilm(id)} className="breadcrumbs__link">{currentFilm.name}</Link>
+                <Link to={getHrefToFilm(id)} className="breadcrumbs__link">{currentFilm.name}</Link>
               </li>
               <li className="breadcrumbs__item">
                 <a className="breadcrumbs__link">Add review</a>

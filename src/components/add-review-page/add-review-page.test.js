@@ -6,7 +6,7 @@ import {Router} from 'react-router-dom';
 import {Provider} from 'react-redux';
 import configureStore from 'redux-mock-store';
 import {createMemoryHistory} from 'history';
-import {Pages} from '../../const';
+import {Page} from '../../const';
 
 describe(`Поведение компонента 'AddReviewPage'`, () => {
   it(`Возвращает not-found, если фильма нет в хранилище и пользователь авторизован`, () => {
@@ -23,7 +23,7 @@ describe(`Поведение компонента 'AddReviewPage'`, () => {
         </Provider>
     );
 
-    expect(history.location.pathname).toBe(Pages.NOT_FOUND_PAGE);
+    expect(history.location.pathname).toBe(Page.NOT_FOUND_PAGE);
   });
 
   it(`Возвращает компонент 'AddReviewPage', если фильм есть в хранилище и пользователь авторизован`, () => {

@@ -5,7 +5,7 @@ import R from 'react-router';
 import {Provider} from 'react-redux';
 import configureStore from 'redux-mock-store';
 import {createMemoryHistory} from 'history';
-import {Pages, Tabs} from '../../const';
+import {Page, Tab} from '../../const';
 import FilmPage from './film-page';
 import ShallowRenderer from 'react-test-renderer/shallow';
 import FilmPageFrame from '../film-page-frame/film-page-frame';
@@ -24,7 +24,7 @@ describe(`Поведение компонента 'FilmPage'`, () => {
         </Provider>
     );
 
-    expect(history.location.pathname).toBe(Pages.NOT_FOUND_PAGE);
+    expect(history.location.pathname).toBe(Page.NOT_FOUND_PAGE);
   });
 
   it(`Возвращает компонент 'FilmPage', если фильм есть в хранилище`, () => {
@@ -48,7 +48,7 @@ describe(`Поведение компонента 'FilmPage'`, () => {
       isFavorite: false
     };
     M.useSelectFilm = jest.fn(()=>data);
-    R.useParams = jest.fn(()=>({tab: Tabs.DETAILS, id: 42}));
+    R.useParams = jest.fn(()=>({tab: Tab.DETAILS, id: 42}));
     const renderer = new ShallowRenderer();
     const result = renderer.render(
         <FilmPage />

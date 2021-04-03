@@ -1,6 +1,6 @@
 import React from 'react';
 import {Redirect, Route} from 'react-router';
-import {Pages} from '../../const';
+import {Page} from '../../const';
 import {useAuthtorization} from '../../store/hooks/use-authtorization';
 import privateRouteProps from './private-route.prop';
 
@@ -14,7 +14,7 @@ const PrivateRoute = (props) => {
       path={path}
       exact={exact}
       render={(routeProps) => {
-        return (authtorizationStatus ? render(routeProps) : <Redirect to={Pages.LOGIN} />);
+        return (authtorizationStatus ? render(routeProps) : <Redirect to={Page.LOGIN} />);
       }}
     />
 

@@ -1,12 +1,12 @@
 import FilmDetails from "../../components/film-details/film-details";
 import FilmOverview from "../../components/film-overview/film-overview";
 import FilmReviews from "../../components/film-reviews/film-reviews";
-import {Tabs} from "../../const";
+import {Tab} from "../../const";
 import selectContent from "./use-select-content";
 
 describe(`Поведение селектора 'selectContent'`, () => {
   it(`Возвращает FilmDetails, если таб details`, () => {
-    const tab = Tabs.DETAILS;
+    const tab = Tab.DETAILS;
     const resultConponent = FilmDetails;
 
     const result = selectContent(tab);
@@ -15,7 +15,7 @@ describe(`Поведение селектора 'selectContent'`, () => {
   });
 
   it(`Возвращает FilmReviews, если таб reviews`, () => {
-    const tab = Tabs.REVIEWS;
+    const tab = Tab.REVIEWS;
     const resultConponent = FilmReviews;
 
     const result = selectContent(tab);

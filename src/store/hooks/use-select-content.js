@@ -1,14 +1,14 @@
 import FilmDetails from "../../components/film-details/film-details";
 import FilmOverview from "../../components/film-overview/film-overview";
 import FilmReviews from "../../components/film-reviews/film-reviews";
-import {Tabs} from "../../const";
+import {Tab} from "../../const";
 
 const selectContent = (tab) => {
   switch (tab) {
-    case Tabs.DETAILS:
+    case Tab.DETAILS:
       return FilmDetails;
 
-    case Tabs.REVIEWS:
+    case Tab.REVIEWS:
       return FilmReviews;
 
     default:

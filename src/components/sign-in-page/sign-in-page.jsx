@@ -4,7 +4,7 @@ import {Redirect, useHistory} from 'react-router-dom';
 import Api from '../../api/api';
 import {requiredAuthorization} from '../../store/action';
 import SignInPageView from '../sign-in-page/sign-in-page-view';
-import {Pages, ERROR_EMPTY_INPUTS} from '../../const';
+import {Page, ERROR_EMPTY_INPUTS} from '../../const';
 import {useAuthtorization} from '../../store/hooks/use-authtorization';
 
 const SignInPage = () => {
@@ -18,7 +18,7 @@ const SignInPage = () => {
   const dispatch = useDispatch();
 
   if (useAuthtorization()) {
-    return <Redirect to={Pages.MAIN} />;
+    return <Redirect to={Page.MAIN} />;
   }
 
   const submit = () => {
@@ -26,7 +26,7 @@ const SignInPage = () => {
       try {
         const data = await api.login({email, password});
         dispatch(requiredAuthorization(data));
-        history.push(Pages.MAIN);
+        history.push(Page.MAIN);
       } catch (error) {
         setErrorMessage(error.message);
       }

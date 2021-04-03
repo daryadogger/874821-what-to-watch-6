@@ -1,7 +1,7 @@
 import React, {useCallback, useEffect, useRef, useState} from 'react';
 import {Redirect, useParams} from 'react-router-dom';
 import formatFilmDuration from '../../api/format-film-duration';
-import {MouseEvents, Pages, TOGGLER_WIDTH} from '../../const';
+import {MouseEvent, Page, TOGGLER_WIDTH} from '../../const';
 import {useSelectFilmForPlayer} from '../../store/hooks/use-select-film-for-player';
 import PlayerPageView from './player-page-view';
 
@@ -14,7 +14,7 @@ const PlayerPage = () => {
   const loaded = typeof (currentFilm) !== `undefined`;
 
   if (!loaded) {
-    return <Redirect to={Pages.NOT_FOUND_PAGE} />;
+    return <Redirect to={Page.NOT_FOUND_PAGE} />;
   }
 
   const {videoLink, backgroundImage, name} = currentFilm;
@@ -66,13 +66,13 @@ const PlayerPage = () => {
 
   const onMouseUpHandler = useCallback((evt) => {
     handleProgressClick(evt);
-    document.removeEventListener(MouseEvents.MOVE, onMouseMoveHandler);
-    document.removeEventListener(MouseEvents.UP, onMouseUpHandler);
+    document.removeEventListener(MouseEvent.MOVE, onMouseMoveHandler);
+    document.removeEventListener(MouseEvent.UP, onMouseUpHandler);
   }, []);
 
   const handleTogglerMove = useCallback(() => {
-    document.addEventListener(MouseEvents.MOVE, onMouseMoveHandler);
-    document.addEventListener(MouseEvents.UP, onMouseUpHandler);
+    document.addEventListener(MouseEvent.MOVE, onMouseMoveHandler);
+    document.addEventListener(MouseEvent.UP, onMouseUpHandler);
   }, []);
 
   return (

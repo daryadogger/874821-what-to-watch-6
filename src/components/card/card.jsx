@@ -3,8 +3,9 @@ import {Redirect, useHistory} from 'react-router-dom';
 import cardProps from './card.prop';
 import CardView from './card-view';
 import VideoPlayer from '../video-player/video-player';
-import {Pages} from '../../const';
+import {Page} from '../../const';
 import {useSelectFilmForCard} from '../../store/hooks/use-select-film-for-card';
+import {getHrefToFilm} from '../../api/get-href';
 
 const Card = (props) => {
   const {id, to, onActiveFilmChange, isActive} = props;
@@ -14,7 +15,7 @@ const Card = (props) => {
   const film = useSelectFilmForCard(id);
 
   const handleCardClick = useCallback(() => {
-    history.push(Pages.hrefToFilm(id));
+    history.push(getHrefToFilm(id));
   }, [id]);
 
   const handleMouseEnter = useCallback(() => {
@@ -27,7 +28,7 @@ const Card = (props) => {
 
 
   if (film === null) {
-    return <Redirect to={Pages.NOT_FOUND_PAGE} />;
+    return <Redirect to={Page.NOT_FOUND_PAGE} />;
   }
 
   return (

@@ -9,7 +9,7 @@ const ALL_GENRES = `All genres`;
 
 const ERROR_EMPTY_INPUTS = `Please enter all inputs`;
 
-const MouseEvents = {
+const MouseEvent = {
   MOVE: `mousemove`,
   UP: `mouseup`
 };
@@ -24,7 +24,7 @@ const FavoriteStatus = {
   NOT_FAVORITE: 0
 };
 
-const Tabs = {
+const Tab = {
   DETAILS: `details`,
   REVIEWS: `reviews`,
 };
@@ -39,7 +39,7 @@ const AppRoute = {
   CATALOG: `/catalog/:genre`
 };
 
-const Pages = {
+const Page = {
   NOT_FOUND_PAGE: `/not-found-page`,
   FILMS: `/films`,
   REVIEW: `review`,
@@ -47,12 +47,6 @@ const Pages = {
   CATALOG: `/catalog`,
   LOGIN: `/login`,
   MY_LIST: `/mylist`,
-  hrefToFilm(id) {
-    return `/films/${id}`;
-  },
-  hrefToPlayer(id) {
-    return `/player/${id}`;
-  },
 };
 
-export {RATINGS_COUNT, ReviewLength, SECONDS_IN_HOUR, DELAY_TIME, FavoriteStatus, COUNT_OF_SIMULAR_FILMS, GENRES_COUNT, MAX_COUNT_OF_FILMS, TOGGLER_WIDTH, MouseEvents, Tabs, AppRoute, Pages, ALL_GENRES, ERROR_EMPTY_INPUTS};
+export {RATINGS_COUNT, ReviewLength, SECONDS_IN_HOUR, DELAY_TIME, FavoriteStatus, COUNT_OF_SIMULAR_FILMS, GENRES_COUNT, MAX_COUNT_OF_FILMS, TOGGLER_WIDTH, MouseEvent, Tab, AppRoute, Page, ALL_GENRES, ERROR_EMPTY_INPUTS};
