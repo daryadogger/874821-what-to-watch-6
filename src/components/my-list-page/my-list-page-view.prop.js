@@ -21,7 +21,7 @@ const myListPageViewProps = {
         runTime: PropTypes.number.isRequired,
         genre: PropTypes.string.isRequired,
         released: PropTypes.number.isRequired,
-        isFavorite: PropTypes.number.isRequired,
+        isFavorite: PropTypes.bool.isRequired,
       }).isRequired,
   ).isRequired,
 };

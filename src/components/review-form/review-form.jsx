@@ -51,7 +51,7 @@ const ReviewForm = () => {
     return;
   };
 
-  const handleSubmit = (evt) => {
+  const handleFormSubmit = (evt) => {
     evt.preventDefault();
 
     setIsFormDisabled(true);
@@ -66,7 +66,7 @@ const ReviewForm = () => {
 
   return (
 
-    <ReviewFormView onSubmitHandler={handleSubmit} setComment={setComment} setRating={setRating} rating={review.rating} comment={review.comment} errorMessage={errorMessage} isPostDisabled={isPostDisabled} isFormDisabled={isFormDisabled} />
+    <ReviewFormView onFormSubmitHandler={handleFormSubmit} setComment={setComment} setRating={setRating} rating={review.rating} comment={review.comment} errorMessage={errorMessage} isPostDisabled={isPostDisabled} isFormDisabled={isFormDisabled} />
 
   );
 };

@@ -43,7 +43,7 @@ const PlayerPage = () => {
   }, []);
 
   const handleTimeUpdate = useCallback(() => {
-    const duration = videoRef.current.duration;
+    const duration = isNaN(videoRef.current.duration) ? 0 : videoRef.current.duration;
     const currentTime = videoRef.current.currentTime;
     setTime(formatFilmDuration(duration - currentTime));
     const currentProgress = Math.floor(currentTime) / Math.floor(duration) * 100;
@@ -51,12 +51,12 @@ const PlayerPage = () => {
   }, []);
 
   const handleProgressClick = useCallback((evt) => {
-    const duration = videoRef.current.duration;
+    const duration = isNaN(videoRef.current.duration) ? 0 : videoRef.current.duration;
     const posX = evt.clientX - TOGGLER_WIDTH;
-    const timePos = (posX * 100) / (window.screen.availWidth - INDENT);
+    const timePos = isNaN(videoRef.current.duration) ? 0 : (posX * 100) / (window.screen.availWidth - INDENT);
 
     setProgress(Math.floor(timePos));
-    videoRef.current.currentTime = (timePos * Math.round(videoRef.current.duration)) / 100;
+    videoRef.current.currentTime = isNaN(videoRef.current.duration) ? 0 : (timePos * Math.round(videoRef.current.duration)) / 100;
     setTime(formatFilmDuration(duration - videoRef.current.currentTime));
   }, []);
 

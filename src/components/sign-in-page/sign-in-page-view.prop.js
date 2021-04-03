@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 
 const signInPageViewProps = {
-  onSubmitHandler: PropTypes.func.isRequired,
+  onFormSubmitHandler: PropTypes.func.isRequired,
   setEmail: PropTypes.func.isRequired,
   setPassword: PropTypes.func.isRequired,
   errorMessage: PropTypes.string.isRequired,

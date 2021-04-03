@@ -2,10 +2,10 @@ import React from 'react';
 import btnShowMoreProps from '../btn-show-more/btn-show-more.prop';
 
 const BtnShowMore = (props) => {
-  const {onShowMore, isHidden} = props;
+  const {onBtnShowMoreClick, isHidden} = props;
 
   const handleButtonClick = () => {
-    onShowMore();
+    onBtnShowMoreClick();
   };
 
   return (

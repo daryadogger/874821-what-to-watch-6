@@ -26,7 +26,7 @@ const CardsList = (props) => {
   const [nextFilmId, setNextFilmId] = useState(null);
   const [count, setCount] = useState(initialCount);
 
-  const handleShowMore = useCallback(() => {
+  const handleBtnShowMoreClick = useCallback(() => {
     setCount(count + 8);
   }, [count]);
 
@@ -51,7 +51,7 @@ const CardsList = (props) => {
 
   return (
 
-    <CardsListView idArray={favoriteFilms ? favoriteIdArray : idArray.slice(0, count)} filmsUrl={filmsUrl} activeFilmId={activeFilmId} onActiveFilmChange={handleActiveFilmChange} isButtonHidden={!enableButton || count >= idArray.length} onShowMore={handleShowMore} />
+    <CardsListView idArray={favoriteFilms ? favoriteIdArray : idArray.slice(0, count)} filmsUrl={filmsUrl} activeFilmId={activeFilmId} onActiveFilmChange={handleActiveFilmChange} isButtonHidden={!enableButton || count >= idArray.length} onBtnShowMoreClick={handleBtnShowMoreClick} />
 
   );
 };

@@ -7,7 +7,7 @@ import ReviewFormView from './review-form-view';
 
 describe(`Поведение компонента 'ReviewFormView'`, () => {
   it(`Отображает компонент, если пользователь перешел на '/films/:id/review'`, () => {
-    const onSubmitHandler = jest.fn();
+    const onFormSubmitHandler = jest.fn();
     const setRating = jest.fn();
     const setComment = jest.fn();
     const errorMessage = ``;
@@ -19,7 +19,7 @@ describe(`Поведение компонента 'ReviewFormView'`, () => {
     history.push(`/films/1/review`);
     const {getByText, getByTestId, getByDisplayValue} = render(
         <Router history={history}>
-          <ReviewFormView onSubmitHandler={onSubmitHandler} setRating={setRating} setComment={setComment} errorMessage={errorMessage} comment={comment} isPostDisabled={isPostDisabled} isFormDisabled={isFormDisabled} />
+          <ReviewFormView onFormSubmitHandler={onFormSubmitHandler} setRating={setRating} setComment={setComment} errorMessage={errorMessage} comment={comment} isPostDisabled={isPostDisabled} isFormDisabled={isFormDisabled} />
         </Router>
     );
 
@@ -35,8 +35,8 @@ describe(`Поведение компонента 'ReviewFormView'`, () => {
     const comment = ``;
     const isPostDisabled = false;
     let isFormDisabled = false;
-    const onSubmitHandler = jest.fn();
-    onSubmitHandler.mockImplementation(
+    const onFormSubmitHandler = jest.fn();
+    onFormSubmitHandler.mockImplementation(
         () => (isFormDisabled = true)
     );
 
@@ -45,7 +45,7 @@ describe(`Поведение компонента 'ReviewFormView'`, () => {
     history.push(`/films/1/review`);
     const {getByText, getByTestId, getByDisplayValue} = render(
         <Router history={history}>
-          <ReviewFormView onSubmitHandler={onSubmitHandler} setRating={setRating} setComment={setComment} errorMessage={errorMessage} comment={comment} isPostDisabled={isPostDisabled} isFormDisabled={isFormDisabled} />
+          <ReviewFormView onFormSubmitHandler={onFormSubmitHandler} setRating={setRating} setComment={setComment} errorMessage={errorMessage} comment={comment} isPostDisabled={isPostDisabled} isFormDisabled={isFormDisabled} />
         </Router>
     );
 
@@ -53,7 +53,7 @@ describe(`Поведение компонента 'ReviewFormView'`, () => {
     userEvent.type(getByTestId(`textarea`), `test comment`);
     expect(getByDisplayValue(`test comment`)).toBeInTheDocument();
     fireEvent.submit(getByTestId(`textarea`));
-    expect(onSubmitHandler).toBeCalled();
+    expect(onFormSubmitHandler).toBeCalled();
     expect(isFormDisabled).toBe(true);
   });
 

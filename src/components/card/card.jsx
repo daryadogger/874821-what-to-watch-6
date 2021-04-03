@@ -18,11 +18,11 @@ const Card = (props) => {
     history.push(getHrefToFilm(id));
   }, [id]);
 
-  const handleMouseEnter = useCallback(() => {
+  const handleCardMouseEnter = useCallback(() => {
     onActiveFilmChange(id);
   }, [id]);
 
-  const handleMouseLeave = useCallback(() => {
+  const handleCardMouseLeave = useCallback(() => {
     onActiveFilmChange(null);
   }, []);
 
@@ -33,7 +33,7 @@ const Card = (props) => {
 
   return (
 
-    <CardView film={film.name} to={to} onClickHandler={handleCardClick} onMouseLeaveHandler={handleMouseLeave} onMouseEnterHandler={handleMouseEnter} id={id} >
+    <CardView film={film.name} to={to} onCardClickHandler={handleCardClick} onCardMouseLeaveHandler={handleCardMouseLeave} onCardMouseEnterHandler={handleCardMouseEnter} id={id} >
       <VideoPlayer isActive={isActive} src={film.previewVideoLink} posterImage={film.previewImage} width={280} height={175} alt={film.name} />
     </CardView>
 

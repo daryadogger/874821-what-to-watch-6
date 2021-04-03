@@ -4,7 +4,7 @@ import Card from '../card/card';
 import cardsListViewProps from './cards-list-view.prop';
 
 const CardsListView = (props) => {
-  const {idArray, onActiveFilmChange, filmsUrl, activeFilmId, isButtonHidden, onShowMore} = props;
+  const {idArray, onActiveFilmChange, filmsUrl, activeFilmId, isButtonHidden, onBtnShowMoreClick} = props;
 
   return <>
 
@@ -12,7 +12,7 @@ const CardsListView = (props) => {
       {idArray.map((id) => <Card key={`card-${id}`} id={id} to={`${filmsUrl}/${id}`} onActiveFilmChange={onActiveFilmChange} isActive={id === activeFilmId} />)}
     </div>
 
-    <BtnShowMore onShowMore={onShowMore} isHidden={isButtonHidden} />
+    <BtnShowMore onBtnShowMoreClick={onBtnShowMoreClick} isHidden={isButtonHidden} />
 
   </>;
 };

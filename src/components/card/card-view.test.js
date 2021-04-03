@@ -8,14 +8,14 @@ describe(`Поведение компонента 'CardView'`, () => {
   it(`Отображает компонент, если в пропс пришли нужные данные`, () => {
     const film = `Name`;
     const to = `/`;
-    const onClickHandler = jest.fn();
-    const onMouseEnterHandler = jest.fn();
-    const onMouseLeaveHandler = jest.fn();
+    const onCardClickHandler = jest.fn();
+    const onCardMouseEnterHandler = jest.fn();
+    const onCardMouseLeaveHandler = jest.fn();
 
     const history = createMemoryHistory();
     const {getByText} = render(
         <Router history={history}>
-          <CardView film={film} to={to} onClickHandler={onClickHandler} onMouseEnterHandler={onMouseEnterHandler} onMouseLeaveHandler={onMouseLeaveHandler}>
+          <CardView film={film} to={to} onCardClickHandler={onCardClickHandler} onCardMouseEnterHandler={onCardMouseEnterHandler} onCardMouseLeaveHandler={onCardMouseLeaveHandler}>
             <div></div>
           </CardView>
         </Router>

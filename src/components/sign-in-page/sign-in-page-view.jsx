@@ -4,7 +4,7 @@ import {Page} from '../../const';
 import signInPageViewProps from './sign-in-page-view.prop';
 
 const SignInPageView = (props) => {
-  const {onSubmitHandler, setEmail, setPassword, errorMessage, email, password} = props;
+  const {onFormSubmitHandler, setEmail, setPassword, errorMessage, email, password} = props;
 
   return (
 
@@ -22,7 +22,7 @@ const SignInPageView = (props) => {
       </header>
 
       <div className="sign-in user-page__content">
-        <form action="" className="sign-in__htmlForm" onSubmit={onSubmitHandler}>
+        <form action="" className="sign-in__htmlForm" onSubmit={onFormSubmitHandler}>
           {(errorMessage) ? (
             <div className="sign-in__message">
               <p>{errorMessage}</p>

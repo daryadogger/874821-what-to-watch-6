@@ -19,7 +19,7 @@ describe(`Поведение компонента 'CardsListView'`, () => {
     const filmsUrl = ``;
     const activeFilmId = 1;
     const isButtonHidden = false;
-    const onShowMore = jest.fn();
+    const onBtnShowMoreClick = jest.fn();
     const data = {
       id: 42,
       name: `The Grand Budapest Hotel`,
@@ -48,7 +48,7 @@ describe(`Поведение компонента 'CardsListView'`, () => {
     const {container} = render(
         <Provider store={store}>
           <Router history={history}>
-            <CardsListView idArray={idArray} onActiveFilmChange={onActiveFilmChange} filmsUrl={filmsUrl} activeFilmId={activeFilmId} isButtonHidden={isButtonHidden} onShowMore={onShowMore} />
+            <CardsListView idArray={idArray} onActiveFilmChange={onActiveFilmChange} filmsUrl={filmsUrl} activeFilmId={activeFilmId} isButtonHidden={isButtonHidden} onBtnShowMoreClick={onBtnShowMoreClick} />
           </Router>
         </Provider>
     );

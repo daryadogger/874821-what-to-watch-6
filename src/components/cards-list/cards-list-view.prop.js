@@ -8,7 +8,7 @@ const cardsListViewProps = {
   ).isRequired,
   acitveFilmId: PropTypes.number,
   isHidden: PropTypes.bool,
-  onShowMore: PropTypes.func.isRequired,
+  onBtnShowMoreClick: PropTypes.func.isRequired,
 };
 
 export default cardsListViewProps;

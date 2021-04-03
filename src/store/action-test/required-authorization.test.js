@@ -6,7 +6,7 @@ describe(`Поведение requiredAuthorization`, () => {
       id: 1,
       email: `Oliver.conner@gmail.com`,
       name: `Oliver.conner`,
-      /* eslint-disable camelcase */avatar_url: `img/1.png` /* eslint-enable camelcase */
+      avatarUrl: `img/1.png`
     };
 
     const result = requiredAuthorization(data);

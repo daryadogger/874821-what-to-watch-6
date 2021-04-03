@@ -7,7 +7,7 @@ import userEvent from '@testing-library/user-event';
 
 describe(`Поведение компонента 'SignInPageView'`, () => {
   it(`Отображает компонент, если пользователь перешел на '/login'`, () => {
-    const onSubmitHandler = jest.fn();
+    const onFormSubmitHandler = jest.fn();
     const setEmail = jest.fn();
     const setPassword = jest.fn();
     const errorMessage = ``;
@@ -18,7 +18,7 @@ describe(`Поведение компонента 'SignInPageView'`, () => {
     history.push(`/login`);
     const {getByLabelText, getByDisplayValue, getByTestId} = render(
         <Router history={history}>
-          <SignInPageView onSubmitHandler={onSubmitHandler} setEmail={setEmail} setPassword={setPassword} errorMessage={errorMessage} email={email} password={password} />
+          <SignInPageView onFormSubmitHandler={onFormSubmitHandler} setEmail={setEmail} setPassword={setPassword} errorMessage={errorMessage} email={email} password={password} />
         </Router>
     );
 

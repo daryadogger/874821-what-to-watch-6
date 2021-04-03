@@ -6,6 +6,7 @@ import {requiredAuthorization} from '../../store/action';
 import SignInPageView from '../sign-in-page/sign-in-page-view';
 import {Page, ERROR_EMPTY_INPUTS} from '../../const';
 import {useAuthtorization} from '../../store/hooks/use-authtorization';
+import camelize from '../../api/camelize';
 
 const SignInPage = () => {
   const history = useHistory();
@@ -24,7 +25,14 @@ const SignInPage = () => {
   const submit = () => {
     (async () => {
       try {
-        const data = await api.login({email, password});
+        let data = await api.login({email, password});
+        if (typeof data === `object`) {
+          data = Object.keys(data).reduce((accumulator, currentValue)=> {
+            accumulator[camelize(currentValue)] = data[currentValue];
+
+            return accumulator;
+          }, {});
+        }
         dispatch(requiredAuthorization(data));
         history.push(Page.MAIN);
       } catch (error) {
@@ -34,7 +42,7 @@ const SignInPage = () => {
     return;
   };
 
-  const handleSubmit = (evt) => {
+  const handleFormSubmit = (evt) => {
     evt.preventDefault();
 
     if (email && password) {
@@ -46,7 +54,7 @@ const SignInPage = () => {
 
   return (
 
-    <SignInPageView onSubmitHandler={handleSubmit} setEmail={setEmail} setPassword={setPassword}
+    <SignInPageView onFormSubmitHandler={handleFormSubmit} setEmail={setEmail} setPassword={setPassword}
       errorMessage={errorMessage} email={email} password={password} />
 
   );
